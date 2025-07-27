@@ -41,6 +41,8 @@ public class Main {
 
             if(input.equals("C") || input.equals("c")) {
                 year++;
+                rabi.ageUp();
+                wof.ageUp();
                 System.out.println("\nYear: " + year);
                 System.out.println("Number of Carrots: " + numOfCarrots);
                 System.out.println("Number of Rabbits: " + Rabbit.rabbitCount);
