@@ -47,6 +47,7 @@ public class Rabbit extends Entity {
 
     private void eatCarrots() {
         hunger = 0;
+        setNumOfCarrots(getNumOfCarrots() - 1);
     }
 
     public void setNumOfCarrots(int newNumOfCarrots) {
