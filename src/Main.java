@@ -25,7 +25,7 @@ public class Main {
                     year++;
                     System.out.println("\nWelcome!");
                     System.out.println("Year: " + year);
-                    System.out.println("Number of Carrots: " + numOfCarrots);
+                    System.out.println("Number of Carrots: " + rabi.getNumOfCarrots());
                     System.out.println("Number of Rabbits: " + Rabbit.rabbitCount);
                     System.out.println("Number of Wolves: " + Wolf.wolfCount);
                     System.out.println("\nEnter Next Move:");
@@ -44,7 +44,7 @@ public class Main {
                 rabi.ageUp();
                 wof.ageUp();
                 System.out.println("\nYear: " + year);
-                System.out.println("Number of Carrots: " + numOfCarrots);
+                System.out.println("Number of Carrots: " + rabi.getNumOfCarrots());
                 System.out.println("Number of Rabbits: " + Rabbit.rabbitCount);
                 System.out.println("Number of Wolves: " + Wolf.wolfCount);
                 System.out.println("\nEnter Next Move:");

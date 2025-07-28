@@ -6,7 +6,7 @@ public class SimpleTesting {
         int wolves;
         int rabbits;
         int carrots;
-        int year = 1;
+        int year = 0;
         int input;
 
         System.out.println("Welcome!");
@@ -16,25 +16,49 @@ public class SimpleTesting {
         System.out.println("Enter the Initial Number of Rabbits:");
         rabbits = in.nextInt();
 
-        System.out.println("Enter the Initial Number of Wolves:");
+        System.out.println("Enter the Initial Number of Carrots:");
         carrots = in.nextInt();
 
-        while(true) {
-            System.out.println("\nYear: " + year);
-            System.out.println("Wolves: " + wolves);
-            System.out.println("Rabbits: " + rabbits);
-            System.out.println("Carrots: " + carrots);
+        while(wolves > 0 && rabbits > 0 && carrots > 0) {
+            if(year == 0) {
+                System.out.println("\nYear: " + year);
+                System.out.println("Wolves: " + wolves);
+                System.out.println("Rabbits: " + rabbits);
+                System.out.println("Carrots: " + carrots);
 
-            System.out.println("\nEnter an Option:");
-            System.out.println("(1) Continue");
-            System.out.println("(2) Quit");
+                System.out.println("\nEnter an Option:");
+                System.out.println("(1) Continue");
+                System.out.println("(2) Quit");
+            }
+
+            year++;
             input = in.nextInt();
 
             if(input == 1) {
-                year++;
+                carrots -= (int)(Math.random() * rabbits) + 1;
+                rabbits -= (int)(Math.random() * wolves) + 1;
+
+                if(carrots > 0 && carrots >= rabbits)
+                    rabbits += (int)(Math.random() * 7) + 1;
+                else
+                    rabbits -= rabbits - carrots;
+
+                if(rabbits > 0 && rabbits >= wolves)
+                    wolves += (int)(Math.random() * 3) + 1;
+                else
+                    wolves -= wolves - rabbits;
+
+                System.out.println("\nYear: " + year);
+                System.out.println("Wolves: " + wolves);
+                System.out.println("Rabbits: " + rabbits);
+                System.out.println("Carrots: " + carrots);
+
+                System.out.println("\nEnter an Option:");
+                System.out.println("(1) Continue");
+                System.out.println("(2) Quit");
             }
             else if(input == 2) {
-                return;
+                break;
             }
             else {
                 System.out.println("\nIncorrect Input!");
@@ -43,5 +67,7 @@ public class SimpleTesting {
                 System.out.println("(2) Quit");
             }
         }
+
+        System.out.println("\nGoodbye!");
     }
 }

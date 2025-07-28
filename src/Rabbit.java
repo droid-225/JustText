@@ -33,11 +33,11 @@ public class Rabbit extends Entity {
                 }
             }
 
-            if(hunger > 0.8) {
+            if(hunger < 0.8) {
                 setLifespan(getLifespan() - 1);
             }
 
-            if(getAge() == getLifespan() + 1) {
+            if(getAge() >= getLifespan() + 1) {
                 die();
                 rabbitCount--;
                 rabbits.remove(this);
