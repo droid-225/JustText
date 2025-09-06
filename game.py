@@ -1,3 +1,4 @@
+import json
 import pygame
 pygame.init()
 
@@ -29,7 +30,10 @@ def main():
     run = True
     #clock = pygame.time.Clock()
 
-    count = 0
+    with open("memory.json", "r") as f:
+        data = json.load(f)
+
+    count = data["count"]
 
     texts = ("(1) Count Up",
             "(2) Count Down",
@@ -51,6 +55,10 @@ def main():
                     count += 1
                 elif event.key == pygame.K_2:
                     count -= 1
+
+        with open("memory.json", "w") as f:
+            json.dump({"count": count}, f)
+            
     pygame.quit()
 
 if __name__ == '__main__':
