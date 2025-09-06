@@ -41,11 +41,16 @@ def main():
 
         draw(WIN, count, texts)
         pygame.display.update()
+
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_3):
                 run = False
                 break
-        
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_1:
+                    count += 1
+                elif event.key == pygame.K_2:
+                    count -= 1
     pygame.quit()
 
 if __name__ == '__main__':
