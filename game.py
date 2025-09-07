@@ -12,17 +12,30 @@ GREEN = (0, 255, 0)
 
 FONT = pygame.font.SysFont("pixelpurl", 30)
 
-def drawScreen1():
-    y_buffer = 0
-
+def drawScreen0(): # Main Menu Screen
     HELLO_TEXT = "Welcome to Just Text!"
-    rendered_text = FONT.render(HELLO_TEXT, 1, GREEN)
-    y_buffer += rendered_text.get_height()
+    MAIN_MENU_OPTIONS = ["(1) New Game",
+                         "(2) Load Game",
+                         "(3) Settings",
+                         "(4) Quit"]
+    y_buffer = 0
+    x_buffer = 0
 
-    WIN.blit(rendered_text, (y_buffer, y_buffer))
+    rendered_text = FONT.render(HELLO_TEXT, 1, GREEN)
+    y_buffer = rendered_text.get_height()
+    x_buffer = y_buffer 
+
+    WIN.blit(rendered_text, (x_buffer, y_buffer))
+
+    for option in MAIN_MENU_OPTIONS:
+        rendered_text = FONT.render(option, 1, WHITE)
+        y_buffer += rendered_text.get_height() + 10
+
+        WIN.blit(rendered_text, (x_buffer, y_buffer))
 
 def main():
     run = True
+    screen = 0
 
     with open("memory.json", "r") as f:
         data = json.load(f)
@@ -32,18 +45,30 @@ def main():
     while run:
         WIN.fill(BLACK)
 
-        drawScreen1()
+        drawScreen0()
         pygame.display.update()
 
         for event in pygame.event.get():
-            if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_3):
+            if event.type == pygame.QUIT:
                 run = False
                 break
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_1:
-                    count += 1
-                elif event.key == pygame.K_2:
-                    count -= 1
+                match screen:
+                    case 0:
+                        if event.key == pygame.K_1:
+                            print("New Game Chosen!")
+                            # TODO: switch to new game screen
+                        elif event.key == pygame.K_2:
+                            print("Load Game Chosen!")
+                            # TODO: switch to load game screen
+                        elif event.key == pygame.K_3:
+                            print("Setting Chosen!")
+                            # TODO: switch to settings screen
+                        elif event.key == pygame.K_4:
+                            run = False
+                            break
+                    case _:
+                        print("Screen Tracking Error!")
 
         with open("memory.json", "w") as f:
             json.dump({"count": count}, f)
