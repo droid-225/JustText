@@ -4,46 +4,35 @@ pygame.init()
 
 WIDTH, HEIGHT = 500, 500
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("The Text")
-
-FPS = 60 # might not need
+pygame.display.set_caption("Just Text")
 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
+GREEN = (0, 255, 0)
 
-FONT = pygame.font.SysFont("comicsans", 20)
+FONT = pygame.font.SysFont("pixelpurl", 30)
 
-def draw(win, count, texts):
+def drawScreen1():
     y_buffer = 0
 
-    count_text = FONT.render(f"Count: {count}", 1, WHITE)
-    y_buffer += count_text.get_height()
-    win.blit(count_text, (WIDTH // 2 - count_text.get_width() // 2, y_buffer - 10))
+    HELLO_TEXT = "Welcome to Just Text!"
+    rendered_text = FONT.render(HELLO_TEXT, 1, GREEN)
+    y_buffer += rendered_text.get_height()
 
-    for text in texts:
-        text_text = FONT.render(f"{text}", 1, WHITE)
-        y_buffer += text_text.get_height()
-
-        win.blit(text_text, (WIDTH // 2 - 80, y_buffer))
+    WIN.blit(rendered_text, (y_buffer, y_buffer))
 
 def main():
     run = True
-    #clock = pygame.time.Clock()
 
     with open("memory.json", "r") as f:
         data = json.load(f)
 
     count = data["count"]
 
-    texts = ("(1) Count Up",
-            "(2) Count Down",
-            "(3) Quit")
-
     while run:
         WIN.fill(BLACK)
-        #clock.tick(FPS)
 
-        draw(WIN, count, texts)
+        drawScreen1()
         pygame.display.update()
 
         for event in pygame.event.get():
