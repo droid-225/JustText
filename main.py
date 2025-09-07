@@ -1,5 +1,5 @@
 import pygame
-from justtext.constants import WIDHT, HEIGHT, BLACK, WIN_CAPTION
+from justtext.constants import WIDTH, HEIGHT, BLACK, WIN_CAPTION
 from justtext.screen_manager import ScreenManager
 from justtext.screens.main_menu import Main_Menu
 from justtext.routes import create_routes
@@ -7,7 +7,7 @@ from justtext.routes import create_routes
 class Game:
     def __init__(self):
         pygame.init()
-        self.win = pygame.display.set_mode((WIDHT, HEIGHT))
+        self.win = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption(WIN_CAPTION)
         self.clock = pygame.time.Clock()
         self.running = True
@@ -39,4 +39,4 @@ class Game:
         pygame.quit()
 
 if __name__ == "__main__":
-    Game.run()
+    Game().run()
