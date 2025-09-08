@@ -1,17 +1,17 @@
-from hashlib import blake2b
 import pygame
 from .base import Screen
 from ..constants import GREEN, WHITE, BLACK
 from ..assets import load_font
+from ..ui.text import TextRenderer
 
 class New_Game(Screen):
     name = []
     i1_fin = False # input 1 flag
-    y_pos = x_pos = l_margin = prevWidth = 0
 
     def __init__(self, on_select):
         self.font = load_font()
         self.on_select = on_select
+        self.text = TextRenderer(self.font)
 
     def handle_event(self, event):
         UPPERCASE = ("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", 
@@ -31,40 +31,23 @@ class New_Game(Screen):
                     self.name.pop()
                     
                 if event.key == pygame.K_RETURN: self.i1_fin = True
+            
+            if self.i1_fin:
+                if event.key == pygame.K_2: self.on_select("welcome_screen")
+                elif event.key == pygame.K_3: self.on_select("main_menu")
 
     def draw(self, surface):
-        placeholder = self.font.render("New Game:", 1, GREEN)
-        self.l_margin = self.y_pos = self.x_pos = placeholder.get_height()
-        surface.blit(placeholder, (self.l_margin, self.y_pos))
-
-        self.drawText(surface, "(1) Return to Home Page")
-
-        self.drawText(surface, "Enter Your Name: ")
-
+        self.text.reset_layout()
+        self.text.draw(surface, "New Game:", GREEN, new_line=False)
+        self.text.draw(surface, "(1) Return to Home Page", WHITE)
+        self.text.draw(surface, "Enter Your Name: ", WHITE)
+        
         str_name = "".join(self.name)
-        self.drawText(surface, str_name, newLine = False, x_offset = 10)
-
-        self.drawText(surface, "Press Enter to Continue")
+        self.text.draw(surface, str_name, WHITE, new_line=False, x_offset=10)
+        self.text.draw(surface, "Press Enter to Continue", WHITE)
 
         if self.i1_fin:
-            self.drawText(surface, f"Your Name: {str_name}", GREEN)
-
-            self.drawText(surface, "(2) Confirm", BLACK, WHITE)
-
-            self.drawText(surface, "(3) Cancel", BLACK, WHITE, newLine = False, x_offset = 10)
-
-    def drawText(self, surface, text, textColor = WHITE, bgColor = 0, y_offset = 0, x_offset = 0, newLine = True, xReset = False):
-        text = self.font.render(f"{text}", 1, textColor, bgColor)
+            self.text.draw(surface, f"Your Name: {str_name}", GREEN)
+            self.text.draw(surface, "(2) Confirm", BLACK, bg=WHITE)
+            self.text.draw(surface, "(3) Cancel", BLACK, bg=WHITE, new_line=False, x_offset=10)
         
-        if newLine:
-            self.prevWidth = text.get_width()
-
-        if newLine:
-            self.y_pos += 10 + text.get_height()
-        if x_offset != 0:
-            self.x_pos += x_offset + self.prevWidth
-        else:
-            self.x_pos = self.l_margin
-        self.y_pos += y_offset
-
-        surface.blit(text, (self.x_pos, self.y_pos))

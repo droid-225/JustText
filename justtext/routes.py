@@ -3,6 +3,7 @@ from .screens.main_menu import Main_Menu
 from .screens.new_game import New_Game
 from .screens.load_game import Load_Game
 from .screens.main_settings import Main_Settings
+from .screens.welcome import Welcome
 
 RouteAction = Callable[[], None]
 
@@ -21,6 +22,7 @@ def create_routes(set_screen: Callable[[Any], None], stop: Callable[[], None]) -
         "new_game": go(New_Game),
         "load_game": go(Load_Game),
         "main_settings": go(Main_Settings),
+        "welcome_screen": go(Welcome),
         "quit": stop
     }
 
