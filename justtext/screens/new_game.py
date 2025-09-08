@@ -7,7 +7,6 @@ class New_Game(Screen):
     name = []
     i1_fin = False # input 1 flag
 
-
     def __init__(self, on_select):
         self.font = load_font()
         self.on_select = on_select
@@ -32,22 +31,35 @@ class New_Game(Screen):
                 if event.key == pygame.K_RETURN: self.i1_fin = True
 
     def draw(self, surface):
-        y_margin = x_margin = 0
-
         placeholder = self.font.render("New Game:", 1, GREEN)
-        y_margin = x_margin = placeholder.get_height()
-        surface.blit(placeholder, (x_margin, y_margin))
+        l_margin = y_margin = x_margin = placeholder.get_height()
+        surface.blit(placeholder, (l_margin, y_margin))
 
         return_prompt = self.font.render("(1) Return to Home Page", 1, WHITE)
         y_margin += 10 + return_prompt.get_height()
-        surface.blit(return_prompt, (x_margin, y_margin))
+        surface.blit(return_prompt, (l_margin, y_margin))
 
         name_prompt = self.font.render("Enter Your Name: ", 1, WHITE)
         y_margin += 10 + name_prompt.get_height()
-        surface.blit(name_prompt, (x_margin, y_margin))
+        surface.blit(name_prompt, (l_margin, y_margin))
 
         str_name = "".join(self.name)
         name = self.font.render(f"{str_name}", 1, WHITE)
-        x_margin += 10 + name_prompt.get_width()
-        surface.blit(name, (x_margin, y_margin))
+        surface.blit(name, (x_margin + 10 + name_prompt.get_width(), y_margin))
+        
+        enter_prompt = self.font.render("Press Enter to Continue", 1, WHITE)
+        y_margin += 10 + name_prompt.get_height()
+        surface.blit(enter_prompt, (x_margin, y_margin))
+
+        if self.i1_fin:
+            confirm_prompt = self.font.render(f"Your Name: {str_name}", 1, GREEN)
+            y_margin += 10 + name_prompt.get_height()
+            surface.blit(confirm_prompt, (x_margin, y_margin))
+
+            confirm_option = self.font.render("(2) Confirm", 1, 1, WHITE) # not exactly sure what's going on here but it gives the text a background so that's cool
+            y_margin += 10 + name_prompt.get_height()
+            surface.blit(confirm_option, (x_margin, y_margin))
+
+            cancel_option = self.font.render("(3) Cancel", 1, 1, WHITE)
+            surface.blit(cancel_option, (x_margin + 10 + confirm_option.get_width(), y_margin))  
         
