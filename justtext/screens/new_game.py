@@ -5,6 +5,8 @@ from ..assets import load_font
 
 class New_Game(Screen):
     name = []
+    i1_fin = False # input 1 flag
+
 
     def __init__(self, on_select):
         self.font = load_font()
@@ -15,12 +17,11 @@ class New_Game(Screen):
                      "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
         LOWERCASE = ("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", 
                      "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z")
-        fin = False # whether the user is finished inputting a value
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_1: self.on_select("main_menu")
 
-            if not fin:
+            if not self.i1_fin:
                 for i in range(0, 26):
                     if event.key == pygame.key.key_code(UPPERCASE[i]) or event.key == pygame.key.key_code(LOWERCASE[i]):
                         self.name.append(UPPERCASE[i])
@@ -28,7 +29,7 @@ class New_Game(Screen):
                 if event.key == pygame.K_BACKSPACE and len(self.name) > 0: 
                     self.name.pop()
                     
-                if event.key == pygame.K_RETURN: fin = True
+                if event.key == pygame.K_RETURN: self.i1_fin = True
 
     def draw(self, surface):
         y_margin = x_margin = 0
