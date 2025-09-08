@@ -1,23 +1,22 @@
 from dataclasses import dataclass
 
-
 @dataclass
 class TextLayout:
     left_margin: int = 0
-    cursor_x: int = 0
-    cursor_y: int = 0
+    x_pos: int = 0
+    y_pos: int = 0
     prev_width: int = 0
     line_gap: int = 10
 
     def start_if_needed(self, baseline: int) -> None:
-        if self.cursor_y == 0:
+        if self.y_pos == 0:
             self.left_margin = self.left_margin or baseline
-            self.cursor_x = self.left_margin
-            self.cursor_y = baseline
+            self.x_pos = self.left_margin
+            self.y_pos = baseline
 
     def next_line(self, line_height: int) -> None:
-        self.cursor_y += self.line_gap + line_height
-        self.cursor_x = self.left_margin
+        self.y_pos += self.line_gap + line_height
+        self.x_pos = self.left_margin
         self.prev_width = 0
 
 
@@ -37,10 +36,10 @@ class TextRenderer:
             if not first_line:
                 self.layout.next_line(img.get_height())
         else:
-            self.layout.cursor_x += self.layout.prev_width + x_offset
+            self.layout.x_pos += self.layout.prev_width + x_offset
 
-        draw_x = self.layout.cursor_x + l_offset
-        draw_y = self.layout.cursor_y + y_offset
+        draw_x = self.layout.x_pos + l_offset
+        draw_y = self.layout.y_pos + y_offset
         surface.blit(img, (draw_x, draw_y))
         self.layout.prev_width = img.get_width()
 
