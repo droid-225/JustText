@@ -1,11 +1,13 @@
+from hashlib import blake2b
 import pygame
 from .base import Screen
-from ..constants import GREEN, WHITE
+from ..constants import GREEN, WHITE, BLACK
 from ..assets import load_font
 
 class New_Game(Screen):
     name = []
     i1_fin = False # input 1 flag
+    y_pos = x_pos = l_margin = prevWidth = 0
 
     def __init__(self, on_select):
         self.font = load_font()
@@ -32,34 +34,37 @@ class New_Game(Screen):
 
     def draw(self, surface):
         placeholder = self.font.render("New Game:", 1, GREEN)
-        l_margin = y_margin = x_margin = placeholder.get_height()
-        surface.blit(placeholder, (l_margin, y_margin))
+        self.l_margin = self.y_pos = self.x_pos = placeholder.get_height()
+        surface.blit(placeholder, (self.l_margin, self.y_pos))
 
-        return_prompt = self.font.render("(1) Return to Home Page", 1, WHITE)
-        y_margin += 10 + return_prompt.get_height()
-        surface.blit(return_prompt, (l_margin, y_margin))
+        self.drawText(surface, "(1) Return to Home Page")
 
-        name_prompt = self.font.render("Enter Your Name: ", 1, WHITE)
-        y_margin += 10 + name_prompt.get_height()
-        surface.blit(name_prompt, (l_margin, y_margin))
+        self.drawText(surface, "Enter Your Name: ")
 
         str_name = "".join(self.name)
-        name = self.font.render(f"{str_name}", 1, WHITE)
-        surface.blit(name, (x_margin + 10 + name_prompt.get_width(), y_margin))
-        
-        enter_prompt = self.font.render("Press Enter to Continue", 1, WHITE)
-        y_margin += 10 + name_prompt.get_height()
-        surface.blit(enter_prompt, (x_margin, y_margin))
+        self.drawText(surface, str_name, newLine = False, x_offset = 10)
+
+        self.drawText(surface, "Press Enter to Continue")
 
         if self.i1_fin:
-            confirm_prompt = self.font.render(f"Your Name: {str_name}", 1, GREEN)
-            y_margin += 10 + name_prompt.get_height()
-            surface.blit(confirm_prompt, (x_margin, y_margin))
+            self.drawText(surface, f"Your Name: {str_name}", GREEN)
 
-            confirm_option = self.font.render("(2) Confirm", 1, 1, WHITE) # not exactly sure what's going on here but it gives the text a background so that's cool
-            y_margin += 10 + name_prompt.get_height()
-            surface.blit(confirm_option, (x_margin, y_margin))
+            self.drawText(surface, "(2) Confirm", BLACK, WHITE)
 
-            cancel_option = self.font.render("(3) Cancel", 1, 1, WHITE)
-            surface.blit(cancel_option, (x_margin + 10 + confirm_option.get_width(), y_margin))  
+            self.drawText(surface, "(3) Cancel", BLACK, WHITE, newLine = False, x_offset = 10)
+
+    def drawText(self, surface, text, textColor = WHITE, bgColor = 0, y_offset = 0, x_offset = 0, newLine = True, xReset = False):
+        text = self.font.render(f"{text}", 1, textColor, bgColor)
         
+        if newLine:
+            self.prevWidth = text.get_width()
+
+        if newLine:
+            self.y_pos += 10 + text.get_height()
+        if x_offset != 0:
+            self.x_pos += x_offset + self.prevWidth
+        else:
+            self.x_pos = self.l_margin
+        self.y_pos += y_offset
+
+        surface.blit(text, (self.x_pos, self.y_pos))
