@@ -15,13 +15,13 @@ class Load_Game(Screen):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 self.on_select("main_menu")
-            elif event.key == pygame.K_2:
+            elif event.key == pygame.K_1:
                 load_active_slot(1)
                 self.on_select("welcome_screen")
-            elif event.key == pygame.K_3:
+            elif event.key == pygame.K_2:
                 load_active_slot(2)
                 self.on_select("welcome_screen")
-            elif event.key == pygame.K_4:
+            elif event.key == pygame.K_3:
                 load_active_slot(3)
                 self.on_select("welcome_screen")
 
