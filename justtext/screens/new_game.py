@@ -3,10 +3,12 @@ from .base import Screen
 from ..constants import GREEN, WHITE, BLACK
 from ..assets import load_font
 from ..ui.text import TextRenderer
+from ..state import get_state, list_slots
 
 class New_Game(Screen):
     name = []
     i1_fin = False # input 1 flag
+    choosing_slot = False
 
     def __init__(self, on_select):
         self.font = load_font()
@@ -20,7 +22,8 @@ class New_Game(Screen):
                      "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z")
 
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_1: self.on_select("main_menu")
+            if event.key == pygame.K_1:
+                self.on_select("main_menu")
 
             if not self.i1_fin:
                 for i in range(0, 26):
@@ -30,11 +33,28 @@ class New_Game(Screen):
                 if event.key == pygame.K_BACKSPACE and len(self.name) > 0: 
                     self.name.pop()
                     
-                if event.key == pygame.K_RETURN: self.i1_fin = True
+                if event.key == pygame.K_RETURN:
+                    self.i1_fin = True
+                    self.choosing_slot = True
             
-            if self.i1_fin:
-                if event.key == pygame.K_2: self.on_select("welcome_screen")
-                elif event.key == pygame.K_3: self.on_select("main_menu")
+            if self.i1_fin and self.choosing_slot:
+                # Choose slot 1/2/3 with keys 2/3/4
+                if event.key == pygame.K_2:
+                    slot = 1
+                elif event.key == pygame.K_3:
+                    slot = 2
+                elif event.key == pygame.K_4:
+                    slot = 3
+                else:
+                    slot = None
+
+                if slot is not None:
+                    state = get_state()
+                    state.name = "".join(self.name)
+                    state.current_slot = slot
+                    state.count = 0
+                    state.save()
+                    self.on_select("welcome_screen")
 
     def draw(self, surface):
         self.text.reset_layout()
@@ -48,6 +68,11 @@ class New_Game(Screen):
 
         if self.i1_fin:
             self.text.draw(surface, f"Your Name: {str_name}", GREEN)
-            self.text.draw(surface, "(2) Confirm", BLACK, bg=WHITE)
-            self.text.draw(surface, "(3) Cancel", BLACK, bg=WHITE, new_line=False, x_offset=10)
+            slots = list_slots()
+            # Show slot choices and whether they are occupied
+            self.text.draw(surface, "Choose a slot to save:", WHITE)
+            for idx, entry in enumerate(slots, start=1):
+                name = entry["name"] or "<Empty>"
+                count = entry["count"]
+                self.text.draw(surface, f"({idx+1}) Slot {idx}: {name} | Count: {count}", BLACK, bg=WHITE)
         

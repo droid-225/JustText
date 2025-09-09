@@ -12,6 +12,13 @@ class Welcome(Screen):
         self.on_select = on_select
         self.text = TextRenderer(self.font)
 
+    def handle_event(self, event: pygame.event.Event) -> None:
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_1:
+                self.on_select("main_menu")
+
     def draw(self, surface):
         self.text.reset_layout()
         self.text.draw(surface, "WELCOME", WHITE, new_line=False)
+
+        self.text.draw(surface, "(1) Return to Home Page", WHITE)

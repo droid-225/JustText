@@ -42,5 +42,3 @@ class TextRenderer:
         draw_y = self.layout.y_pos + y_offset
         surface.blit(img, (draw_x, draw_y))
         self.layout.prev_width = img.get_width()
-
-

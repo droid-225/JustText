@@ -3,6 +3,7 @@ from .base import Screen
 from ..constants import WHITE, GREEN
 from ..assets import load_font
 from ..ui.text import TextRenderer
+from ..state import list_slots, load_active_slot
 
 class Load_Game(Screen):
     def __init__(self, on_select):
@@ -12,9 +13,26 @@ class Load_Game(Screen):
 
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_1: self.on_select("main_menu")
+            if event.key == pygame.K_1:
+                self.on_select("main_menu")
+            elif event.key == pygame.K_2:
+                load_active_slot(1)
+                self.on_select("welcome_screen")
+            elif event.key == pygame.K_3:
+                load_active_slot(2)
+                self.on_select("welcome_screen")
+            elif event.key == pygame.K_4:
+                load_active_slot(3)
+                self.on_select("welcome_screen")
 
     def draw(self, surface):
         self.text.reset_layout()
-        self.text.draw(surface, "Load Game Screen is Under Construction", GREEN, new_line=False)
+        self.text.draw(surface, "Load Game:", GREEN, new_line=False)
+
         self.text.draw(surface, "(1) Return to Home Page", WHITE)
+
+        slots = list_slots()
+        for idx, entry in enumerate(slots, start=1):
+            name = entry["name"] or "<Empty>"
+            count = entry["count"]
+            self.text.draw(surface, f"({idx+1}) Slot {idx}: {name} | Count: {count}", WHITE)
