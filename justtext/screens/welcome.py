@@ -12,7 +12,16 @@ class Welcome(Screen):
         self.on_select = on_select
         self.text = TextRenderer(self.font)
         self.state = get_state()
-        self.slot = self.state.current_slot     
+        self.slot = self.state.current_slot
+        self.auto_on = False
+        self._accum = 0.0            
+             
+    def update(self, dt: float) -> None:
+        if self.auto_on:
+            self._accum += dt
+            if self._accum >= 0.25:
+                self.state.count += 1
+                self._accum = 0.0
 
     def handle_event(self, event: pygame.event.Event) -> None:
         if event.type == pygame.KEYDOWN:
@@ -23,6 +32,10 @@ class Welcome(Screen):
             elif event.key == pygame.K_2:
                 self.state.count -= 1
             elif event.key == pygame.K_3:
+                self.auto_on = True
+            elif event.key == pygame.K_4:
+                self.auto_on = False
+            elif event.key == pygame.K_s or event.key == pygame.key.key_code("S"):
                 self.state.save()
 
     def draw(self, surface):
@@ -33,9 +46,10 @@ class Welcome(Screen):
         slot_label = self.slot if self.slot is not None else "<None>"
         self.text.draw(surface, f"WELCOME {name}", GREEN, new_line=False)
         self.text.draw(surface, f"Count: {count}", WHITE)
-        self.text.draw(surface, f"Slot: {slot_label}", WHITE)
         self.text.draw(surface, "(1) Count Up", WHITE)
         self.text.draw(surface, "(2) Count Down", WHITE)
-        self.text.draw(surface, "(3) Save", WHITE)
+        self.text.draw(surface, "(3) Start Auto-Counter", WHITE)
+        self.text.draw(surface, "(4) Stop Auto-Counter", WHITE)
+        self.text.draw(surface, "(S) Save", WHITE)
 
         self.text.draw(surface, "(ESC) Return to Home Page", WHITE)
