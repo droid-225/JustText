@@ -22,8 +22,7 @@ class New_Game(Screen):
                      "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z")
 
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_1:
-                self.on_select("main_menu")
+            if event.key == pygame.K_ESCAPE: self.on_select("main_menu")
 
             if not self.i1_fin:
                 for i in range(0, 26):
@@ -38,12 +37,11 @@ class New_Game(Screen):
                     self.choosing_slot = True
             
             if self.i1_fin and self.choosing_slot:
-                # Choose slot 1/2/3 with keys 2/3/4
-                if event.key == pygame.K_2:
+                if event.key == pygame.K_1:
                     slot = 1
-                elif event.key == pygame.K_3:
+                elif event.key == pygame.K_2:
                     slot = 2
-                elif event.key == pygame.K_4:
+                elif event.key == pygame.K_3:
                     slot = 3
                 else:
                     slot = None
@@ -59,7 +57,7 @@ class New_Game(Screen):
     def draw(self, surface):
         self.text.reset_layout()
         self.text.draw(surface, "New Game:", GREEN, new_line=False)
-        self.text.draw(surface, "(1) Return to Home Page", WHITE)
+        self.text.draw(surface, "(ESC) Return to Home Page", WHITE)
         self.text.draw(surface, "Enter Your Name: ", WHITE)
         
         str_name = "".join(self.name)
@@ -74,5 +72,5 @@ class New_Game(Screen):
             for idx, entry in enumerate(slots, start=1):
                 name = entry["name"] or "<Empty>"
                 count = entry["count"]
-                self.text.draw(surface, f"({idx+1}) Slot {idx}: {name} | Count: {count}", BLACK, bg=WHITE)
+                self.text.draw(surface, f"({idx}) Slot {idx}: {name} | Count: {count}", BLACK, bg=WHITE)
         

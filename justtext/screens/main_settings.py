@@ -12,9 +12,9 @@ class Main_Settings(Screen):
 
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_1: self.on_select("main_menu")
+            if event.key == pygame.K_ESCAPE: self.on_select("main_menu")
 
     def draw(self, surface):
         self.text.reset_layout()
         self.text.draw(surface, "Main Settings Screen is Under Construction", GREEN, new_line=False)
-        self.text.draw(surface, "(1) Return to Home Page", WHITE)
+        self.text.draw(surface, "(ESC) Return to Home Page", WHITE)

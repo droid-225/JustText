@@ -13,7 +13,7 @@ class Load_Game(Screen):
 
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_1:
+            if event.key == pygame.K_ESCAPE:
                 self.on_select("main_menu")
             elif event.key == pygame.K_2:
                 load_active_slot(1)
@@ -29,10 +29,10 @@ class Load_Game(Screen):
         self.text.reset_layout()
         self.text.draw(surface, "Load Game:", GREEN, new_line=False)
 
-        self.text.draw(surface, "(1) Return to Home Page", WHITE)
+        self.text.draw(surface, "(ESC) Return to Home Page", WHITE)
 
         slots = list_slots()
         for idx, entry in enumerate(slots, start=1):
             name = entry["name"] or "<Empty>"
             count = entry["count"]
-            self.text.draw(surface, f"({idx+1}) Slot {idx}: {name} | Count: {count}", WHITE)
+            self.text.draw(surface, f"({idx}) Slot {idx}: {name} | Count: {count}", WHITE)
