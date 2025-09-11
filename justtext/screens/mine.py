@@ -5,7 +5,7 @@ from ..assets import load_font
 from ..ui.text import TextRenderer
 from ..state import get_state
 
-class Welcome(Screen):
+class Mine(Screen):
 
     def __init__(self, on_select):
         self.font = load_font()
@@ -15,6 +15,10 @@ class Welcome(Screen):
         self.slot = self.state.current_slot
         self.auto_on = False
         self._accum = 0.0            
+        self.options = ["(1) Mine Gold", 
+                        "(2) Start Auto-Miner", 
+                        "(3) Stop Auto-Miner", 
+                        "(4) Go Back to Town"]
              
     def update(self, dt: float) -> None:
         if self.auto_on:
@@ -25,25 +29,23 @@ class Welcome(Screen):
 
     def handle_event(self, event: pygame.event.Event) -> None:
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RETURN:
+            if event.key == pygame.K_1:
+                self.state.count += 1
+            elif event.key == pygame.K_2:
+                self.auto_on = True
+            elif event.key == pygame.K_3:
+                self.auto_on = False
+            elif event.key == pygame.K_4:
+                self.auto_on = False
+                self.state.save()
                 self.on_select("windhelm")
 
     def draw(self, surface):
-        name = self.state.name
+        count = self.state.count
 
         self.text.reset_layout()
-        self.text.draw(surface, f"WELCOME {name}, TO JUST TEXT!", GREEN, new_line=False)
-        
-        lines = ["You are an adventurer looking for fame and",
-                 "fortune. Your destination now is Windhelm,",
-                 "a bustling and vibrant town where you",
-                 "begin your journey. Along your adventure", 
-                 "you will face many foes and beasts, but ",
-                 "don't lose hope.",
-                 "Stay determined and conquer the world of", 
-                 "JUST TEXT!"]
+        self.text.draw(surface, f"Mine", GREEN, new_line=False)
+        self.text.draw(surface, f"Gold: {count}", WHITE)
 
-        for line in lines: 
-            self.text.draw(surface, line, WHITE)
-
-        self.text.draw(surface, "(ENTER) Go to Windhelm", WHITE)
+        for option in self.options:
+            self.text.draw(surface, option, WHITE)

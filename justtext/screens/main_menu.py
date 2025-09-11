@@ -9,7 +9,10 @@ class Main_Menu(Screen): # main menu inherits from Screen
         self.font = load_font()
         self.on_select = on_select
         self.text = TextRenderer(self.font)
-        self.options = ["(1) New Game", "(2) Load Game", "(3) Settings", "(ESC) Quit"]
+        self.options = ["(1) New Game", 
+                        "(2) Load Game", 
+                        "(3) Settings", 
+                        "(ESC) Quit"]
 
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:

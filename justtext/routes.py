@@ -1,4 +1,8 @@
 from typing import Callable, Dict, Any
+
+from justtext.screens.mine import Mine
+from justtext.screens.shop import Shop
+from justtext.screens.windhelm import Windhelm
 from .screens.main_menu import Main_Menu
 from .screens.new_game import New_Game
 from .screens.load_game import Load_Game
@@ -23,6 +27,9 @@ def create_routes(set_screen: Callable[[Any], None], stop: Callable[[], None]) -
         "load_game": go(Load_Game),
         "main_settings": go(Main_Settings),
         "welcome_screen": go(Welcome),
+        "mine": go(Mine),
+        "windhelm": go(Windhelm),
+        "shop": go(Shop),
         "quit": stop
     }
 
