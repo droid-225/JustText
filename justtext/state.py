@@ -8,6 +8,7 @@ SAVE_PATH.mkdir(exist_ok=True) # makes a saves folder if it does not already exi
 class GameState:
     name: str = ""
     count: int = 0
+    gold : int = 0
     current_slot: int | None = None
 
     @staticmethod
@@ -20,7 +21,7 @@ class GameState:
 
         if p.exists():
             data = json.loads(p.read_text())
-            return cls(name=data.get("name", ""), count=int(data.get("count", 0)), current_slot=slot)
+            return cls(name=data.get("name", ""), count=int(data.get("count", 0)), gold=(data.get("gold", 0)), current_slot=slot)
         return cls(current_slot=slot)
 
     def save(self):
@@ -28,7 +29,7 @@ class GameState:
             # Default to slot 1 if no slot has been chosen yet
             self.current_slot = 1
         p = self._slot_filename(self.current_slot)
-        p.write_text(json.dumps({"name": self.name, "count": self.count}))
+        p.write_text(json.dumps({"name": self.name, "count": self.count, "gold": self.gold}))
 
 
 # Active, in-memory game state used across screens
@@ -48,7 +49,7 @@ def list_slots():
         p = GameState._slot_filename(slot)
         if p.exists():
             data = json.loads(p.read_text())
-            entries.append({"slot": slot, "name": data.get("name", ""), "count": int(data.get("count", 0))})
+            entries.append({"slot": slot, "name": data.get("name", ""), "count": int(data.get("count", 0)), "gold" = (data.get("gold", 0))})
         else:
-            entries.append({"slot": slot, "name": "", "count": 0})
+            entries.append({"slot": slot, "name": "", "count": 0, "gold": 0})
     return entries
