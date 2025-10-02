@@ -13,13 +13,20 @@ class Shop(Screen): # main menu inherits from Screen
         self.text = TextRenderer(self.font)
         self.state = get_state()
         self.slot = self.state.current_slot
-        self.options = ["(1) Sell Gold", 
-                        "(2) Go Back to Town"]
+        self.autoMinerPrice = 10
+        self.options = ["(1) Sell Gold",
+                        "(2) Upgrade Autominer (" + str(self.autoMinerPrice) + ")",
+                        "(ESC) Go Back to Town"]
 
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_1: self.state.count -= 1
-            elif event.key == pygame.K_2: self.on_select("windhelm")
+            elif event.key == pygame.K_2:
+                if self.state.count >= self.autoMinerPrice:
+                    self.state.autoMinerLevel += 1
+                    self.state.count -= self.autoMinerPrice
+                    self.autoMinerPrice *= 1.5 * self.state.autoMinerLevel
+            elif event.key == pygame.K_ESCAPE: self.on_select("windhelm")
 
     def draw(self, surface):
         count = self.state.count
