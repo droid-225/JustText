@@ -6,7 +6,7 @@ from ..assets import load_font
 from ..ui.text import TextRenderer
 from ..state import get_state
 
-class Inventory(Screen): # main menu inherits from Screen
+class Inventory(Screen):
     def __init__(self, on_select):
         self.font = load_font()
         self.on_select = on_select
@@ -15,13 +15,13 @@ class Inventory(Screen): # main menu inherits from Screen
         self.slot = self.state.current_slot
 
     def handle_event(self, event):
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_1: self.state.count -= 1
-            elif event.key == pygame.K_2: self.on_select("windhelm")
+        # TODO: return to previous screen
 
     def draw(self, surface):
         count = self.state.count
+        autoMinerLevel = self.state.autoMinerLevel
 
         self.text.reset_layout()
         self.text.draw(surface, "Inventory", GREEN, new_line=False)
         self.text.draw(surface, f"Your Gold: {count}", WHITE)
+        self.text.draw(surface, f"Auto Miner Level: {autoMinerLevel}", WHITE)
