@@ -24,13 +24,14 @@ class Mine(Screen):
         if self.auto_on:
             self._accum += dt
             if self._accum >= 0.25:
+                self.state.gold += 1
                 self.state.count += self.state.autoMinerLevel
                 self._accum = 0.0
 
     def handle_event(self, event: pygame.event.Event) -> None:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_1:
-                self.state.count += 1
+                self.state.gold += 1
             elif event.key == pygame.K_2:
                 self.auto_on = True
             elif event.key == pygame.K_3:
@@ -41,11 +42,11 @@ class Mine(Screen):
                 self.on_select("windhelm")
 
     def draw(self, surface):
-        count = self.state.count
+        gold = self.state.gold
 
         self.text.reset_layout()
         self.text.draw(surface, f"Mine", GREEN, new_line=False)
-        self.text.draw(surface, f"Gold: {count}", WHITE)
+        self.text.draw(surface, f"Gold: {gold}", WHITE)
 
         for option in self.options:
             self.text.draw(surface, option, WHITE)
