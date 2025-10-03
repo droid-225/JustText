@@ -36,6 +36,7 @@ class Mine(Screen):
             elif event.key == pygame.K_3:
                 self.auto_on = False
             elif event.key == pygame.K_4:
+                self.state.prevScreen = "mine"
                 self.auto_on = False
                 self.state.save()
                 self.on_select("windhelm")

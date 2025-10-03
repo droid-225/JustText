@@ -1,6 +1,6 @@
 import pygame
 from .base import Screen
-from ..constants import WHITE, GREEN
+from ..constants import WHITE, GREEN, BLUE
 from ..assets import load_font
 from ..ui.text import TextRenderer
 from ..state import get_state
@@ -25,6 +25,10 @@ class Windhelm(Screen): # main menu inherits from Screen
             elif event.key == pygame.K_ESCAPE:
                 self.state.save() 
                 self.on_select("quit")
+            elif event.key == pygame.K_i or event.key == pygame.key.key_code("I"):
+                self.state.prevScreen = "windhelm"
+                self.state.save()
+                self.on_select("inventory")
 
     def draw(self, surface):
         self.text.reset_layout()
@@ -32,3 +36,5 @@ class Windhelm(Screen): # main menu inherits from Screen
 
         for option in self.options:
             self.text.draw(surface, option, WHITE)
+
+        self.text.draw(surface, "(I) Inventory", BLUE)

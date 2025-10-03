@@ -13,16 +13,20 @@ class Inventory(Screen):
         self.text = TextRenderer(self.font)
         self.state = get_state()
         self.slot = self.state.current_slot
+        self.prevScreen = self.state.prevScreen
 
-    def handle_event(self, event):
-        pass
-        # TODO: return to previous screen
+    def handle_event(self, event: pygame.event.Event) -> None:
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                self.on_select(self.prevScreen)
 
     def draw(self, surface):
-        count = self.state.count
+        gold = self.state.gold
         autoMinerLevel = self.state.autoMinerLevel
+        prevScreen = self.prevScreen
 
         self.text.reset_layout()
         self.text.draw(surface, "Inventory", GREEN, new_line=False)
-        self.text.draw(surface, f"Your Gold: {count}", WHITE)
+        self.text.draw(surface, f"Your Gold: {gold}", WHITE)
         self.text.draw(surface, f"Auto Miner Level: {autoMinerLevel}", WHITE)
+        self.text.draw(surface, f"(ESC) Return to {prevScreen}", WHITE)
