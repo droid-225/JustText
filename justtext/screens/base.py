@@ -1,7 +1,7 @@
 import pygame
 from abc import ABC, abstractmethod
 
-class Screen:
+class Screen(ABC):
     @abstractmethod
     def handle_event(self, event: pygame.event.Event) -> None: ...
 

@@ -27,12 +27,12 @@ class Load_Game(Screen):
 
     def draw(self, surface):
         self.text.reset_layout()
-        self.text.draw(surface, "Load Game:", GREEN, new_line=False)
-
-        self.text.draw(surface, "(ESC) Return to Home Page", WHITE)
+        self.text.draw(surface, "Load Game", GREEN, new_line=False)
 
         slots = list_slots()
         for idx, entry in enumerate(slots, start=1):
             name = entry["name"] or "<Empty>"
             curScreen = entry["currentScreen"]
             self.text.draw(surface, f"({idx}) Slot {idx}: {name} | {curScreen.capitalize()}", WHITE)
+
+        self.text.draw(surface, "(ESC) Return to Home Page", WHITE)
