@@ -13,9 +13,9 @@ class Shop(Screen): # main menu inherits from Screen
         self.text = TextRenderer(self.font)
         self.state = get_state()
         self.slot = self.state.current_slot
-        self.autoMinerPrice = 10 + int(self.autoMinerPrice * 1.5 * (self.state.autoMinerLevel - 1))
+        self.autoMinerPrice = 10 + int(5 * (self.state.autoMinerLevel - 1))
         self.options = ["(1) Sell Gold",
-                        "(2) Upgrade Autominer (" + str(self.autoMinerPrice) + ")",
+                        "(2) Upgrade Autominer (" + str(self.autoMinerPrice) + "g)",
                         "(ESC) Go Back to Town"]
 
     def handle_event(self, event):
@@ -25,7 +25,10 @@ class Shop(Screen): # main menu inherits from Screen
                 if self.state.gold >= self.autoMinerPrice:
                     self.state.autoMinerLevel += 1
                     self.state.gold -= self.autoMinerPrice
-                    self.autoMinerPrice = 10 + int(self.autoMinerPrice * 1.5 * (self.state.autoMinerLevel - 1))
+                    self.autoMinerPrice = 10 + int(5 * (self.state.autoMinerLevel - 1))
+                    self.options = ["(1) Sell Gold",
+                                    "(2) Upgrade Autominer (" + str(self.autoMinerPrice) + "g)",
+                                    "(ESC) Go Back to Town"]
             elif event.key == pygame.K_ESCAPE: self.on_select("windhelm")
 
     def draw(self, surface):
