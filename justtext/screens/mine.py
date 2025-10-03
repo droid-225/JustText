@@ -13,6 +13,7 @@ class Mine(Screen):
         self.text = TextRenderer(self.font)
         self.state = get_state()
         self.slot = self.state.current_slot
+        self.state.currentScreen = "mine"
         self.auto_on = False
         self._accum = 0.0            
         self.options = ["(1) Mine Gold", 

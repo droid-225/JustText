@@ -12,10 +12,11 @@ class Windhelm(Screen): # main menu inherits from Screen
         self.text = TextRenderer(self.font)
         self.state = get_state()
         self.slot = self.state.current_slot
+        self.state.currentScreen = "windhelm"
         self.options = ["(1) Go to the Shop", 
                         "(2) Go to the Mine", 
                         "(S) Save", 
-                        "(ESC) Save and Exit"]
+                        "(ESC) Save and Exit to Main Menu"]
 
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
@@ -24,7 +25,7 @@ class Windhelm(Screen): # main menu inherits from Screen
             elif event.key == pygame.K_3: self.state.save()
             elif event.key == pygame.K_ESCAPE:
                 self.state.save() 
-                self.on_select("quit")
+                self.on_select("main_menu")
             elif event.key == pygame.K_i or event.key == pygame.key.key_code("I"):
                 self.state.prevScreen = "windhelm"
                 self.state.save()

@@ -10,6 +10,7 @@ class GameState:
     gold: int = 0
     autoMinerLevel: int = 1
     prevScreen: str = ""
+    currentScreen: str = ""
     current_slot: int | None = None
 
     @staticmethod
@@ -25,7 +26,8 @@ class GameState:
             return cls(name=data.get("name", ""), 
                        gold=int(data.get("gold", 0)), 
                        autoMinerLevel=int(data.get("autoMinerLevel", 0)),
-                       prevScreen=data.get("prevScreen", ""), 
+                       prevScreen=data.get("prevScreen", ""),
+                       currentScreen=data.get("currentScreen", ""),
                        current_slot=slot)
         return cls(current_slot=slot)
 
@@ -38,7 +40,8 @@ class GameState:
         p.write_text(json.dumps({"name": self.name, 
                                  "gold": self.gold, 
                                  "autoMinerLevel": self.autoMinerLevel,
-                                 "prevScreen": self.prevScreen}))
+                                 "prevScreen": self.prevScreen,
+                                 "currentScreen": self.currentScreen}))
 
 
 # Active, in-memory game state used across screens
@@ -60,13 +63,9 @@ def list_slots():
             data = json.loads(p.read_text())
             entries.append({"slot": slot, 
                             "name": data.get("name", ""), 
-                            "gold": int(data.get("gold", 0)), 
-                            "autoMinerLevel": int(data.get("autoMinerLevel", 1)),
-                            "prevScreen": data.get("prevScreen", "")})
+                            "currentScreen": data.get("currentScreen", "")})
         else:
             entries.append({"slot": slot, 
                             "name": "", 
-                            "gold": 0, 
-                            "autoMinerLevel": 1,
-                            "prevScreen": ""})
+                            "currentScreen": ""})
     return entries

@@ -13,6 +13,7 @@ class Shop(Screen): # main menu inherits from Screen
         self.text = TextRenderer(self.font)
         self.state = get_state()
         self.slot = self.state.current_slot
+        self.state.currentScreen = "shop"
         self.autoMinerPrice = 10 + int(5 * (self.state.autoMinerLevel - 1))
         self.options = ["(1) Sell Gold",
                         "(2) Upgrade Autominer (" + str(self.autoMinerPrice) + "g)",
