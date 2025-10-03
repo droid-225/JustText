@@ -17,7 +17,7 @@ class Shop(Screen): # main menu inherits from Screen
         self.autoMinerPrice = 10 + int(5 * (self.state.autoMinerLevel - 1))
         self.options = ["(1) Sell Gold",
                         "(2) Upgrade Autominer (" + str(self.autoMinerPrice) + "g)",
-                        "(ESC) Go Back to Town"]
+                        "(ESC) Go Back to Windhelm"]
 
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:

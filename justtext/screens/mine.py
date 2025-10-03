@@ -19,7 +19,7 @@ class Mine(Screen):
         self.options = ["(1) Mine Gold", 
                         "(2) Start Auto-Miner", 
                         "(3) Stop Auto-Miner", 
-                        "(4) Go Back to Town"]
+                        "(ESC) Go Back to Windhelm"]
              
     def update(self, dt: float) -> None:
         if self.auto_on:
@@ -36,7 +36,7 @@ class Mine(Screen):
                 self.auto_on = True
             elif event.key == pygame.K_3:
                 self.auto_on = False
-            elif event.key == pygame.K_4:
+            elif event.key == pygame.K_ESCAPE:
                 self.state.prevScreen = "mine"
                 self.auto_on = False
                 self.state.save()
