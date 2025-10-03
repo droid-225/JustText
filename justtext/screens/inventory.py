@@ -15,6 +15,7 @@ class Inventory(Screen):
         self.slot = self.state.current_slot
 
     def handle_event(self, event):
+        pass
         # TODO: return to previous screen
 
     def draw(self, surface):

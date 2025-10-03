@@ -50,13 +50,14 @@ class New_Game(Screen):
                     state = get_state()
                     state.name = "".join(self.name)
                     state.current_slot = slot
-                    state.count = 0
+                    state.gold = 0
+                    state.autoMinerLevel = 1
                     state.save()
                     self.on_select("welcome_screen")
 
     def draw(self, surface):
         self.text.reset_layout()
-        self.text.draw(surface, "New Game:", GREEN, new_line=False)
+        self.text.draw(surface, "New Game", GREEN, new_line=False)
         self.text.draw(surface, "(ESC) Return to Home Page", WHITE)
         self.text.draw(surface, "Enter Your Name: ", WHITE)
         
@@ -71,6 +72,6 @@ class New_Game(Screen):
             self.text.draw(surface, "Choose a slot to save:", WHITE)
             for idx, entry in enumerate(slots, start=1):
                 name = entry["name"] or "<Empty>"
-                count = entry["count"]
-                self.text.draw(surface, f"({idx}) Slot {idx}: {name} | Count: {count}", BLACK, bg=WHITE)
+                gold = entry["gold"]
+                self.text.draw(surface, f"({idx}) Slot {idx}: {name} | Gold: {gold}", BLACK, bg=WHITE)
         

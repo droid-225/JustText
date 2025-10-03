@@ -34,5 +34,5 @@ class Load_Game(Screen):
         slots = list_slots()
         for idx, entry in enumerate(slots, start=1):
             name = entry["name"] or "<Empty>"
-            count = entry["count"]
-            self.text.draw(surface, f"({idx}) Slot {idx}: {name} | Count: {count}", WHITE)
+            gold = entry["gold"]
+            self.text.draw(surface, f"({idx}) Slot {idx}: {name} | Gold: {gold}", WHITE)
