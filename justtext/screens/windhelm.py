@@ -4,6 +4,7 @@ from ..constants import WHITE, GREEN, BLUE, BLACK
 from ..assets import load_font
 from ..util.text import TextRenderer
 from ..state import get_state
+from ..util.footer import Footer
 
 class Windhelm(Screen): # main menu inherits from Screen
     def __init__(self, on_select):
@@ -42,10 +43,4 @@ class Windhelm(Screen): # main menu inherits from Screen
         for option in self.options:
             self.text.draw(surface, option, WHITE)
 
-        # Inventory Screen
-        inv = self.font.render("(I) Inventory", True, WHITE, BLACK)
-        surface.blit(inv, (10, surface.get_height() - inv.get_height() - 6))
-
-        # Stats Screen
-        stats = self.font.render("(U) Stats", True, WHITE, BLACK)
-        surface.blit(stats, (surface.get_width() - stats.get_width() - 10, surface.get_height() - stats.get_height() - 6))
+        Footer(surface).draw()

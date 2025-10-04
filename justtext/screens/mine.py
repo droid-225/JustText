@@ -4,6 +4,7 @@ from ..constants import GREEN, WHITE, BLACK
 from ..assets import load_font
 from ..util.text import TextRenderer
 from ..state import get_state
+from ..util.footer import Footer
 
 class Mine(Screen):
 
@@ -24,6 +25,7 @@ class Mine(Screen):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_1:
                 self.state.gold += 1
+                self.state.mining_xp += 1
             elif event.key == pygame.K_ESCAPE:
                 self.state.prevScreen = "mine"
                 self.state.save()
@@ -39,6 +41,4 @@ class Mine(Screen):
         for option in self.options:
             self.text.draw(surface, option, WHITE)
 
-        # Inventory Screen
-        inv = self.font.render("(I) Inventory", True, WHITE, BLACK)
-        surface.blit(inv, (10, surface.get_height() - inv.get_height() - 6))
+        Footer(surface).draw()
