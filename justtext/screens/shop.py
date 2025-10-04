@@ -1,7 +1,7 @@
 from ast import While
 import pygame
 from .base import Screen
-from ..constants import WHITE, GREEN
+from ..constants import WHITE, GREEN, BLACK
 from ..assets import load_font
 from ..ui.text import TextRenderer
 from ..state import get_state
@@ -41,3 +41,7 @@ class Shop(Screen): # main menu inherits from Screen
 
         for option in self.options:
             self.text.draw(surface, option, WHITE)
+
+        # Inventory Screen
+        inv = self.font.render("(I) Inventory", True, WHITE, BLACK)
+        surface.blit(inv, (10, surface.get_height() - inv.get_height() - 6))

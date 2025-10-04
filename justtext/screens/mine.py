@@ -51,3 +51,7 @@ class Mine(Screen):
 
         for option in self.options:
             self.text.draw(surface, option, WHITE)
+
+        # Inventory Screen
+        inv = self.font.render("(I) Inventory", True, WHITE, BLACK)
+        surface.blit(inv, (10, surface.get_height() - inv.get_height() - 6))

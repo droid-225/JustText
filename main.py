@@ -2,6 +2,7 @@ import pygame
 from justtext.constants import WIDTH, HEIGHT, BLACK, WIN_CAPTION
 from justtext.screen_manager import ScreenManager
 from justtext.screens.main_menu import Main_Menu
+from justtext.screens.windhelm import Windhelm
 from justtext.routes import create_routes
 
 class Game:
@@ -18,7 +19,7 @@ class Game:
 
         self.routes = create_routes(set_screen, stop)
         on_select = self.routes["__on_select__"]
-        self.manager.set(Main_Menu(on_select))
+        self.manager.set(Windhelm(on_select))
 
     def run(self):
         while self.running:
