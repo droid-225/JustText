@@ -3,7 +3,7 @@ import pygame
 from .base import Screen
 from ..constants import WHITE, GREEN, BLACK
 from ..assets import load_font
-from ..ui.text import TextRenderer
+from ..util.text import TextRenderer
 from ..state import get_state
 
 class Shop(Screen): # main menu inherits from Screen

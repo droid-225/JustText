@@ -2,7 +2,7 @@ import pygame
 from .base import Screen
 from ..constants import GREEN, WHITE, BLACK
 from ..assets import load_font
-from ..ui.text import TextRenderer
+from ..util.text import TextRenderer
 from ..state import get_state
 
 class Mine(Screen):

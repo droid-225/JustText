@@ -2,7 +2,7 @@ import pygame
 from .base import Screen
 from ..constants import WHITE, GREEN
 from ..assets import load_font
-from ..ui.text import TextRenderer
+from ..util.text import TextRenderer
 from ..state import list_slots, load_active_slot
 
 class Load_Game(Screen):

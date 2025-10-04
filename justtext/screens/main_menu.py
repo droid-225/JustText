@@ -2,7 +2,7 @@ import pygame
 from .base import Screen
 from ..constants import WHITE, GREEN
 from ..assets import load_font
-from ..ui.text import TextRenderer
+from ..util.text import TextRenderer
 
 class Main_Menu(Screen): # main menu inherits from Screen
     def __init__(self, on_select):

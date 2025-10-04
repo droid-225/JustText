@@ -9,6 +9,7 @@ from .screens.load_game import Load_Game
 from .screens.main_settings import Main_Settings
 from .screens.welcome import Welcome
 from .screens.inventory import Inventory
+from .screens.stats import Stats
 
 RouteAction = Callable[[], None]
 
@@ -32,6 +33,7 @@ def create_routes(set_screen: Callable[[Any], None], stop: Callable[[], None]) -
         "windhelm": go(Windhelm),
         "shop": go(Shop),
         "inventory": go(Inventory),
+        "stats": go(Stats),
         "quit": stop
     }
 

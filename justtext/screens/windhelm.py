@@ -2,7 +2,7 @@ import pygame
 from .base import Screen
 from ..constants import WHITE, GREEN, BLUE, BLACK
 from ..assets import load_font
-from ..ui.text import TextRenderer
+from ..util.text import TextRenderer
 from ..state import get_state
 
 class Windhelm(Screen): # main menu inherits from Screen
@@ -30,6 +30,10 @@ class Windhelm(Screen): # main menu inherits from Screen
                 self.state.prevScreen = "windhelm"
                 self.state.save()
                 self.on_select("inventory")
+            elif event.key == pygame.K_u or event.key == pygame.key.key_code("U"):
+                self.state.prevScreen = "windhelm"
+                self.state.save()
+                self.on_select("stats")
 
     def draw(self, surface):
         self.text.reset_layout()
@@ -41,3 +45,7 @@ class Windhelm(Screen): # main menu inherits from Screen
         # Inventory Screen
         inv = self.font.render("(I) Inventory", True, WHITE, BLACK)
         surface.blit(inv, (10, surface.get_height() - inv.get_height() - 6))
+
+        # Stats Screen
+        stats = self.font.render("(U) Stats", True, WHITE, BLACK)
+        surface.blit(stats, (surface.get_width() - stats.get_width() - 10, surface.get_height() - stats.get_height() - 6))
