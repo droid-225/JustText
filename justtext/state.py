@@ -8,7 +8,6 @@ SAVE_PATH.mkdir(exist_ok=True) # makes a saves folder if it does not already exi
 class GameState:
     name: str = ""
     gold: int = 0
-    autoMinerLevel: int = 1
     prevScreen: str = ""
     currentScreen: str = ""
     current_slot: int | None = None
@@ -25,7 +24,6 @@ class GameState:
             data = json.loads(p.read_text())
             return cls(name=data.get("name", ""), 
                        gold=int(data.get("gold", 0)), 
-                       autoMinerLevel=int(data.get("autoMinerLevel", 0)),
                        prevScreen=data.get("prevScreen", ""),
                        currentScreen=data.get("currentScreen", ""),
                        current_slot=slot)
@@ -39,7 +37,6 @@ class GameState:
         p = self._slot_filename(self.current_slot)
         p.write_text(json.dumps({"name": self.name, 
                                  "gold": self.gold, 
-                                 "autoMinerLevel": self.autoMinerLevel,
                                  "prevScreen": self.prevScreen,
                                  "currentScreen": self.currentScreen}))
 

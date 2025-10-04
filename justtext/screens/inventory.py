@@ -22,11 +22,9 @@ class Inventory(Screen):
 
     def draw(self, surface):
         gold = self.state.gold
-        autoMinerLevel = self.state.autoMinerLevel
         prevScreen = self.prevScreen
 
         self.text.reset_layout()
         self.text.draw(surface, "Inventory", GREEN, new_line=False)
         self.text.draw(surface, f"Your Gold: {gold}", WHITE)
-        self.text.draw(surface, f"Auto Miner Level: {autoMinerLevel}", WHITE)
         self.text.draw(surface, f"(ESC) Return to {prevScreen.capitalize()}", WHITE)

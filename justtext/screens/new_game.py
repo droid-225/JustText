@@ -51,7 +51,6 @@ class New_Game(Screen):
                     state.name = "".join(self.name)
                     state.current_slot = slot
                     state.gold = 0
-                    state.autoMinerLevel = 1
                     state.save()
                     self.on_select("welcome_screen")
 

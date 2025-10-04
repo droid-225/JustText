@@ -14,31 +14,18 @@ class Mine(Screen):
         self.state = get_state()
         self.slot = self.state.current_slot
         self.state.currentScreen = "mine"
-        self.auto_on = False
-        self._accum = 0.0            
         self.options = ["(1) Mine Gold", 
-                        "(2) Start Auto-Miner", 
-                        "(3) Stop Auto-Miner", 
                         "(ESC) Go Back to Windhelm"]
              
     def update(self, dt: float) -> None:
-        if self.auto_on:
-            self._accum += dt
-            if self._accum >= 0.25:
-                self.state.gold += self.state.autoMinerLevel
-                self._accum = 0.0
+        pass
 
     def handle_event(self, event: pygame.event.Event) -> None:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_1:
                 self.state.gold += 1
-            elif event.key == pygame.K_2:
-                self.auto_on = True
-            elif event.key == pygame.K_3:
-                self.auto_on = False
             elif event.key == pygame.K_ESCAPE:
                 self.state.prevScreen = "mine"
-                self.auto_on = False
                 self.state.save()
                 self.on_select("windhelm")
 
