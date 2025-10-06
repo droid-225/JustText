@@ -10,6 +10,7 @@ class GameState:
     gold: int = 0
     mining_xp: int = 0
     total_xp: int = 0
+    pickLevel: int = 1
     prevScreen: str = ""
     currentScreen: str = ""
     current_slot: int | None = None
@@ -28,6 +29,7 @@ class GameState:
                        gold=int(data.get("gold", 0)), 
                        mining_xp=int(data.get("mining_xp", 0)),
                        total_xp=int(data.get("total_xp", 0)),
+                        pickLevel=int(data.get("pickLevel", 1)),
                        prevScreen=data.get("prevScreen", ""),
                        currentScreen=data.get("currentScreen", ""),
                        current_slot=slot)
@@ -43,6 +45,7 @@ class GameState:
                                  "gold": self.gold,
                                  "mining_xp": self.mining_xp, 
                                  "total_xp": self.total_xp,
+                                 "pickLevel": self.pickLevel,
                                  "prevScreen": self.prevScreen,
                                  "currentScreen": self.currentScreen}))
 
