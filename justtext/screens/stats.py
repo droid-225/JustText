@@ -22,6 +22,8 @@ class Stats(Screen): # Stats screen
                 self.on_select(self.prevScreen)
 
     def draw(self, surface):
+        self.state.total_xp = self.state.mining_xp
+
         level = LevelCalculator().calculate_level(self.state.total_xp)
         mining_level = LevelCalculator().calculate_level(self.state.mining_xp)
         prevScreen = self.prevScreen

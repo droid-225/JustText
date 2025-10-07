@@ -24,8 +24,8 @@ class Mine(Screen):
     def handle_event(self, event: pygame.event.Event) -> None:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_1:
-                self.state.gold += 1
-                self.state.mining_xp += 1
+                self.state.gold += self.state.pickLevel
+                self.state.mining_xp += self.state.pickLevel
             elif event.key == pygame.K_ESCAPE:
                 self.state.prevScreen = "mine"
                 self.state.save()
