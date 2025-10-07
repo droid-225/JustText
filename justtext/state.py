@@ -58,7 +58,7 @@ def get_state() -> GameState:
 
 def load_active_slot(slot: int) -> GameState:
     global ACTIVE_STATE
-    ACTIVE_STATE = GameState.load_slot(slot)
+    ACTIVE_STATE = GameState.load_slot(slot) # change this back to just "slot"
     return ACTIVE_STATE
 
 def list_slots():

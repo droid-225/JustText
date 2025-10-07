@@ -6,6 +6,7 @@ from ..assets import load_font
 from ..util.text import TextRenderer
 from ..state import get_state
 from ..util.footer import Footer
+from ..util.leveling import LevelCalculator
 
 class Shop(Screen): # main menu inherits from Screen
     def __init__(self, on_select):
@@ -15,12 +16,21 @@ class Shop(Screen): # main menu inherits from Screen
         self.state = get_state()
         self.slot = self.state.current_slot
         self.state.currentScreen = "shop"
-        self.options = ["(1) Sell Gold",
+        self.pickPrice = 50 + int((self.state.pickLevel - 1) * 10)
+        self.options = [f"(1) ({self.pickPrice}) Upgrade Pickaxe [Requires Mining Level {self.state.pickLevel + 1}]",
                         "(ESC) Go Back to Windhelm"]
 
     def handle_event(self, event):
+        miningLevelCalc = LevelCalculator()
+        miningLevel = miningLevelCalc.calculate_level(self.state.mining_xp)
+
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_1: self.state.gold -= 1
+            if event.key == pygame.K_1 and self.state.gold >= self.pickPrice and miningLevel >= (self.state.pickLevel + 1):
+                self.state.gold -= self.pickPrice
+                self.state.pickLevel += 1
+                self.pickPrice = 50 + int((self.state.pickLevel - 1) * 10)
+                self.options = [f"(1) ({self.pickPrice}) Upgrade Pickaxe [Requires Mining Level {self.state.pickLevel + 1}]",
+                        "(ESC) Go Back to Windhelm"]
             elif event.key == pygame.K_ESCAPE: self.on_select("windhelm")
 
     def draw(self, surface):

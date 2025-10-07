@@ -1,5 +1,5 @@
 # Window Constants
-WIDTH, HEIGHT = 500, 500
+WIDTH, HEIGHT = 700, 500
 WIN_CAPTION = "Just Text" # window caption
 
 # Color Constants
