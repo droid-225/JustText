@@ -32,6 +32,14 @@ class Shop(Screen): # main menu inherits from Screen
                 self.options = [f"(1) ({self.pickPrice}) Upgrade Pickaxe [Requires Mining Level {self.state.pickLevel + 1}]",
                         "(ESC) Go Back to Windhelm"]
             elif event.key == pygame.K_ESCAPE: self.on_select("windhelm")
+            elif event.key == pygame.K_i or event.key == pygame.key.key_code("I"):
+                self.state.prevScreen = self.state.currentScreen
+                self.state.save()
+                self.on_select("inventory")
+            elif event.key == pygame.K_u or event.key == pygame.key.key_code("U"):
+                self.state.prevScreen = self.state.currentScreen
+                self.state.save()
+                self.on_select("stats")
 
     def draw(self, surface):
         gold = self.state.gold

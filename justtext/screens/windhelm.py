@@ -28,11 +28,11 @@ class Windhelm(Screen): # main menu inherits from Screen
                 self.state.save() 
                 self.on_select("main_menu")
             elif event.key == pygame.K_i or event.key == pygame.key.key_code("I"):
-                self.state.prevScreen = "windhelm"
+                self.state.prevScreen = self.state.currentScreen
                 self.state.save()
                 self.on_select("inventory")
             elif event.key == pygame.K_u or event.key == pygame.key.key_code("U"):
-                self.state.prevScreen = "windhelm"
+                self.state.prevScreen = self.state.currentScreen
                 self.state.save()
                 self.on_select("stats")
 
