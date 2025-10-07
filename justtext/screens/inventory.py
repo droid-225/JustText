@@ -27,4 +27,5 @@ class Inventory(Screen):
         self.text.reset_layout()
         self.text.draw(surface, "Inventory", GREEN, new_line=False)
         self.text.draw(surface, f"Your Gold: {gold}", WHITE)
+        self.text.draw(surface, f"Pickaxe Level: {self.state.pickLevel}", WHITE)
         self.text.draw(surface, f"(ESC) Return to {prevScreen.capitalize()}", WHITE)
