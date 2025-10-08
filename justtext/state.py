@@ -14,9 +14,11 @@ class GameState:
     prevScreen: str = ""
     currentScreen: str = ""
     current_slot: int | None = None
-    inventory: dict[str, int] = field(default_factory=dict)
+    inventory: dict[str, int] = {
+        "stone": 0
+    }
     equipment: dict[str, dict] = {
-        "pickaxe": {"id": "pickaxe", "level": 1}
+        "pickaxe": {"id": "pickaxe", "level": 1, "max_durabilty": 200, "curr_durability": 200}
     }
 
     @staticmethod
