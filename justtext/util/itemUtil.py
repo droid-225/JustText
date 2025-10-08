@@ -52,12 +52,6 @@ def equip_get_level(slot: str, default: int = 1) -> int:
 def equip_set_level(slot: str, level: int) -> None:
     state = get_state()
     item = state.equipment.get(slot)
-    if not item:
-        return
-    
-    #max_level = ITEMS.get(item["id"]).max_level if item["id"] in ITEMS else None
-    #if max_level is not None:
-    #    level = min(level, max_level)
     
     item["level"] = max(level, 1)
 
@@ -65,3 +59,29 @@ def equip_levelup(slot: str, delta: int = 1) -> None:
     current = equip_get_level(slot)
     new_level = current + delta
     equip_set_level(slot, new_level)
+
+def equip_max_durability(slot: str) -> int:
+    return get_state().equipment.get(slot)["max_durability"]
+
+def equip_current_durability(slot: str) -> int:
+    return get_state().equipment.get(slot)["curr_durability"]
+
+def equip_set_max_durability(slot: str, new_durability: int) -> None:
+    get_state().equipment.get(slot)["max_durability"] = new_durability
+
+def equip_set_curr_durability(slot: str, new_durability: int) -> None:
+    if equip_current_durability > 0:
+        get_state().equipment.get(slot)["curr_durability"] = new_durability
+
+def equip_durability_down(slot: str, delta: int = 1) -> None:
+    if equip_current_durability > 0:
+        get_state().equipment.get(slot)["curr_durability"] -= delta
+
+def equip_repair(slot: str, delta: int):
+    current_durability = get_state().equipment.get(slot)["curr_durability"]
+    new_durability = current_durability + delta
+
+    equip_set_curr_durability(str, new_durability)
+
+def equip_full_repair(slot: str):
+    equip_set_curr_durability(str, equip_max_durability)
