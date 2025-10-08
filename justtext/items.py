@@ -1,0 +1,17 @@
+from dataclasses import dataclass
+from typing import Literal
+
+@dataclass(frozen=True)
+class ItemDef:
+    id: str
+    name: str
+    stackable: bool
+    value: int = 0
+    type: Literal["material", "tool", "consumable", "armor"]
+    rarity: Literal["common", "mystic", "rare", "ultra rare", "legendary", "mythical", "godly"]
+    # TODO: add build quality qualifers for tools and armor
+
+ITEMS: dict[str, ItemDef] = {
+    "stone": ItemDef(id="stone", name="Stone", stackable=True, value=1, type="material", rarity="common"),
+    "pickaxe": ItemDef(id="pickaxe", name="Pickaxe", stackable=False, value=0, type="tool", rarity="common")
+}
