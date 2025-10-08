@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Literal
+from typing import Literal, Optional
 
 @dataclass(frozen=True)
 class ItemDef:
@@ -10,8 +10,9 @@ class ItemDef:
     type: Literal["material", "tool", "consumable", "armor"]
     rarity: Literal["common", "mystic", "rare", "ultra rare", "legendary", "mythical", "godly"]
     # TODO: add build quality qualifers for tools and armor
+    max_durability: Optional[int] = None
 
 ITEMS: dict[str, ItemDef] = {
     "stone": ItemDef(id="stone", name="Stone", stackable=True, value=1, type="material", rarity="common"),
-    "pickaxe": ItemDef(id="pickaxe", name="Pickaxe", stackable=False, value=0, type="tool", rarity="common")
+    "pickaxe": ItemDef(id="pickaxe", name="Pickaxe", stackable=False, value=0, type="tool", rarity="common", max_durability=200)
 }
