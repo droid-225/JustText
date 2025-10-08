@@ -1,5 +1,6 @@
+from ast import Lambda
 import json, pathlib
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 SAVE_PATH = pathlib.Path(__file__).resolve().parent.parent / "saves"
 SAVE_PATH.mkdir(exist_ok=True) # makes a saves folder if it does not already exist
@@ -10,10 +11,13 @@ class GameState:
     gold: int = 0
     mining_xp: int = 0
     total_xp: int = 0
-    pickLevel: int = 1
     prevScreen: str = ""
     currentScreen: str = ""
     current_slot: int | None = None
+    inventory: dict[str, int] = field(default_factory=dict)
+    equipment: dict[str, dict] = {
+        "pickaxe": {"id": "pickaxe", "level": 1}
+    }
 
     @staticmethod
     def _slot_filename(slot: int) -> pathlib.Path:
@@ -29,10 +33,11 @@ class GameState:
                        gold=int(data.get("gold", 0)), 
                        mining_xp=int(data.get("mining_xp", 0)),
                        total_xp=int(data.get("total_xp", 0)),
-                        pickLevel=int(data.get("pickLevel", 1)),
                        prevScreen=data.get("prevScreen", ""),
                        currentScreen=data.get("currentScreen", ""),
-                       current_slot=slot)
+                       current_slot=slot,
+                       inventory=data.get("inventory", {}),
+                       equipment=data.get("equipment", {}))
         return cls(current_slot=slot)
 
     def save(self):
@@ -45,10 +50,10 @@ class GameState:
                                  "gold": self.gold,
                                  "mining_xp": self.mining_xp, 
                                  "total_xp": self.total_xp,
-                                 "pickLevel": self.pickLevel,
                                  "prevScreen": self.prevScreen,
-                                 "currentScreen": self.currentScreen}))
-
+                                 "currentScreen": self.currentScreen,
+                                 "inventory": self.inventory,
+                                 "equipment": self.equipment}))
 
 # Active, in-memory game state used across screens
 ACTIVE_STATE = GameState()
