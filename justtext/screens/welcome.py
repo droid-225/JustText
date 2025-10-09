@@ -4,6 +4,7 @@ from ..constants import GREEN, WHITE
 from ..assets import load_font
 from ..util.text import TextRenderer
 from ..state import get_state
+import time
 
 class Welcome(Screen):
 
@@ -14,7 +15,8 @@ class Welcome(Screen):
         self.state = get_state()
         self.slot = self.state.current_slot
         self.auto_on = False
-        self._accum = 0.0            
+        self._accum = 0.0       
+        self.start_time = pygame.time.get_ticks()  
              
     def update(self, dt: float) -> None:
         if self.auto_on:
@@ -47,4 +49,7 @@ class Welcome(Screen):
         for line in lines: 
             self.text.draw(surface, line, WHITE)
 
-        self.text.draw(surface, "(ENTER) Go to Windhelm", WHITE)
+        elapsed = pygame.time.get_ticks() - self.start_time  # elapsed time in ms
+
+        if elapsed >= 5000:  # after 5 seconds
+            self.text.draw(surface, "(ENTER) Go to Windhelm", WHITE)
