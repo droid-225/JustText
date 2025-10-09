@@ -28,7 +28,7 @@ class Welcome(Screen):
     def handle_event(self, event: pygame.event.Event) -> None:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RETURN:
-                self.state.newGame = 0
+                self.state.newGame = False
                 self.on_select("windhelm")
 
     def draw(self, surface):

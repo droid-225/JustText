@@ -38,6 +38,6 @@ class Inventory(Screen):
 
         self.text.draw(surface, f"Equipment:", GREEN)
         for key in equipment:
-            self.text.draw(surface, f"{get_name(key)} Lv. {equip_get_level(key)} {get_rarity(key)}", WHITE, l_offset=10)
+            self.text.draw(surface, f"[{equip_current_durability(key)}/{equip_max_durability(key)}] {get_name(key)} Lv. {equip_get_level(key)} {get_rarity(key)}", WHITE, l_offset=10)
 
         self.text.draw(surface, f"(ESC) Return to {prevScreen.capitalize()}", WHITE)

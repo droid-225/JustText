@@ -7,7 +7,7 @@ SAVE_PATH.mkdir(exist_ok=True) # makes a saves folder if it does not already exi
 
 @dataclass
 class GameState:
-    newGame: bool = 1
+    newGame: bool = True
     name: str = ""
     gold: int = 0
     mining_xp: int = 0

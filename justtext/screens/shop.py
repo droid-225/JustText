@@ -7,6 +7,7 @@ from ..util.text import TextRenderer
 from ..state import get_state
 from ..util.footer import Footer
 from ..util.leveling import LevelCalculator
+from ..util.itemUtil import *
 
 class Shop(Screen): # main menu inherits from Screen
     def __init__(self, on_select):
@@ -16,8 +17,10 @@ class Shop(Screen): # main menu inherits from Screen
         self.state = get_state()
         self.slot = self.state.current_slot
         self.state.currentScreen = "shop"
-        self.pickPrice = 50 + int((self.state.pickLevel - 1) * 10)
-        self.options = [f"(1) ({self.pickPrice}) Upgrade Pickaxe [Requires Mining Level {self.state.pickLevel + 1}]",
+        self.pickPrice = 50 + int((equip_get_level("pickaxe") - 1) * 10)
+        self.stoneValue = get_base_value("stone")
+        self.options = [f"(1) ({self.pickPrice}g) Upgrade Pickaxe [Requires Mining Level {equip_get_level("pickaxe") + 1}]",
+                        f"(2) ({get_base_value("stone")}g) Sell Stone [{inv_count("stone")}]",
                         "(ESC) Go Back to Windhelm"]
 
     def handle_event(self, event):
@@ -25,12 +28,20 @@ class Shop(Screen): # main menu inherits from Screen
         miningLevel = miningLevelCalc.calculate_level(self.state.mining_xp)
 
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_1 and self.state.gold >= self.pickPrice and miningLevel >= (self.state.pickLevel + 1):
+            if event.key == pygame.K_1 and self.state.gold >= self.pickPrice and miningLevel >= (equip_get_level("pickaxe") + 1):
                 self.state.gold -= self.pickPrice
-                self.state.pickLevel += 1
-                self.pickPrice = 50 + int((self.state.pickLevel - 1) * 10)
-                self.options = [f"(1) ({self.pickPrice}) Upgrade Pickaxe [Requires Mining Level {self.state.pickLevel + 1}]",
-                        "(ESC) Go Back to Windhelm"]
+            
+                equip_levelup("pickaxe")
+                self.pickPrice = 50 + int((equip_get_level("pickaxe") - 1) * 10)
+                self.options = [f"(1) ({self.pickPrice}g) Upgrade Pickaxe [Requires Mining Level {equip_get_level("pickaxe") + 1}]",
+                                f"(2) ({self.stoneValue}g) Sell Stone [{inv_count("stone")}]",
+                                "(ESC) Go Back to Windhelm"]
+            elif event.key == pygame.K_2 and inv_count("stone") > 0:
+                inv_remove("stone", 1)
+                self.state.gold += self.stoneValue
+                self.options = [f"(1) ({self.pickPrice}g) Upgrade Pickaxe [Requires Mining Level {equip_get_level("pickaxe") + 1}]",
+                                f"(2) ({self.stoneValue}g) Sell Stone [{inv_count("stone")}]",
+                                "(ESC) Go Back to Windhelm"]
             elif event.key == pygame.K_ESCAPE: self.on_select("windhelm")
             elif event.key == pygame.K_i or event.key == pygame.key.key_code("I"):
                 self.state.prevScreen = self.state.currentScreen

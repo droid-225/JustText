@@ -70,11 +70,10 @@ def equip_set_max_durability(slot: str, new_durability: int) -> None:
     get_state().equipment.get(slot)["max_durability"] = new_durability
 
 def equip_set_curr_durability(slot: str, new_durability: int) -> None:
-    if equip_current_durability > 0:
-        get_state().equipment.get(slot)["curr_durability"] = new_durability
+    get_state().equipment.get(slot)["curr_durability"] = new_durability
 
 def equip_durability_down(slot: str, delta: int = 1) -> None:
-    if equip_current_durability > 0:
+    if equip_current_durability(slot) > 0:
         get_state().equipment.get(slot)["curr_durability"] -= delta
 
 def equip_repair(slot: str, delta: int):

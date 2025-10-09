@@ -27,6 +27,7 @@ class Mine(Screen):
             if event.key == pygame.K_1:
                 inv_add("stone", equip_get_level("pickaxe"))
                 self.state.mining_xp += equip_get_level("pickaxe")
+                equip_durability_down("pickaxe")
             elif event.key == pygame.K_ESCAPE:
                 self.state.prevScreen = "mine"
                 self.state.save()

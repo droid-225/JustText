@@ -1,1 +1,1 @@
-{"newGame": 0, "name": "", "gold": 0, "mining_xp": 0, "total_xp": 0, "prevScreen": "", "currentScreen": "windhelm", "inventory": {"stone": 0}, "equipment": {"pickaxe": {"id": "pickaxe", "level": 1, "max_durabilty": 200, "curr_durability": 200}}}
+{"newGame": false, "name": "", "gold": 162, "mining_xp": 332, "total_xp": 328, "prevScreen": "mine", "currentScreen": "windhelm", "inventory": {"stone": 39}, "equipment": {"pickaxe": {"id": "pickaxe", "level": 2, "max_durability": 200, "curr_durability": 154}}}
