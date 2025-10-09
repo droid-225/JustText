@@ -14,12 +14,12 @@ class GameState:
     prevScreen: str = ""
     currentScreen: str = ""
     current_slot: int | None = None
-    inventory: dict[str, int] = {
+    inventory: dict[str, int] = field(default_factory=lambda: {
         "stone": 0
-    }
-    equipment: dict[str, dict] = {
+    })
+    equipment: dict[str, dict] = field(default_factory=lambda: {
         "pickaxe": {"id": "pickaxe", "level": 1, "max_durabilty": 200, "curr_durability": 200}
-    }
+    })
 
     @staticmethod
     def _slot_filename(slot: int) -> pathlib.Path:

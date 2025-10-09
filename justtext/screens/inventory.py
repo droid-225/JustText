@@ -4,6 +4,7 @@ from ..constants import WHITE, GREEN
 from ..assets import load_font
 from ..util.text import TextRenderer
 from ..state import get_state
+from ..util.itemUtil import *
 
 class Inventory(Screen):
     def __init__(self, on_select):
@@ -23,9 +24,21 @@ class Inventory(Screen):
     def draw(self, surface):
         gold = self.state.gold
         prevScreen = self.prevScreen
-
+        state = self.state
+        inventory = state.inventory
+        equipment = state.equipment
+    
         self.text.reset_layout()
         self.text.draw(surface, "Inventory", GREEN, new_line=False)
         self.text.draw(surface, f"Your Gold: {gold}", WHITE)
-        self.text.draw(surface, f"Pickaxe Level: {self.state.pickLevel}", WHITE)
+        
+        self.text.draw(surface, f"Inventory:", GREEN)
+        for key in inventory:
+            count = state.inventory.get(key, 0)
+            self.text.draw(surface, f"{get_name(key)}: {count}", WHITE, l_offset=10)
+
+        self.text.draw(surface, f"Equipment:", GREEN)
+        for key in equipment:
+            self.text.draw(surface, f"{get_name(key)} Lv. {equip_get_level(key)} {get_rarity(key)}", WHITE, l_offset=10)
+
         self.text.draw(surface, f"(ESC) Return to {prevScreen.capitalize()}", WHITE)

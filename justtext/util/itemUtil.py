@@ -5,7 +5,7 @@ def item_def(item_id: str):
     return ITEMS[item_id]
 
 # Common Getters
-def get_id(item_id: str) -> str:
+def get_name(item_id: str) -> str:
     return ITEMS.get(item_id).name
 
 def is_stackable(item_id: str) -> bool:

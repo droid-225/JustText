@@ -7,8 +7,8 @@ class ItemDef:
     name: str
     stackable: bool
     value: int = 0
-    type: Literal["material", "tool", "consumable", "armor"]
-    rarity: Literal["common", "mystic", "rare", "ultra rare", "legendary", "mythical", "godly"]
+    type: Literal["material", "tool", "consumable", "armor"] = "material"
+    rarity: Literal["common", "mystic", "rare", "ultra rare", "legendary", "mythical", "godly"] = "common"
     # TODO: add build quality qualifers for tools and armor
 
 ITEMS: dict[str, ItemDef] = {
