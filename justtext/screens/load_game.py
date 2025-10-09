@@ -3,13 +3,14 @@ from .base import Screen
 from ..constants import WHITE, GREEN
 from ..assets import load_font
 from ..util.text import TextRenderer
-from ..state import list_slots, load_active_slot
+from ..state import list_slots, load_active_slot, get_state
 
 class Load_Game(Screen):
     def __init__(self, on_select):
         self.font = load_font()
         self.on_select = on_select
         self.text = TextRenderer(self.font)
+        self.state = get_state()
 
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
@@ -17,13 +18,22 @@ class Load_Game(Screen):
                 self.on_select("main_menu")
             elif event.key == pygame.K_1:
                 load_active_slot(1)
-                self.on_select("welcome_screen")
+                if self.state.newGame:
+                    self.on_select("welcome_screen")
+                else:
+                    self.on_select(self.state.currentScreen)
             elif event.key == pygame.K_2:
                 load_active_slot(2)
-                self.on_select("welcome_screen")
+                if self.state.newGame:
+                    self.on_select("welcome_screen")
+                else:
+                    self.on_select(self.state.currentScreen)
             elif event.key == pygame.K_3:
                 load_active_slot(3)
-                self.on_select("welcome_screen")
+                if self.state.newGame:
+                    self.on_select("welcome_screen")
+                else:
+                    self.on_select(self.state.currentScreen)
 
     def draw(self, surface):
         self.text.reset_layout()

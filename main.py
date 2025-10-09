@@ -5,6 +5,7 @@ from justtext.screens.main_menu import Main_Menu
 from justtext.screens.windhelm import Windhelm
 from justtext.screens.load_game import Load_Game
 from justtext.routes import create_routes
+from justtext.state import get_state
 
 class Game:
     def __init__(self):
@@ -28,6 +29,7 @@ class Game:
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
+                    get_state().save()
                     self.running = False
                 else:
                     self.manager.handle_event(event)

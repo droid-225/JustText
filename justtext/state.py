@@ -7,6 +7,7 @@ SAVE_PATH.mkdir(exist_ok=True) # makes a saves folder if it does not already exi
 
 @dataclass
 class GameState:
+    newGame: bool = 1
     name: str = ""
     gold: int = 0
     mining_xp: int = 0
@@ -31,7 +32,8 @@ class GameState:
 
         if p.exists():
             data = json.loads(p.read_text())
-            return cls(name=data.get("name", ""), 
+            return cls(newGame=data.get("newGame", 1),
+                       name=data.get("name", ""), 
                        gold=int(data.get("gold", 0)), 
                        mining_xp=int(data.get("mining_xp", 0)),
                        total_xp=int(data.get("total_xp", 0)),
@@ -48,7 +50,8 @@ class GameState:
             self.current_slot = 1
         
         p = self._slot_filename(self.current_slot)
-        p.write_text(json.dumps({"name": self.name, 
+        p.write_text(json.dumps({"newGame": self.newGame,
+                                 "name": self.name, 
                                  "gold": self.gold,
                                  "mining_xp": self.mining_xp, 
                                  "total_xp": self.total_xp,
