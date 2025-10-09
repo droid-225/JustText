@@ -34,8 +34,7 @@ class Inventory(Screen):
         
         self.text.draw(surface, f"Inventory:", GREEN)
         for key in inventory:
-            count = state.inventory.get(key, 0)
-            self.text.draw(surface, f"{get_name(key)}: {count}", WHITE, l_offset=10)
+            self.text.draw(surface, f"{get_name(key)}: {inv_count(key)}", WHITE, l_offset=10)
 
         self.text.draw(surface, f"Equipment:", GREEN)
         for key in equipment:

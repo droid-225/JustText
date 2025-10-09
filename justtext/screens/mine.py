@@ -5,6 +5,7 @@ from ..assets import load_font
 from ..util.text import TextRenderer
 from ..state import get_state
 from ..util.footer import Footer
+from ..util.itemUtil import *
 
 class Mine(Screen):
 
@@ -15,7 +16,7 @@ class Mine(Screen):
         self.state = get_state()
         self.slot = self.state.current_slot
         self.state.currentScreen = "mine"
-        self.options = ["(1) Mine Gold", 
+        self.options = ["(1) Mine Stone", 
                         "(ESC) Go Back to Windhelm"]
              
     def update(self, dt: float) -> None:
@@ -24,8 +25,8 @@ class Mine(Screen):
     def handle_event(self, event: pygame.event.Event) -> None:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_1:
-                self.state.gold += self.state.pickLevel
-                self.state.mining_xp += self.state.pickLevel
+                inv_add("stone", equip_get_level("pickaxe"))
+                self.state.mining_xp += equip_get_level("pickaxe")
             elif event.key == pygame.K_ESCAPE:
                 self.state.prevScreen = "mine"
                 self.state.save()
@@ -40,11 +41,11 @@ class Mine(Screen):
                 self.on_select("stats")
 
     def draw(self, surface):
-        gold = self.state.gold
+        stone = inv_count("stone")
 
         self.text.reset_layout()
         self.text.draw(surface, f"Mine", GREEN, new_line=False)
-        self.text.draw(surface, f"Gold: {gold}", WHITE)
+        self.text.draw(surface, f"Stone: {stone}", WHITE)
 
         for option in self.options:
             self.text.draw(surface, option, WHITE)
