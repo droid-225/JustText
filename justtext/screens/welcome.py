@@ -4,7 +4,6 @@ from ..constants import GREEN, WHITE
 from ..assets import load_font
 from ..util.text import TextRenderer
 from ..state import get_state
-import time
 
 class Welcome(Screen):
 
@@ -28,7 +27,7 @@ class Welcome(Screen):
     def handle_event(self, event: pygame.event.Event) -> None:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RETURN:
-                self.state.newGame = False
+                self.state.newGame = 0
                 self.on_select("windhelm")
 
     def draw(self, surface):

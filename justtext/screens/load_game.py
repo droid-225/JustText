@@ -18,19 +18,22 @@ class Load_Game(Screen):
                 self.on_select("main_menu")
             elif event.key == pygame.K_1:
                 load_active_slot(1)
-                if self.state.newGame == True:
+                self.state = get_state()
+                if self.state.newGame == 1:
                     self.on_select("welcome_screen")
                 else:
                     self.on_select(self.state.currentScreen)
             elif event.key == pygame.K_2:
                 load_active_slot(2)
-                if self.state.newGame == True:
+                self.state = get_state()
+                if self.state.newGame == 1:
                     self.on_select("welcome_screen")
                 else:
                     self.on_select(self.state.currentScreen)
             elif event.key == pygame.K_3:
                 load_active_slot(3)
-                if self.state.newGame == True:
+                self.state = get_state()
+                if self.state.newGame == 1:
                     self.on_select("welcome_screen")
                 else:
                     self.on_select(self.state.currentScreen)

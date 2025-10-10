@@ -23,7 +23,7 @@ class Shop(Screen): # main menu inherits from Screen
                         "(ESC) Go Back to Windhelm"]
 
     def handle_event(self, event):
-        miningLevelCalc = LevelCalculator()
+        miningLevelCalc = LevelCalculator(base_xp=10)
         miningLevel = miningLevelCalc.calculate_level(self.state.mining_xp)
 
         if event.type == pygame.KEYDOWN:
