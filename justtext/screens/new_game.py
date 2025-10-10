@@ -71,6 +71,6 @@ class New_Game(Screen):
             self.text.draw(surface, "Choose a slot to save:", WHITE)
             for idx, entry in enumerate(slots, start=1):
                 name = entry["name"] or "<Empty>"
-            curScreen = entry["currentScreen"]
-            self.text.draw(surface, f"({idx}) Slot {idx}: {name} | {curScreen.capitalize()}", WHITE)
+                curScreen = entry["currentScreen"]
+                self.text.draw(surface, f"({idx}) Slot {idx}: {name} | {curScreen.capitalize()}", WHITE)
         

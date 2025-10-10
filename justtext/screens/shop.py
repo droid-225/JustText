@@ -1,4 +1,3 @@
-from ast import While
 import pygame
 from .base import Screen
 from ..constants import WHITE, GREEN, BLACK
