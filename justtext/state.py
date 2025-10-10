@@ -40,8 +40,12 @@ class GameState:
                        prevScreen=data.get("prevScreen", ""),
                        currentScreen=data.get("currentScreen", ""),
                        current_slot=slot,
-                       inventory=data.get("inventory", {}),
-                       equipment=data.get("equipment", {}))
+                       inventory=data.get("inventory", {
+                           "stone": 0
+                       }),
+                       equipment=data.get("equipment", {
+                           "pickaxe": {"id": "pickaxe", "level": 1, "max_durability": 200, "curr_durability": 200}
+                       }))
         return cls(current_slot=slot)
 
     def save(self):
