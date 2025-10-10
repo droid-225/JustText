@@ -19,7 +19,7 @@ class GameState:
         "stone": 0
     })
     equipment: dict[str, dict] = field(default_factory=lambda: {
-        "pickaxe": {"id": "pickaxe", "level": 1, "max_durabilty": 200, "curr_durability": 200}
+        "pickaxe": {"id": "pickaxe", "level": 1, "max_durability": 200, "curr_durability": 200}
     })
 
     @staticmethod
