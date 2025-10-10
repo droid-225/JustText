@@ -23,13 +23,15 @@ class Stats(Screen): # Stats screen
 
     def draw(self, surface):
         self.state.total_xp = self.state.mining_xp
+        totalLevelCalc = LevelCalculator()
+        minigLevelCalc = LevelCalculator(base_xp=10)
 
-        level = LevelCalculator().calculate_level(self.state.total_xp)
-        mining_level = LevelCalculator().calculate_level(self.state.mining_xp)
+        level = totalLevelCalc.calculate_level(self.state.total_xp)
+        mining_level = minigLevelCalc.calculate_level(self.state.mining_xp)
         prevScreen = self.prevScreen
 
-        xp_for_next_level = LevelCalculator().get_xp_for_next_level(self.state.total_xp)
-        mining_xp_for_next_level = LevelCalculator().get_xp_for_next_level(self.state.mining_xp)
+        xp_for_next_level = totalLevelCalc.get_xp_for_next_level(self.state.total_xp)
+        mining_xp_for_next_level = minigLevelCalc.get_xp_for_next_level(self.state.mining_xp)
         
         self.text.reset_layout()
         self.text.draw(surface, "Statistics", GREEN, new_line=False)
