@@ -45,8 +45,10 @@ class Mine(Screen):
         stone = inv_count("stone")
 
         self.text.reset_layout()
-        self.text.draw(surface, f"Mine", GREEN, new_line=False)
-        self.text.draw(surface, f"Stone: {stone}", WHITE)
+        self.text.draw(surface, f"/\~~~~~~~~~~ Mine ~~~~~~~~~~/\\", GREEN, new_line=False, alignment="middle")
+        self.text.addOffset("y", 6)
+        self.text.draw(surface, f"Stone: {stone}", l_offset=10)
+        self.text.addOffset("y", 6)
 
         for option in self.options:
             self.text.draw(surface, option, WHITE)

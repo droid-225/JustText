@@ -41,6 +41,7 @@ class Load_Game(Screen):
     def draw(self, surface):
         self.text.reset_layout()
         self.text.draw(surface, "<~~~~~~~~~~ Load Game ~~~~~~~~~~>", GREEN, new_line=False, alignment="middle")
+        self.text.addOffset("y", 6)
 
         slots = list_slots()
         for idx, entry in enumerate(slots, start=1):

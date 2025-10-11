@@ -56,7 +56,9 @@ class Shop(Screen): # main menu inherits from Screen
 
         self.text.reset_layout()
         self.text.draw(surface, "Welcome to the Shop!", GREEN, new_line=False)
-        self.text.draw(surface, f"Your Gold: {gold}", WHITE)
+        self.text.addOffset("y", 6)
+        self.text.draw(surface, f"Your Gold: {gold}", l_offset=10)
+        self.text.addOffset("y", 6)
 
         for option in self.options:
             self.text.draw(surface, option, WHITE)
