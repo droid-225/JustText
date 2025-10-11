@@ -29,15 +29,20 @@ class Inventory(Screen):
         equipment = state.equipment
     
         self.text.reset_layout()
-        self.text.draw(surface, "Inventory", GREEN, new_line=False)
+        self.text.draw(surface, "<~~~~~~~~~~ Inventory ~~~~~~~~~~>", GREEN, new_line=False, alignment="middle")
+        self.text.addOffset("y", 6)
+
         self.text.draw(surface, f"Your Gold: {gold}", WHITE)
-        
-        self.text.draw(surface, f"Inventory:", GREEN)
+        self.text.addOffset("y", 6)
+
+        self.text.draw(surface, f"Items:", GREEN)
         for key in inventory:
-            self.text.draw(surface, f"{get_name(key)}: {inv_count(key)}", WHITE, l_offset=10)
+            self.text.draw(surface, f"{get_name(key)}: {inv_count(key)}", WHITE, l_offset=15)
+        self.text.addOffset("y", 6)
 
         self.text.draw(surface, f"Equipment:", GREEN)
         for key in equipment:
-            self.text.draw(surface, f"[{equip_current_durability(key)}/{equip_max_durability(key)}] {get_name(key)} Lv. {equip_get_level(key)} {get_rarity(key)}", WHITE, l_offset=10)
+            self.text.draw(surface, f"[{equip_current_durability(key)}/{equip_max_durability(key)}] {get_name(key)} Lv. {equip_get_level(key)} {get_rarity(key)}", WHITE, l_offset=15)
+        self.text.addOffset("y", 10)
 
         self.text.draw(surface, f"(ESC) Return to {prevScreen.capitalize()}", WHITE)

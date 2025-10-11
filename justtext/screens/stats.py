@@ -34,12 +34,14 @@ class Stats(Screen): # Stats screen
         mining_xp_for_next_level = minigLevelCalc.get_xp_for_next_level(self.state.mining_xp)
         
         self.text.reset_layout()
-        self.text.draw(surface, "Statistics", GREEN, new_line=False)
+        self.text.draw(surface, "<~~~~~~~~~~ Statistics ~~~~~~~~~~>", GREEN, new_line=False, alignment="middle")
+        self.text.addOffset("y", 6)
 
         self.text.draw(surface, f"Level: {level}", WHITE)
         self.text.draw(surface, f"XP Needed to Level Up: {xp_for_next_level}", GREEN, l_offset=30)
         
         self.text.draw(surface, f"Mining Level: {mining_level}", WHITE)
         self.text.draw(surface, f"XP Needed to Level Up: {mining_xp_for_next_level}", GREEN, l_offset=30)
+        self.text.addOffset("y", 10)
 
         self.text.draw(surface, f"(ESC) Return to {prevScreen.capitalize()}", WHITE)
