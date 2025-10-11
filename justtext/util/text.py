@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from ..constants import *
 
 @dataclass
 class TextLayout:
@@ -28,7 +29,7 @@ class TextRenderer:
     def reset_layout(self, left_margin: int | None = None) -> None:
         self.layout = TextLayout(left_margin=left_margin or 0)
 
-    def draw(self, surface, text, color, bg=0, *, new_line=True, x_offset=0, y_offset=0, l_offset=0, first_line=False):
+    def draw(self, surface, text, color=WHITE, bg=0, new_line=True, x_offset=0, y_offset=0, l_offset=0, first_line=False, alignment="none"):
         img = self.font.render(f"{text}", True, color, bg)
         self.layout.start_if_needed(self.font.get_height())
 
@@ -38,7 +39,12 @@ class TextRenderer:
         else:
             self.layout.x_pos += self.layout.prev_width + x_offset
 
-        draw_x = self.layout.x_pos + l_offset
-        draw_y = self.layout.y_pos + y_offset
+        if alignment=="none":
+            draw_x = self.layout.x_pos + l_offset
+            draw_y = self.layout.y_pos + y_offset
+        elif alignment=="middle":
+            draw_x = (surface.get_width() / 2) - (img.get_width() / 2)
+            draw_y = self.layout.y_pos + y_offset
+   
         surface.blit(img, (draw_x, draw_y))
         self.layout.prev_width = img.get_width()
