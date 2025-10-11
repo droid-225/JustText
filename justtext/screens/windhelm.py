@@ -38,9 +38,10 @@ class Windhelm(Screen): # main menu inherits from Screen
 
     def draw(self, surface):
         self.text.reset_layout()
-        self.text.draw(surface, "<~~~ Windhelm ~~~>", GREEN, new_line=False)
+        self.text.draw(surface, "<~~~~~~~~~~ Windhelm ~~~~~~~~~~>", GREEN, new_line=False, alignment="middle")
+        self.text.addOffset("y", 6)
 
         for option in self.options:
-            self.text.draw(surface, option, WHITE)
+            self.text.draw(surface, option)
 
         Footer(surface).draw()

@@ -48,3 +48,9 @@ class TextRenderer:
    
         surface.blit(img, (draw_x, draw_y))
         self.layout.prev_width = img.get_width()
+
+    def addOffset(self, plane: str, offset_amount: int):
+        if plane == "x":
+            self.layout.x_pos += offset_amount
+        elif plane == "y":
+            self.layout.y_pos += offset_amount
