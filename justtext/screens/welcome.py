@@ -34,21 +34,21 @@ class Welcome(Screen):
         name = self.state.name
 
         self.text.reset_layout()
-        self.text.draw(surface, f"WELCOME {name}, TO JUST TEXT!", GREEN, new_line=False)
-        
+        self.text.draw(surface, f"WELCOME {name}, TO JUST TEXT!", GREEN, alignment="middle", new_line=False)
+        self.text.draw(surface, "")
+
         lines = ["You are an adventurer looking for fame and",
                  "fortune. Your destination now is Windhelm,",
                  "a bustling and vibrant town where you",
                  "begin your journey. Along your adventure", 
-                 "you will face many foes and beasts, but ",
-                 "don't lose hope.",
+                 "you will face many foes and beasts.",
                  "Stay determined and conquer the world of", 
                  "JUST TEXT!"]
 
         for line in lines: 
-            self.text.draw(surface, line, WHITE)
+            self.text.draw(surface, line, alignment="middle")
 
         elapsed = pygame.time.get_ticks() - self.start_time  # elapsed time in ms
 
         if elapsed >= 5000:  # after 5 seconds
-            self.text.draw(surface, "(ENTER) Go to Windhelm", WHITE)
+            self.text.draw(surface, "(ENTER) Go to Windhelm", alignment="middle", y_offset=20)
