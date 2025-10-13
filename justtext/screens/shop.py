@@ -31,6 +31,7 @@ class Shop(Screen): # main menu inherits from Screen
                 self.state.gold -= self.pickPrice
             
                 equip_levelup("pickaxe")
+                equip_full_repair("pickaxe")
                 self.pickPrice = 50 + int((equip_get_level("pickaxe") - 1) * 10)
                 self.options = [f"(1) ({self.pickPrice}g) Upgrade Pickaxe [Requires Mining Level {equip_get_level("pickaxe") + 1}]",
                                 f"(2) ({self.stoneValue}g) Sell Stone [{inv_count("stone")}]",

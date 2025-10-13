@@ -80,7 +80,7 @@ def equip_repair(slot: str, delta: int):
     current_durability = get_state().equipment.get(slot)["curr_durability"]
     new_durability = current_durability + delta
 
-    equip_set_curr_durability(str, new_durability)
+    equip_set_curr_durability(slot, new_durability)
 
 def equip_full_repair(slot: str):
-    equip_set_curr_durability(str, equip_max_durability)
+    equip_set_curr_durability(slot, equip_max_durability(slot))
