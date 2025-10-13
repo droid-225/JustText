@@ -1,1 +1,1 @@
-{"newGame": 0, "name": "RISHI", "gold": 0, "mining_xp": 0, "total_xp": 0, "prevScreen": "windhelm", "currentScreen": "windhelm", "inventory": {"stone": 0}, "equipment": {"pickaxe": {"id": "pickaxe", "level": 1, "max_durability": 200, "curr_durability": 200}}}
+{"newGame": 0, "name": "RISHI", "gold": 1, "mining_xp": 202, "total_xp": 202, "prevScreen": "blacksmith", "currentScreen": "windhelm", "inventory": {"stone": 61}, "equipment": {"pickaxe": {"id": "pickaxe", "level": 3, "max_durability": 200, "curr_durability": 200}}}

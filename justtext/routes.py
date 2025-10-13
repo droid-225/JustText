@@ -10,6 +10,7 @@ from .screens.main_settings import Main_Settings
 from .screens.welcome import Welcome
 from .screens.inventory import Inventory
 from .screens.stats import Stats
+from .screens.blacksmith import Blacksmith
 
 RouteAction = Callable[[], None]
 
@@ -34,6 +35,7 @@ def create_routes(set_screen: Callable[[Any], None], stop: Callable[[], None]) -
         "shop": go(Shop),
         "inventory": go(Inventory),
         "stats": go(Stats),
+        "blacksmith": go(Blacksmith),
         "quit": stop
     }
 

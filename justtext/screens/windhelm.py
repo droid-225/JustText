@@ -15,7 +15,8 @@ class Windhelm(Screen): # main menu inherits from Screen
         self.slot = self.state.current_slot
         self.state.currentScreen = "windhelm"
         self.options = ["(1) Go to the Shop", 
-                        "(2) Go to the Mine", 
+                        "(2) Go to the Mine",
+                        "(3) Go to the Blacksmith",
                         "(S) Save", 
                         "(ESC) Save and Exit to Main Menu"]
 
@@ -23,7 +24,9 @@ class Windhelm(Screen): # main menu inherits from Screen
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_1: self.on_select("shop")
             elif event.key == pygame.K_2: self.on_select("mine")
-            elif event.key == pygame.K_3: self.state.save()
+            elif event.key == pygame.K_3: self.on_select("blacksmith")
+            elif event.key == pygame.K_s or event.key == pygame.key.key_code("S"): 
+                self.state.save()
             elif event.key == pygame.K_ESCAPE:
                 self.state.save() 
                 self.on_select("main_menu")

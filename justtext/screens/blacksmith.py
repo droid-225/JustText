@@ -29,12 +29,10 @@ class Blacksmith(Screen): # main menu inherits from Screen
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_1 and self.state.gold >= self.repairPrice:
                 self.state.gold -= self.repairPrice
-            
                 equip_full_repair("pickaxe")
                 self.curr_pick_dura = equip_current_durability("pickaxe")
-                self.max_pick_dura = equip_max_durability("pickaxe")
                 self.repairPrice = self.max_pick_dura - self.curr_pick_dura 
-                self.options = [f"(1) ({self.pickPrice}g) Repair Pickaxe",
+                self.options = [f"(1) ({self.repairPrice}g) Repair Pickaxe",
                                 "(ESC) Go Back to Windhelm"]
             elif event.key == pygame.K_ESCAPE: self.on_select("windhelm")
             elif event.key == pygame.K_i or event.key == pygame.key.key_code("I"):
