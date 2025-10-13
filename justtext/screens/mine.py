@@ -24,7 +24,7 @@ class Mine(Screen):
 
     def handle_event(self, event: pygame.event.Event) -> None:
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_1:
+            if event.key == pygame.K_1 and equip_current_durability("pickaxe") > 0:
                 inv_add("stone", equip_get_level("pickaxe"))
                 self.state.mining_xp += equip_get_level("pickaxe")
                 equip_durability_down("pickaxe")
