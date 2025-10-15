@@ -1,5 +1,6 @@
 from typing import Callable, Dict, Any
 
+from justtext.screens.inn import Inn
 from justtext.screens.mine import Mine
 from justtext.screens.shop import Shop
 from justtext.screens.windhelm import Windhelm
@@ -36,6 +37,7 @@ def create_routes(set_screen: Callable[[Any], None], stop: Callable[[], None]) -
         "inventory": go(Inventory),
         "stats": go(Stats),
         "blacksmith": go(Blacksmith),
+        "inn": go(Inn),
         "quit": stop
     }
 
