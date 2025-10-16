@@ -16,7 +16,9 @@ class Inn(Screen): # main menu inherits from Screen
         self.state = get_state()
         self.slot = self.state.current_slot
         self.state.currentScreen = "inn"
-        self.options = [f"(1) (10g) Stay the Night",
+        self.options = ["(1) (10g) Book Room",
+                        "(2) (50g) Book Cozy Room",
+                        "(3) (100g) Book Luxury Room",
                         "(ESC) Go Back to Windhelm"]
 
     def handle_event(self, event):
@@ -26,6 +28,13 @@ class Inn(Screen): # main menu inherits from Screen
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_1 and self.state.gold >= 10:
                 self.state.gold -= 10
+                self.state.stamina += 20
+            if event.key == pygame.K_2 and self.state.gold >= 50:
+                self.state.gold -= 50
+                self.state.stamina += 100
+            if event.key == pygame.K_3 and self.state.gold >= 100:
+                self.state.gold -= 100
+                self.state.stamina += 200
             elif event.key == pygame.K_ESCAPE: self.on_select("windhelm")
             elif event.key == pygame.K_i or event.key == pygame.key.key_code("I"):
                 self.state.prevScreen = self.state.currentScreen
