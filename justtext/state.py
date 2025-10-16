@@ -10,7 +10,7 @@ class GameState:
     newGame: int = 1
     name: str = ""
     gold: int = 0
-    stamina: int = 100
+    stamina: int = 101
     mining_xp: int = 0
     total_xp: int = 0
     prevScreen: str = ""
