@@ -12,7 +12,7 @@ from .screens.welcome import Welcome
 from .screens.inventory import Inventory
 from .screens.stats import Stats
 from .screens.blacksmith import Blacksmith
-from state import get_state
+from .state import get_state
 
 RouteAction = Callable[[], None]
 
