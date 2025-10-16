@@ -12,6 +12,7 @@ from .screens.welcome import Welcome
 from .screens.inventory import Inventory
 from .screens.stats import Stats
 from .screens.blacksmith import Blacksmith
+from state import get_state
 
 RouteAction = Callable[[], None]
 
@@ -20,6 +21,7 @@ def create_routes(set_screen: Callable[[Any], None], stop: Callable[[], None]) -
         return lambda: set_screen(screen_cls(on_select))
     
     def on_select(choice: str):
+        get_state().stamina -= 1
         action = routes.get(choice)
         
         if action:
