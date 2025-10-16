@@ -40,7 +40,7 @@ class Inn(Screen): # main menu inherits from Screen
         gold = self.state.gold
 
         self.text.reset_layout()
-        self.text.draw(surface, "|-----------| Inn |-----------|", GREEN, new_line=False, alignment="middle")
+        self.text.draw(surface, "Welcome to the Inn!", GREEN, new_line=False, alignment="middle")
         self.text.addOffset("y", 6)
         self.text.draw(surface, f"Your Gold: {gold}", l_offset=10)
         self.text.addOffset("y", 6)
