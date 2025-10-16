@@ -21,7 +21,8 @@ def create_routes(set_screen: Callable[[Any], None], stop: Callable[[], None]) -
         return lambda: set_screen(screen_cls(on_select))
     
     def on_select(choice: str):
-        get_state().stamina -= 1
+        if get_state().currentScreen != "load_game":
+            get_state().stamina -= 1
         action = routes.get(choice)
         
         if action:

@@ -11,6 +11,7 @@ class Load_Game(Screen):
         self.on_select = on_select
         self.text = TextRenderer(self.font)
         self.state = get_state()
+        self.state.currentScreen = "load_game"
 
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
