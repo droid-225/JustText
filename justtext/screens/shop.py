@@ -20,6 +20,7 @@ class Shop(Screen): # main menu inherits from Screen
         self.stoneValue = get_base_value("stone")
         self.options = [f"(1) ({self.pickPrice}g) Upgrade Pickaxe [Requires Mining Level {equip_get_level("pickaxe") + 1}]",
                         f"(2) ({get_base_value("stone")}g) Sell Stone [{inv_count("stone")}]",
+                        "(3) (10g) Buy Bread",
                         "(ESC) Go Back to Windhelm"]
 
     def handle_event(self, event):
@@ -35,13 +36,18 @@ class Shop(Screen): # main menu inherits from Screen
                 self.pickPrice = 50 + int((equip_get_level("pickaxe") - 1) * 10)
                 self.options = [f"(1) ({self.pickPrice}g) Upgrade Pickaxe [Requires Mining Level {equip_get_level("pickaxe") + 1}]",
                                 f"(2) ({self.stoneValue}g) Sell Stone [{inv_count("stone")}]",
+                                "(3) (10g) Buy Bread",
                                 "(ESC) Go Back to Windhelm"]
             elif event.key == pygame.K_2 and inv_count("stone") > 0:
                 inv_remove("stone", 1)
                 self.state.gold += self.stoneValue
                 self.options = [f"(1) ({self.pickPrice}g) Upgrade Pickaxe [Requires Mining Level {equip_get_level("pickaxe") + 1}]",
                                 f"(2) ({self.stoneValue}g) Sell Stone [{inv_count("stone")}]",
+                                "(3) (10g) Buy Bread",
                                 "(ESC) Go Back to Windhelm"]
+            elif event.key == pygame.K_3 and self.state.gold >= 10:
+                self.state.gold -= 10
+                inv_add("bread", 1)
             elif event.key == pygame.K_ESCAPE: self.on_select("windhelm")
             elif event.key == pygame.K_i or event.key == pygame.key.key_code("I"):
                 self.state.prevScreen = self.state.currentScreen

@@ -17,7 +17,8 @@ class GameState:
     currentScreen: str = ""
     current_slot: int | None = None
     inventory: dict[str, int] = field(default_factory=lambda: {
-        "stone": 0
+        "stone": 0,
+        "bread": 0
     })
     equipment: dict[str, dict] = field(default_factory=lambda: {
         "pickaxe": {"id": "pickaxe", "level": 1, "max_durability": 200, "curr_durability": 200}
@@ -43,7 +44,8 @@ class GameState:
                        currentScreen=data.get("currentScreen", ""),
                        current_slot=slot,
                        inventory=data.get("inventory", {
-                           "stone": 0
+                           "stone": 0,
+                           "bread": 0
                        }),
                        equipment=data.get("equipment", {
                            "pickaxe": {"id": "pickaxe", "level": 1, "max_durability": 200, "curr_durability": 200}
