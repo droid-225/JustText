@@ -1,1 +1,1 @@
-{"newGame": 0, "name": "RISHIT", "gold": 0, "stamina": 131, "mining_xp": 66, "total_xp": 66, "prevScreen": "mine", "currentScreen": "windhelm", "inventory": {"stone": 0, "bread": 13}, "equipment": {"pickaxe": {"id": "pickaxe", "level": 1, "max_durability": 200, "curr_durability": 134}}}
+{"newGame": 1, "name": "", "gold": 0, "stamina": 101, "mining_xp": 0, "total_xp": 0, "prevScreen": "", "currentScreen": "load_game", "inventory": {"stone": 0, "bread": 0}, "equipment": {"pickaxe": {"id": "pickaxe", "level": 1, "max_durability": 200, "curr_durability": 200}}}

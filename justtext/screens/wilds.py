@@ -37,7 +37,7 @@ class Wilds(Screen): # main menu inherits from Screen
 
     def draw(self, surface):
         self.text.reset_layout()
-        self.text.draw(surface, "\/\/\/\/\/\/\/ Wastrel Wilds \/\/\/\/\/\/\/", color=RED, bg=GREEN, new_line=False, alignment="middle")
+        self.text.draw(surface, "\\/\\/\\/\\/\\/\\/\\/ Wastrel Wilds \\/\\/\\/\\/\\/\\/\\/", color=RED, bg=GREEN, new_line=False, alignment="middle")
         self.text.addOffset("y", 6)
 
         for option in self.options:
