@@ -13,16 +13,7 @@ class Welcome(Screen):
         self.text = TextRenderer(self.font)
         self.state = get_state()
         self.slot = self.state.current_slot
-        self.auto_on = False
-        self._accum = 0.0       
         self.start_time = pygame.time.get_ticks()  
-             
-    def update(self, dt: float) -> None:
-        if self.auto_on:
-            self._accum += dt
-            if self._accum >= 0.25:
-                self.state.count += 1
-                self._accum = 0.0
 
     def handle_event(self, event: pygame.event.Event) -> None:
         if event.type == pygame.KEYDOWN:
