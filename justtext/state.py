@@ -37,7 +37,7 @@ class GameState:
             return cls(newGame=int(data.get("newGame", 1)),
                        name=data.get("name", ""), 
                        gold=int(data.get("gold", 0)), 
-                       stamina=int(data.get("energy", 100)),
+                       stamina=int(data.get("stamina", 100)),
                        mining_xp=int(data.get("mining_xp", 0)),
                        total_xp=int(data.get("total_xp", 0)),
                        prevScreen=data.get("prevScreen", ""),
@@ -50,7 +50,11 @@ class GameState:
                        equipment=data.get("equipment", {
                            "pickaxe": {"id": "pickaxe", "level": 1, "max_durability": 200, "curr_durability": 200}
                        }))
-        return cls(current_slot=slot)
+
+        try:
+            data = json.loads(p.read_text())
+        except json.JSONDecodeError:
+            return cls(current_slot=slot)
 
     def save(self):
         if not self.current_slot:
