@@ -57,9 +57,9 @@ class GameState:
             return cls(current_slot=slot)
 
     def save(self):
-        if not self.current_slot:
-            # Default to slot 1 if no slot has been chosen yet
-            self.current_slot = 1
+        # Prevent accidental overwrite when no valid slot is selected or user is on load screen
+        if self.current_slot is None or self.currentScreen == "load_game":
+            return  # Skip save entirely
         
         p = self._slot_filename(self.current_slot)
         p.write_text(json.dumps({"newGame": self.newGame,
