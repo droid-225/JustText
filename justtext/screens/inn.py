@@ -16,6 +16,7 @@ class Inn(Screen): # main menu inherits from Screen
         self.state = get_state()
         self.slot = self.state.current_slot
         self.state.currentScreen = "inn"
+        self.state.save()
         self.options = ["(1) (10g) Book Room",
                         "(2) (50g) Book Cozy Room",
                         "(3) (100g) Book Luxury Room",
