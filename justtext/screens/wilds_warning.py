@@ -14,6 +14,7 @@ class WildsWarning(Screen):
         self.state = get_state()
         self.slot = self.state.current_slot
         self.state.currentScreen = "wilds_warning"
+        self.state.save()
 
     def handle_event(self, event: pygame.event.Event) -> None:
         if event.type == pygame.KEYDOWN:

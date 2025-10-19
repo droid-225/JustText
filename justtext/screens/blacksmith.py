@@ -16,6 +16,7 @@ class Blacksmith(Screen): # main menu inherits from Screen
         self.state = get_state()
         self.slot = self.state.current_slot
         self.state.currentScreen = "blacksmith"
+        self.state.save()
         self.curr_pick_dura = equip_current_durability("pickaxe")
         self.max_pick_dura = equip_max_durability("pickaxe")
         self.repairPrice = self.max_pick_dura - self.curr_pick_dura 

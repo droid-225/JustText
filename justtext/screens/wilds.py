@@ -14,6 +14,7 @@ class Wilds(Screen): # main menu inherits from Screen
         self.state = get_state()
         self.slot = self.state.current_slot
         self.state.currentScreen = "wilds"
+        self.state.save()
         self.distTraveled = 0
         self.options = ["(1) Keep Traveling", 
                         "(ESC) Go to Windhelm"]

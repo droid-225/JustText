@@ -16,6 +16,7 @@ class Shop(Screen): # main menu inherits from Screen
         self.state = get_state()
         self.slot = self.state.current_slot
         self.state.currentScreen = "shop"
+        self.state.save()
         self.pickPrice = 50 + int((equip_get_level("pickaxe") - 1) * 10)
         self.stoneValue = get_base_value("stone")
         self.options = [f"(1) ({self.pickPrice}g) Upgrade Pickaxe [Requires Mining Level {equip_get_level("pickaxe") + 1}]",

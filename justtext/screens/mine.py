@@ -16,6 +16,7 @@ class Mine(Screen):
         self.state = get_state()
         self.slot = self.state.current_slot
         self.state.currentScreen = "mine"
+        self.state.save()
         self.options = ["(1) Mine Stone", 
                         "(ESC) Go Back to Windhelm"]
              

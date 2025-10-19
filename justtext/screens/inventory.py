@@ -14,6 +14,7 @@ class Inventory(Screen):
         self.state = get_state()
         self.slot = self.state.current_slot
         self.state.currentScreen = "inventory"
+        self.state.save()
         self.prevScreen = self.state.prevScreen
 
     def handle_event(self, event: pygame.event.Event) -> None:
