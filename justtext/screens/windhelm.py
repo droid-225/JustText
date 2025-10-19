@@ -14,23 +14,20 @@ class Windhelm(Screen): # main menu inherits from Screen
         self.state = get_state()
         self.slot = self.state.current_slot
         self.state.currentScreen = "windhelm"
-        self.options = ["(1) Go to the Shop", 
-                        "(2) Go to the Mine",
-                        "(3) Go to the Blacksmith",
-                        "(4) Go to the Inn",
+        self.options = ["(1) Go to the Inn",
+                        "(2) Go to the Shop", 
+                        "(3) Go to the Mine",
+                        "(4) Go to the Blacksmith",
                         "(5) Travel the Wastrel Wilds",
-                        "(S) Save", 
                         "(ESC) Save and Exit to Main Menu"]
 
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_1: self.on_select("shop")
-            elif event.key == pygame.K_2: self.on_select("mine")
-            elif event.key == pygame.K_3: self.on_select("blacksmith")
-            elif event.key == pygame.K_4: self.on_select("inn")
+            if event.key == pygame.K_1: self.on_select("inn")
+            elif event.key == pygame.K_2: self.on_select("shop")
+            elif event.key == pygame.K_3: self.on_select("mine")
+            elif event.key == pygame.K_4: self.on_select("blacksmith")
             elif event.key == pygame.K_5: self.on_select("wilds_warning")
-            elif event.key == pygame.K_s or event.key == pygame.key.key_code("S"): 
-                self.state.save()
             elif event.key == pygame.K_ESCAPE:
                 self.state.save() 
                 self.on_select("main_menu")
