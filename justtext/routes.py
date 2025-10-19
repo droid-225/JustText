@@ -13,6 +13,7 @@ from .screens.inventory import Inventory
 from .screens.stats import Stats
 from .screens.blacksmith import Blacksmith
 from .screens.wilds import Wilds
+from .screens.wilds_warning import WildsWarning
 from .state import get_state
 
 RouteAction = Callable[[], None]
@@ -43,6 +44,7 @@ def create_routes(set_screen: Callable[[Any], None], stop: Callable[[], None]) -
         "blacksmith": go(Blacksmith),
         "inn": go(Inn),
         "wilds": go(Wilds),
+        "wilds_warning": go(WildsWarning),
         "quit": stop
     }
 
