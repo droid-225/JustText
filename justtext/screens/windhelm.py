@@ -28,7 +28,7 @@ class Windhelm(Screen): # main menu inherits from Screen
             elif event.key == pygame.K_2: self.on_select("mine")
             elif event.key == pygame.K_3: self.on_select("blacksmith")
             elif event.key == pygame.K_4: self.on_select("inn")
-            elif event.key == pygame.K_5: self.on_select("wilds")
+            elif event.key == pygame.K_5: self.on_select("wilds_warning")
             elif event.key == pygame.K_s or event.key == pygame.key.key_code("S"): 
                 self.state.save()
             elif event.key == pygame.K_ESCAPE:
