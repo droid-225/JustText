@@ -23,7 +23,11 @@ def create_routes(set_screen: Callable[[Any], None], stop: Callable[[], None]) -
         return lambda: set_screen(screen_cls(on_select))
     
     def on_select(choice: str):
-        if get_state().currentScreen != "load_game":
+        if (get_state().currentScreen != "load_game" 
+            or get_state().currentScreen != "inventory" 
+            or get_state().currentScreen != "stats"
+            or get_state().prevScreen != "inventory"
+            or get_state().prevScreen != "stats"):
             get_state().stamina -= 1
         action = routes.get(choice)
         
