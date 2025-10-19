@@ -21,7 +21,7 @@ class Wilds(Screen): # main menu inherits from Screen
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_1:
-                distTraveled += 1
+                self.distTraveled += 1
                 self.state.stamina -= 1
             elif event.key == pygame.K_ESCAPE:
                 self.state.save() 
@@ -38,6 +38,9 @@ class Wilds(Screen): # main menu inherits from Screen
     def draw(self, surface):
         self.text.reset_layout()
         self.text.draw(surface, "\\/\\/\\/\\/\\/\\/\\/ Wastrel Wilds \\/\\/\\/\\/\\/\\/\\/", color=RED, bg=GREEN, new_line=False, alignment="middle")
+        self.text.addOffset("y", 6)
+
+        self.text.draw(surface, f"Distance Traveled: {self.distTraveled}", l_offset=10)
         self.text.addOffset("y", 6)
 
         for option in self.options:
