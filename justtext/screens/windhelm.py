@@ -14,6 +14,7 @@ class Windhelm(Screen): # main menu inherits from Screen
         self.state = get_state()
         self.slot = self.state.current_slot
         self.state.currentScreen = "windhelm"
+        self.state.save()
         self.options = ["(1) Go to the Inn",
                         "(2) Go to the Shop", 
                         "(3) Go to the Mine",
