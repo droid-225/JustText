@@ -41,10 +41,10 @@ class Wilds(Screen): # main menu inherits from Screen
         self.text.draw(surface, "\\/\\/\\/\\/\\/\\/\\/ Wastrel Wilds \\/\\/\\/\\/\\/\\/\\/", color=RED, bg=GREEN, new_line=False, alignment="middle")
         self.text.addOffset("y", 6)
 
-        self.text.draw(surface, f"Distance Traveled: {self.distTraveled}", l_offset=10)
+        self.text.draw(surface, f"Distance Traveled: {self.distTraveled}", l_offset=10, alignment="middle")
         self.text.addOffset("y", 6)
 
         for option in self.options:
-            self.text.draw(surface, option)
+            self.text.draw(surface, option, y_offset=165)
 
         Footer(surface).draw()
