@@ -11,9 +11,6 @@ class Load_Game(Screen):
         self.on_select = on_select
         self.text = TextRenderer(self.font)
         self.state = get_state()
-        self.slot = self.state.current_slot
-        self.state.currentScreen = "load_game"
-        self.state.save()
 
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
@@ -26,6 +23,7 @@ class Load_Game(Screen):
                     self.on_select("welcome_screen")
                 else:
                     self.on_select(self.state.currentScreen)
+                    self.state.stamina += 1
             elif event.key == pygame.K_2:
                 load_active_slot(2)
                 self.state = get_state()
@@ -33,6 +31,7 @@ class Load_Game(Screen):
                     self.on_select("welcome_screen")
                 else:
                     self.on_select(self.state.currentScreen)
+                    self.state.stamina += 1
             elif event.key == pygame.K_3:
                 load_active_slot(3)
                 self.state = get_state()
@@ -40,6 +39,7 @@ class Load_Game(Screen):
                     self.on_select("welcome_screen")
                 else:
                     self.on_select(self.state.currentScreen)
+                    self.state.stamina += 1
 
     def draw(self, surface):
         self.text.reset_layout()
