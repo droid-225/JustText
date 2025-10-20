@@ -29,7 +29,8 @@ class Game:
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    get_state().save()
+                    if (get_state().currentScreen != "inventory" and get_state().currentScreen != "stats"):
+                        get_state().save()
                     self.running = False
                 else:
                     self.manager.handle_event(event)
