@@ -38,7 +38,7 @@ class Inventory(Screen):
 
         self.text.draw(surface, f"Items:", GREEN)
         for key in inventory:
-            self.text.draw(surface, f"{get_name(key)}: {inv_count(key)}", WHITE, l_offset=15)
+            self.text.draw(surface, f"{get_name(key)}: {inv_count(key)} [{get_type(key).capitalize()}]", WHITE, l_offset=15)
         self.text.addOffset("y", 6)
 
         self.text.draw(surface, f"Equipment:", GREEN)
