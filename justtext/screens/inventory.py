@@ -21,6 +21,7 @@ class Inventory(Screen):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 self.on_select(self.prevScreen)
+                self.state.stamina += 1
 
     def draw(self, surface):
         gold = self.state.gold
