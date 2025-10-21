@@ -45,4 +45,4 @@ class Stats(Screen): # Stats screen
         self.text.draw(surface, f"XP Needed to Level Up: {mining_xp_for_next_level}", GREEN, l_offset=30)
         self.text.addOffset("y", 10)
 
-        self.text.draw(surface, f"(ESC) Return to {prevScreen.capitalize()}", WHITE)
+        self.text.draw(surface, f"(ESC) Return to {prevScreen.capitalize()}", WHITE, alignment="bottom")

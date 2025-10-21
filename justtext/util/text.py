@@ -45,6 +45,9 @@ class TextRenderer:
         elif alignment=="middle":
             draw_x = (surface.get_width() / 2) - (img.get_width() / 2)
             draw_y = self.layout.y_pos + y_offset
+        elif alignment=="bottom":
+            draw_x = self.layout.x_pos + l_offset
+            draw_y = surface.get_height() - img.get_height() - 10
    
         surface.blit(img, (draw_x, draw_y))
         self.layout.prev_width = img.get_width()

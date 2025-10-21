@@ -46,4 +46,4 @@ class Inventory(Screen):
             self.text.draw(surface, f"({equip_current_durability(key)}/{equip_max_durability(key)}) {get_name(key)} Lv. {equip_get_level(key)} [{get_rarity(key).capitalize()}]", WHITE, l_offset=15)
         self.text.addOffset("y", 10)
 
-        self.text.draw(surface, f"(ESC) Return to {prevScreen.capitalize()}", WHITE)
+        self.text.draw(surface, f"(ESC) Return to {prevScreen.capitalize()}", WHITE, alignment="bottom")
