@@ -28,9 +28,13 @@ class Wilds(Screen): # main menu inherits from Screen
                 self.state.stamina -= 1
 
                 if self.distTraveled % 10 != 0 and self.distTraveled != 0:
-                    smallEvent = True
+                    self.mediumEvent = False
+                    self.smallEvent = True
+                    print(f"smallEvent: {self.smallEvent}")
                 else:
-                    mediumEvent = True
+                    self.smallEvent = False
+                    self.mediumEvent = True
+                    print(f"mediumEvent: {self.mediumEvent}")
                     
             elif event.key == pygame.K_ESCAPE:
                 self.state.save() 
@@ -49,16 +53,14 @@ class Wilds(Screen): # main menu inherits from Screen
         self.text.draw(surface, "\\/\\/\\/\\/\\/\\/\\/ Wastrel Wilds \\/\\/\\/\\/\\/\\/\\/", color=RED, bg=GREEN, new_line=False, alignment="middle")
         self.text.addOffset("y", 6)
 
-        if self.smallEvent:
-            self.text.draw(surface, "Something small happens!")
-            self.text.addOffset("y", 6)
-        elif self.mediumEvent:
-            self.text.draw(surface, "Something medium happens!")
-            self.text.addOffset("y", 6)
-
         self.text.draw(surface, f"Distance Traveled: {self.distTraveled}", l_offset=10, alignment="middle")
         self.text.addOffset("y", 6)
 
+        if self.smallEvent:
+            self.text.draw(surface, "Something small happens!")
+        elif self.mediumEvent:
+            self.text.draw(surface, "Something medium happens!")
+            
         for option in self.options:
             self.text.draw(surface, option, y_offset=165)
 
