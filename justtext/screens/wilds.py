@@ -1,4 +1,6 @@
 import pygame
+
+from ..util.options import Options
 from .base import Screen
 from ..constants import RED, WHITE, GREEN, BLUE, BLACK
 from ..assets import load_font
@@ -60,8 +62,7 @@ class Wilds(Screen): # main menu inherits from Screen
             self.text.draw(surface, "Something small happens!")
         elif self.mediumEvent:
             self.text.draw(surface, "Something medium happens!")
-            
-        for option in self.options:
-            self.text.draw(surface, option, y_offset=165)
+
+        Options(surface).draw(self.options, yOffset=165)
 
         Footer(surface).draw()
