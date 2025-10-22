@@ -5,6 +5,7 @@ from ..assets import load_font
 from ..util.text import TextRenderer
 from ..state import get_state
 from ..util.footer import Footer
+from ..util.options import Options
 
 class Windhelm(Screen): # main menu inherits from Screen
     def __init__(self, on_select):
@@ -46,7 +47,6 @@ class Windhelm(Screen): # main menu inherits from Screen
         self.text.draw(surface, "<~~~~~~~~~~ Windhelm ~~~~~~~~~~>", GREEN, new_line=False, alignment="middle")
         self.text.addOffset("y", 6)
 
-        for option in self.options:
-            self.text.draw(surface, option)
+        Options.draw(self.options) #add yOffset
 
         Footer(surface).draw()
