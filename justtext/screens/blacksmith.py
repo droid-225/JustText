@@ -7,6 +7,7 @@ from ..state import get_state
 from ..util.footer import Footer
 from ..util.leveling import LevelCalculator
 from ..util.itemUtil import *
+from ..util.options import Options
 
 class Blacksmith(Screen): # main menu inherits from Screen
     def __init__(self, on_select):
@@ -54,7 +55,6 @@ class Blacksmith(Screen): # main menu inherits from Screen
         self.text.draw(surface, f"Your Gold: {gold}", l_offset=10)
         self.text.addOffset("y", 6)
 
-        for option in self.options:
-            self.text.draw(surface, option, WHITE)
+        Options.draw(self.options) #add yOffset
 
         Footer(surface).draw()
