@@ -4,9 +4,9 @@ from ..constants import GREEN, WHITE, BLACK
 from ..assets import load_font
 from ..util.text import TextRenderer
 from ..state import get_state
-from ..util.footer import Footer
+from ..components.footer import Footer
 from ..util.itemUtil import *
-from ..util.options import Options
+from ..components.options import Options
 
 class Mine(Screen):
 

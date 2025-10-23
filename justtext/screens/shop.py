@@ -4,10 +4,10 @@ from ..constants import WHITE, GREEN, BLACK
 from ..assets import load_font
 from ..util.text import TextRenderer
 from ..state import get_state
-from ..util.footer import Footer
+from ..components.footer import Footer
 from ..util.leveling import LevelCalculator
 from ..util.itemUtil import *
-from ..util.options import Options
+from ..components.options import Options
 
 class Shop(Screen): # main menu inherits from Screen
     def __init__(self, on_select):

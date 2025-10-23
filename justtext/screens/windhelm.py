@@ -4,8 +4,8 @@ from ..constants import WHITE, GREEN, BLUE, BLACK
 from ..assets import load_font
 from ..util.text import TextRenderer
 from ..state import get_state
-from ..util.footer import Footer
-from ..util.options import Options
+from ..components.footer import Footer
+from ..components.options import Options
 
 class Windhelm(Screen): # main menu inherits from Screen
     def __init__(self, on_select):
