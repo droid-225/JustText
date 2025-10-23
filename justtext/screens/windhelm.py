@@ -47,6 +47,6 @@ class Windhelm(Screen): # main menu inherits from Screen
         self.text.draw(surface, "<~~~~~~~~~~ Windhelm ~~~~~~~~~~>", GREEN, new_line=False, alignment="middle")
         self.text.addOffset("y", 6)
 
-        Options.draw(self.options) #add yOffset
+        Options(surface).draw(self.options, yOffset=10)
 
         Footer(surface).draw()

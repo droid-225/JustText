@@ -55,6 +55,6 @@ class Blacksmith(Screen): # main menu inherits from Screen
         self.text.draw(surface, f"Your Gold: {gold}", l_offset=10)
         self.text.addOffset("y", 6)
 
-        Options.draw(self.options) #add yOffset
+        Options(surface).draw(self.options, yOffset=50)
 
         Footer(surface).draw()
