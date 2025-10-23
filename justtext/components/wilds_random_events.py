@@ -4,23 +4,16 @@ from ..util.text import TextRenderer
 from ..state import get_state
 
 class WildsRandomEvents:
-    def __init__(self, surface):
+    def __init__(self, surface, yOffset=0):
         self.font = load_font()
         self.surface = surface
         self.text = TextRenderer(self.font)
         self.state = get_state()
-        self.distTraveled = 0
-        self.smallEvent = False
-        self.mediumEvent = False
+        self.yOffset = yOffset
         
-    def moveForward(dist=1):
-        distTraveled += dist
+    def smallEvent(self):
+        self.text.draw(self.surface, "Small Event Occured!", y_offset=self.yOffset)
 
-    def draw(self):
-        surface = self.surface
-
-        if self.smallEvent:
-            self.text.draw(surface, "Something small happens!")
-        elif self.mediumEvent:
-            self.text.draw(surface, "Something medium happens!")
+    def mediumEvent(self):
+        self.text.draw(self.surface, "Medium Event Occured!", y_offset=self.yOffset)
         

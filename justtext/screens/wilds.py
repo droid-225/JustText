@@ -21,6 +21,8 @@ class Wilds(Screen): # main menu inherits from Screen
         self.distTraveled = 0
         self.options = ["(1) Keep Traveling", 
                         "(ESC) Go to Windhelm"]
+        self.smallEvent = False
+        self.mediumEvent = False
 
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
@@ -31,11 +33,11 @@ class Wilds(Screen): # main menu inherits from Screen
                 if self.distTraveled % 10 != 0 and self.distTraveled != 0:
                     self.mediumEvent = False
                     self.smallEvent = True
-                    print(f"smallEvent: {self.smallEvent}")
+                    #print(f"smallEvent: {self.smallEvent}")
                 else:
                     self.smallEvent = False
                     self.mediumEvent = True
-                    print(f"mediumEvent: {self.mediumEvent}")
+                    #print(f"mediumEvent: {self.mediumEvent}")
                     
             elif event.key == pygame.K_ESCAPE:
                 self.state.save() 
@@ -57,10 +59,12 @@ class Wilds(Screen): # main menu inherits from Screen
         self.text.draw(surface, f"Distance Traveled: {self.distTraveled}", l_offset=10, alignment="middle")
         self.text.addOffset("y", 6)
 
+        randomEvents = WildsRandomEvents(surface, yOffset=40)
+
         if self.smallEvent:
-            self.text.draw(surface, "Something small happens!")
+            randomEvents.smallEvent()
         elif self.mediumEvent:
-            self.text.draw(surface, "Something medium happens!")
+            randomEvents.mediumEvent()
 
         Options(surface).draw(self.options, yOffset=165)
 
