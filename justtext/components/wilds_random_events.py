@@ -2,6 +2,7 @@ from ..constants import WHITE, BLACK
 from ..assets import load_font
 from ..util.text import TextRenderer
 from ..state import get_state
+import random
 
 class WildsRandomEvents:
     def __init__(self, surface, yOffset=0):
@@ -12,8 +13,30 @@ class WildsRandomEvents:
         self.yOffset = yOffset
         
     def smallEvent(self):
-        self.text.draw(self.surface, "Small Event Occured!", y_offset=self.yOffset)
+        eventID = random.randint(1, 5)
 
+        if eventID == 1:
+            self.text.draw(self.surface, "Small Event 1 Occured!", y_offset=self.yOffset)
+        elif eventID == 2:
+            self.text.draw(self.surface, "Small Event 2 Occured!", y_offset=self.yOffset)
+        elif eventID == 3:
+            self.text.draw(self.surface, "Small Event 3 Occured!", y_offset=self.yOffset)
+        elif eventID == 4:
+            self.text.draw(self.surface, "Small Event 4 Occured!", y_offset=self.yOffset)
+        elif eventID == 5:
+            self.text.draw(self.surface, "Small Event 5 Occured!", y_offset=self.yOffset)
+        
     def mediumEvent(self):
-        self.text.draw(self.surface, "Medium Event Occured!", y_offset=self.yOffset)
+        eventID = random.randint(1, 5)
+
+        if eventID == 1:
+            self.text.draw(self.surface, "Medium Event 1 Occured!", y_offset=self.yOffset)
+        elif eventID == 2:
+            self.text.draw(self.surface, "Medium Event 2 Occured!", y_offset=self.yOffset)
+        elif eventID == 3:
+            self.text.draw(self.surface, "Medium Event 3 Occured!", y_offset=self.yOffset)
+        elif eventID == 4:
+            self.text.draw(self.surface, "Medium Event 4 Occured!", y_offset=self.yOffset)
+        elif eventID == 5:
+            self.text.draw(self.surface, "Medium Event 5 Occured!", y_offset=self.yOffset)
         

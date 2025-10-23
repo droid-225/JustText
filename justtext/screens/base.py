@@ -1,5 +1,5 @@
 import pygame
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 
 class Screen():
     @abstractmethod

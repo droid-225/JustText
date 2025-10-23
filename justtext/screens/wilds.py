@@ -23,6 +23,7 @@ class Wilds(Screen): # main menu inherits from Screen
                         "(ESC) Go to Windhelm"]
         self.smallEvent = False
         self.mediumEvent = False
+        self.eventGenerated = False
 
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
@@ -62,7 +63,10 @@ class Wilds(Screen): # main menu inherits from Screen
         randomEvents = WildsRandomEvents(surface, yOffset=40)
 
         if self.smallEvent:
-            randomEvents.smallEvent()
+            if not self.eventGenerated:
+                randomEvents.smallEvent()
+                self.eventGenerated = True
+
         elif self.mediumEvent:
             randomEvents.mediumEvent()
 
