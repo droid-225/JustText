@@ -1,12 +1,12 @@
 import pygame
 
-from ..util.options import Options
 from .base import Screen
 from ..constants import RED, WHITE, GREEN, BLUE, BLACK
 from ..assets import load_font
 from ..util.text import TextRenderer
 from ..state import get_state
-from ..util.footer import Footer
+from ..components.footer import Footer
+from ..components.options import Options
 
 class Wilds(Screen): # main menu inherits from Screen
     def __init__(self, on_select):

@@ -1,6 +1,6 @@
 from ..constants import WHITE, BLACK
 from ..assets import load_font
-from .text import TextRenderer
+from ..util.text import TextRenderer
 from ..state import get_state
 
 class Footer:
