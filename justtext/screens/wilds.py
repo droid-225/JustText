@@ -7,6 +7,7 @@ from ..util.text import TextRenderer
 from ..state import get_state
 from ..components.footer import Footer
 from ..components.options import Options
+from ..components.wilds_random_events import WildsRandomEvents
 
 class Wilds(Screen): # main menu inherits from Screen
     def __init__(self, on_select):
@@ -20,8 +21,6 @@ class Wilds(Screen): # main menu inherits from Screen
         self.distTraveled = 0
         self.options = ["(1) Keep Traveling", 
                         "(ESC) Go to Windhelm"]
-        self.smallEvent = False
-        self.mediumEvent = False
 
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
