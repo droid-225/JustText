@@ -8,6 +8,7 @@ from ..state import get_state
 from ..components.footer import Footer
 from ..components.options import Options
 from ..components.wilds_random_events import WildsRandomEvents
+import random
 
 class Wilds(Screen): # main menu inherits from Screen
     def __init__(self, on_select):
@@ -23,8 +24,8 @@ class Wilds(Screen): # main menu inherits from Screen
                         "(ESC) Go to Windhelm"]
         self.smallEvent = False
         self.mediumEvent = False
-        self.eventGenerated = False
-
+        self.eventID = 0
+        
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_1:
@@ -35,10 +36,12 @@ class Wilds(Screen): # main menu inherits from Screen
                     self.mediumEvent = False
                     self.smallEvent = True
                     #print(f"smallEvent: {self.smallEvent}")
+                     self.eventID = random.randint(1, 5)
                 else:
                     self.smallEvent = False
                     self.mediumEvent = True
                     #print(f"mediumEvent: {self.mediumEvent}")
+                     self.eventID = random.randint(1, 5)
                     
             elif event.key == pygame.K_ESCAPE:
                 self.state.save() 
@@ -63,12 +66,9 @@ class Wilds(Screen): # main menu inherits from Screen
         randomEvents = WildsRandomEvents(surface, yOffset=40)
 
         if self.smallEvent:
-            if not self.eventGenerated:
-                randomEvents.smallEvent()
-                self.eventGenerated = True
-
+            randomEvents.smallEvent(self.eventID)
         elif self.mediumEvent:
-            randomEvents.mediumEvent()
+            randomEvents.mediumEvent(self.eventID)
 
         Options(surface).draw(self.options, yOffset=165)
 
