@@ -2,7 +2,6 @@ from ..constants import WHITE, BLACK
 from ..assets import load_font
 from ..util.text import TextRenderer
 from ..state import get_state
-import random
 
 class WildsRandomEvents:
     def __init__(self, surface, yOffset=0):
@@ -12,9 +11,7 @@ class WildsRandomEvents:
         self.state = get_state()
         self.yOffset = yOffset
         
-    def smallEvent(self):
-        eventID = random.randint(1, 5)
-
+    def smallEvent(self, eventID):
         if eventID == 1:
             self.text.draw(self.surface, "Small Event 1 Occured!", y_offset=self.yOffset)
         elif eventID == 2:
@@ -26,9 +23,7 @@ class WildsRandomEvents:
         elif eventID == 5:
             self.text.draw(self.surface, "Small Event 5 Occured!", y_offset=self.yOffset)
         
-    def mediumEvent(self):
-        eventID = random.randint(1, 5)
-
+    def mediumEvent(self, eventID):
         if eventID == 1:
             self.text.draw(self.surface, "Medium Event 1 Occured!", y_offset=self.yOffset)
         elif eventID == 2:
