@@ -24,6 +24,8 @@ class Wilds(Screen): # main menu inherits from Screen
                         "(ESC) Go to Windhelm"]
         self.smallEvent = False
         self.mediumEvent = False
+        self.bigEvent = False
+        self.caravan = False
         self.eventID = 0
         
     def handle_event(self, event):
@@ -32,16 +34,24 @@ class Wilds(Screen): # main menu inherits from Screen
                 self.distTraveled += 1
                 self.state.stamina -= 1
 
-                if self.distTraveled % 10 != 0 and self.distTraveled != 0:
+                if self.distTraveled % 20 == 0:
+                    self.caravan = True
+                    self.smallEvent = False
                     self.mediumEvent = False
+                    self.bigEvent = False
+                elif self.distTraveled % 10 != 0 and self.distTraveled != 0:
+                    self.caravan = False
                     self.smallEvent = True
-                    #print(f"smallEvent: {self.smallEvent}")
-                     self.eventID = random.randint(1, 5)
+                    self.mediumEvent = False
+                    self.bigEvent = False
+                    
+                    self.eventID = random.randint(1, 5)
                 else:
+                    self.caravan = False
                     self.smallEvent = False
                     self.mediumEvent = True
-                    #print(f"mediumEvent: {self.mediumEvent}")
-                     self.eventID = random.randint(1, 5)
+                    self.bigEvent = False
+                    self.eventID = random.randint(1, 5)
                     
             elif event.key == pygame.K_ESCAPE:
                 self.state.save() 

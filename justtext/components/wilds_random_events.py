@@ -34,4 +34,18 @@ class WildsRandomEvents:
             self.text.draw(self.surface, "Medium Event 4 Occured!", y_offset=self.yOffset)
         elif eventID == 5:
             self.text.draw(self.surface, "Medium Event 5 Occured!", y_offset=self.yOffset)
-        
+
+    def bigEvent(self, eventID):
+        if eventID == 1:
+            self.text.draw(self.surface, "Big Event 1 Occured!", y_offset=self.yOffset)
+        elif eventID == 2:
+            self.text.draw(self.surface, "Big Event 2 Occured!", y_offset=self.yOffset)
+        elif eventID == 3:
+            self.text.draw(self.surface, "Big Event 3 Occured!", y_offset=self.yOffset)
+        elif eventID == 4:
+            self.text.draw(self.surface, "Big Event 4 Occured!", y_offset=self.yOffset)
+        elif eventID == 5:
+            self.text.draw(self.surface, "Big Event 5 Occured!", y_offset=self.yOffset)
+
+    def caravan(self):
+        self.text.draw(self.surface, "You have reached a friendly caravan", y_offset=self.yOffset)
