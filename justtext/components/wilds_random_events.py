@@ -2,6 +2,7 @@ from ..constants import WHITE, BLACK
 from ..assets import load_font
 from ..util.text import TextRenderer
 from ..state import get_state
+from .options import Options
 
 class WildsRandomEvents:
     def __init__(self, surface, yOffset=0):
@@ -49,3 +50,8 @@ class WildsRandomEvents:
 
     def caravan(self):
         self.text.draw(self.surface, "You have reached a friendly caravan", y_offset=self.yOffset)
+
+        options = ["(1) Keep Traveling", 
+                    "(ESC) Go to Windhelm"]
+
+        Options(self.surface).draw(options, yOffset=165)
