@@ -34,23 +34,31 @@ class Wilds(Screen): # main menu inherits from Screen
                 self.distTraveled += 1
                 self.state.stamina -= 1
 
-                if self.distTraveled % 20 == 0:
+                if self.distTraveled % 50 == 0:
+                    self.caravan = False
+                    self.smallEvent = False
+                    self.mediumEvent = False
+                    self.bigEvent = True
+
+                    self.eventID = random.randint(1, 5)
+                elif self.distTraveled % 20 == 0:
                     self.caravan = True
                     self.smallEvent = False
                     self.mediumEvent = False
                     self.bigEvent = False
-                elif self.distTraveled % 10 != 0 and self.distTraveled != 0:
-                    self.caravan = False
-                    self.smallEvent = True
-                    self.mediumEvent = False
-                    self.bigEvent = False
-                    
-                    self.eventID = random.randint(1, 5)
-                else:
+                elif self.distTraveled % 10 == 0:
                     self.caravan = False
                     self.smallEvent = False
                     self.mediumEvent = True
                     self.bigEvent = False
+
+                    self.eventID = random.randint(1, 5)
+                else:
+                    self.caravan = False
+                    self.smallEvent = True
+                    self.mediumEvent = False
+                    self.bigEvent = False
+
                     self.eventID = random.randint(1, 5)
                     
             elif event.key == pygame.K_ESCAPE:
@@ -79,6 +87,10 @@ class Wilds(Screen): # main menu inherits from Screen
             randomEvents.smallEvent(self.eventID)
         elif self.mediumEvent:
             randomEvents.mediumEvent(self.eventID)
+        elif self.bigEvent:
+            randomEvents.bigEvent(self.eventID)
+        elif self.caravan:
+            randomEvents.caravan()
 
         Options(surface).draw(self.options, yOffset=165)
 
