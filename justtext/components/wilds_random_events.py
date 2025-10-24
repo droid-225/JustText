@@ -54,4 +54,4 @@ class WildsRandomEvents:
         options = ["(1) Keep Traveling", 
                     "(ESC) Go to Windhelm"]
 
-        Options(self.surface).draw(options, yOffset=165)
+        Options(self.surface).draw(options, yOffset=213)
