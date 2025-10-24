@@ -27,6 +27,11 @@ class Wilds(Screen): # main menu inherits from Screen
         self.bigEvent = False
         self.caravan = False
         self.eventID = 0
+        self.inputFlags = {
+            'windhelmable': False,
+            'collectable': False,
+            'attackable': False
+        }
         
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
@@ -39,29 +44,30 @@ class Wilds(Screen): # main menu inherits from Screen
                     self.smallEvent = False
                     self.mediumEvent = False
                     self.bigEvent = True
-
                     self.eventID = random.randint(1, 5)
+
                 elif self.distTraveled % 20 == 0:
                     self.caravan = True
                     self.smallEvent = False
                     self.mediumEvent = False
                     self.bigEvent = False
+                    self.inputFlags['windhelmable'] = True
+
                 elif self.distTraveled % 10 == 0:
                     self.caravan = False
                     self.smallEvent = False
                     self.mediumEvent = True
                     self.bigEvent = False
-
                     self.eventID = random.randint(1, 5)
+
                 else:
                     self.caravan = False
                     self.smallEvent = True
                     self.mediumEvent = False
                     self.bigEvent = False
-
                     self.eventID = random.randint(1, 5)
                     
-            elif event.key == pygame.K_ESCAPE:
+            elif event.key == pygame.K_ESCAPE and self.inputFlags['windhelmable']:
                 self.state.save() 
                 self.on_select("windhelm")
             elif event.key == pygame.K_i or event.key == pygame.key.key_code("I"):
@@ -92,6 +98,6 @@ class Wilds(Screen): # main menu inherits from Screen
         elif self.caravan:
             randomEvents.caravan()
 
-        Options(surface).draw(self.options, yOffset=165)
+        self.text.draw(surface, "(1) Keep Traveling", y_offset=165)
 
         Footer(surface).draw()
