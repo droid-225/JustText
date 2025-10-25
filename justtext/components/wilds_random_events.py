@@ -26,9 +26,9 @@ class WildsRandomEvents:
 
             Options(self.surface).draw(options, yOffset=213)
         elif eventID == 3:
-            self.text.draw(self.surface, "Small Event 3 Occured!", y_offset=self.yOffset)
+            self.text.draw(self.surface, "You Found a Stone!", y_offset=self.yOffset)
 
-            options = ["(1) Keep Traveling"]
+            options = ["(1) Keep Traveling", "(2) Collect"]
 
             Options(self.surface).draw(options, yOffset=213)
         elif eventID == 4:
