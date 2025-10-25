@@ -20,9 +20,9 @@ class WildsRandomEvents:
 
             Options(self.surface).draw(options, yOffset=213)
         elif eventID == 2:
-            self.text.draw(self.surface, "Small Event 2 Occured!", y_offset=self.yOffset)
+            self.text.draw(self.surface, "A Wild Slime Appeared!", y_offset=self.yOffset)
 
-            options = ["(1) Keep Traveling"]
+            options = ["(1) Keep Traveling", "(2) Attack the Slime"]
 
             Options(self.surface).draw(options, yOffset=213)
         elif eventID == 3:
