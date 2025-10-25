@@ -64,7 +64,11 @@ class Wilds(Screen): # main menu inherits from Screen
                     self.mediumEvent = False
                     self.bigEvent = False
                     self.eventID = random.randint(1, 5)
-                    
+            
+            elif event.key == pygame.K_2 and self.inputFlags['attackable']:
+                pass # implement
+            elif event.key == pygame.K_2 and self.inputFlags['collectable']:
+                pass # implement
             elif event.key == pygame.K_ESCAPE and self.inputFlags['windhelmable']:
                 self.state.save() 
                 self.on_select("windhelm")
@@ -96,7 +100,7 @@ class Wilds(Screen): # main menu inherits from Screen
         elif self.caravan:
             randomEvents.caravan()
 
-        if self.distTraveled == 0: # placeholder, change later
+        if self.distTraveled == 0:
             self.text.draw(surface, "(1) Keep Traveling", y_offset=165)
 
         Footer(surface).draw()
