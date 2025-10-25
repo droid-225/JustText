@@ -19,7 +19,7 @@ class Wilds(Screen): # main menu inherits from Screen
         self.slot = self.state.current_slot
         self.state.currentScreen = "wilds"
         self.state.save()
-        self.distTraveled = 19
+        self.distTraveled = 0
         self.smallEvent = False
         self.mediumEvent = False
         self.bigEvent = False
@@ -96,7 +96,7 @@ class Wilds(Screen): # main menu inherits from Screen
         elif self.caravan:
             randomEvents.caravan()
 
-        if self.distTraveled % 20 != 0: # placeholder, change later
+        if self.distTraveled == 0: # placeholder, change later
             self.text.draw(surface, "(1) Keep Traveling", y_offset=165)
 
         Footer(surface).draw()
