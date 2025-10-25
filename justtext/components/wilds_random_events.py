@@ -14,7 +14,7 @@ class WildsRandomEvents:
         
     def smallEvent(self, eventID):
         if eventID == 1:
-            self.text.draw(self.surface, "Small Event 1 Occured!", y_offset=self.yOffset)
+            self.text.draw(self.surface, "Nothing Happened...", y_offset=self.yOffset)
 
             options = ["(1) Keep Traveling"]
 
