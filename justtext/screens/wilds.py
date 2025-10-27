@@ -43,7 +43,7 @@ class Wilds(Screen): # main menu inherits from Screen
             
             # Handle combat/collection events
             elif event.key == pygame.K_2:
-                if self.current_event and self.current_event[0] == "small":
+                if self.current_event and self.current_event[0] == EventType.SMALL:
                     event_id = self.current_event[1]
                     if event_id == 2:  # Slime combat
                         pass # TODO: Implement combat
@@ -51,7 +51,7 @@ class Wilds(Screen): # main menu inherits from Screen
                         pass # TODO: Implement collection
             
             # Handle navigation events
-            elif event.key == pygame.K_ESCAPE and self.current_event and self.current_event[0] == "caravan":
+            elif event.key == pygame.K_ESCAPE and self.current_event and self.current_event[0] == EventType.CARAVAN:
                 self.state.save() 
                 self.on_select("windhelm")
             elif event.key == pygame.K_i:

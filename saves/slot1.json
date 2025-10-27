@@ -1,1 +1,1 @@
-{"newGame": 0, "name": "RISHT", "gold": 0, "stamina": -23, "mining_xp": 28, "total_xp": 28, "prevScreen": "wilds", "currentScreen": "wilds", "inventory": {"stone": 8, "bread": 0}, "equipment": {"pickaxe": {"id": "pickaxe", "level": 1, "max_durability": 200, "curr_durability": 172}}}
+{"newGame": 0, "name": "RISHT", "gold": 0, "stamina": -104, "mining_xp": 28, "total_xp": 28, "prevScreen": "wilds", "currentScreen": "windhelm", "inventory": {"stone": 8, "bread": 0}, "equipment": {"pickaxe": {"id": "pickaxe", "level": 1, "max_durability": 200, "curr_durability": 172}}}
