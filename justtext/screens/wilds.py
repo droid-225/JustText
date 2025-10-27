@@ -28,13 +28,13 @@ class Wilds(Screen): # main menu inherits from Screen
         self.state.stamina -= 1
 
         if self.distTraveled % 50 == 0:
-            self.current_event = ("big", random.randint(1, 5))
+            self.current_event = (EventType.BIG, random.randint(1, 5))
         elif self.distTraveled % 20 == 0:
-            self.current_event = ("caravan", 0)
+            self.current_event = (EventType.CARAVAN, 0)
         elif self.distTraveled % 10 == 0:
-            self.current_event = ("medium", random.randint(1, 5))
+            self.current_event = (EventType.MEDIUM, random.randint(1, 5))
         else:
-            self.current_event = ("small", random.randint(1, 3))  # Only 3 small events implemented
+            self.current_event = (EventType.SMALL, random.randint(1, 3))  # Only 3 small events implemented
         
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
@@ -75,13 +75,13 @@ class Wilds(Screen): # main menu inherits from Screen
 
         if self.current_event:
             event_type, event_id = self.current_event
-            if event_type == "small":
+            if event_type == EventType.SMALL:
                 randomEvents.smallEvent(event_id)
-            elif event_type == "medium":
+            elif event_type == EventType.MEDIUM:
                 randomEvents.mediumEvent(event_id)
-            elif event_type == "big":
+            elif event_type == EventType.BIG:
                 randomEvents.bigEvent(event_id)
-            elif event_type == "caravan":
+            elif event_type == EventType.CARAVAN:
                 randomEvents.caravan()
 
         if self.distTraveled == 0:

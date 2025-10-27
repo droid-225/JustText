@@ -62,11 +62,59 @@ class EventSystem:
                 description="Medium Event 1 Occurred!",
                 options=[EventOption("1", "Keep Traveling", "keep_traveling")]
             ),
+            (EventType.MEDIUM, 2): Event(
+                id=2,
+                type=EventType.MEDIUM,
+                description="Medium Event 2 Occurred!",
+                options=[EventOption("1", "Keep Traveling", "keep_traveling")]
+            ),
+            (EventType.MEDIUM, 3): Event(
+                id=3,
+                type=EventType.MEDIUM,
+                description="Medium Event 3 Occurred!",
+                options=[EventOption("1", "Keep Traveling", "keep_traveling")]
+            ),
+            (EventType.MEDIUM, 4): Event(
+                id=4,
+                type=EventType.MEDIUM,
+                description="Medium Event 4 Occurred!",
+                options=[EventOption("1", "Keep Traveling", "keep_traveling")]
+            ),
+            (EventType.MEDIUM, 5): Event(
+                id=5,
+                type=EventType.MEDIUM,
+                description="Medium Event 5 Occurred!",
+                options=[EventOption("1", "Keep Traveling", "keep_traveling")]
+            ),
             # Big Events (placeholders)
             (EventType.BIG, 1): Event(
                 id=1,
                 type=EventType.BIG,
                 description="Big Event 1 Occurred!",
+                options=[EventOption("1", "Keep Traveling", "keep_traveling")]
+            ),
+            (EventType.BIG, 2): Event(
+                id=2,
+                type=EventType.BIG,
+                description="Big Event 2 Occurred!",
+                options=[EventOption("1", "Keep Traveling", "keep_traveling")]
+            ),
+            (EventType.BIG, 3): Event(
+                id=3,
+                type=EventType.BIG,
+                description="Big Event 3 Occurred!",
+                options=[EventOption("1", "Keep Traveling", "keep_traveling")]
+            ),
+            (EventType.BIG, 4): Event(
+                id=4,
+                type=EventType.BIG,
+                description="Big Event 4 Occurred!",
+                options=[EventOption("1", "Keep Traveling", "keep_traveling")]
+            ),
+            (EventType.BIG, 5): Event(
+                id=5,
+                type=EventType.BIG,
+                description="Big Event 5 Occurred!",
                 options=[EventOption("1", "Keep Traveling", "keep_traveling")]
             ),
         }
