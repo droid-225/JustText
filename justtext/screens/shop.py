@@ -1,6 +1,6 @@
 import pygame
 from .base import Screen
-from ..constants import WHITE, GREEN, BLACK
+from ..constants import GREEN
 from ..assets import load_font
 from ..util.text import TextRenderer
 from ..state import get_state

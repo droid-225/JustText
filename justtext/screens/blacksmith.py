@@ -1,11 +1,10 @@
 import pygame
 from .base import Screen
-from ..constants import WHITE, GREEN, BLACK
+from ..constants import GREEN
 from ..assets import load_font
 from ..util.text import TextRenderer
 from ..state import get_state
 from ..components.footer import Footer
-from ..util.leveling import LevelCalculator
 from ..util.itemUtil import *
 from ..components.options import Options
 
@@ -25,9 +24,6 @@ class Blacksmith(Screen): # main menu inherits from Screen
                         "(ESC) Go Back to Windhelm"]
 
     def handle_event(self, event):
-        miningLevelCalc = LevelCalculator(base_xp=10)
-        miningLevel = miningLevelCalc.calculate_level(self.state.mining_xp)
-
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_1 and self.state.gold >= self.repairPrice:
                 self.state.gold -= self.repairPrice

@@ -12,7 +12,6 @@ class Stats(Screen): # Stats screen
         self.on_select = on_select
         self.text = TextRenderer(self.font)
         self.state = get_state()
-        self.slot = self.state.current_slot
         self.state.currentScreen = "stats"
         self.prevScreen = self.state.prevScreen
 
@@ -20,7 +19,6 @@ class Stats(Screen): # Stats screen
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 self.on_select(self.prevScreen)
-                self.state.stamina += 1
 
     def draw(self, surface):
         self.state.total_xp = self.state.mining_xp

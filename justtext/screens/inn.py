@@ -1,12 +1,11 @@
 import pygame
 from .base import Screen
-from ..constants import WHITE, GREEN, BLACK
+from ..constants import WHITE, GREEN
 from ..assets import load_font
 from ..util.text import TextRenderer
 from ..state import get_state
 from ..components.footer import Footer
-from ..util.leveling import LevelCalculator
-from ..util.itemUtil import *
+from ..util.itemUtil import inv_add
 from ..components.options import Options
 
 class Inn(Screen): # main menu inherits from Screen
@@ -15,18 +14,13 @@ class Inn(Screen): # main menu inherits from Screen
         self.on_select = on_select
         self.text = TextRenderer(self.font)
         self.state = get_state()
-        self.slot = self.state.current_slot
         self.state.currentScreen = "inn"
-        self.state.save()
         self.options = ["(1) (10g) Book Room",
                         "(2) (50g) Book Cozy Room",
                         "(3) (100g) Book Luxury Room",
                         "(ESC) Go Back to Windhelm"]
 
     def handle_event(self, event):
-        miningLevelCalc = LevelCalculator(base_xp=10)
-        miningLevel = miningLevelCalc.calculate_level(self.state.mining_xp)
-
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_1 and self.state.gold >= 10:
                 self.state.gold -= 10

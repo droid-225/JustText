@@ -1,4 +1,3 @@
-from ..constants import WHITE, BLACK
 from ..assets import load_font
 from ..util.text import TextRenderer
 from ..state import get_state
@@ -12,101 +11,19 @@ class WildsRandomEvents:
         self.state = get_state()
         self.yOffset = yOffset
         
-    def smallEvent(self, eventID):
-        if eventID == 1:
-            self.text.draw(self.surface, "Small Event 1 Occured!", y_offset=self.yOffset)
+    def _draw_event(self, event_type: str, eventID: int):
+        """Common logic for drawing events"""
+        self.text.draw(self.surface, f"{event_type} Event {eventID} Occurred!", y_offset=self.yOffset)
+        Options(self.surface).draw(["(1) Keep Traveling"], yOffset=213)
 
-            options = ["(1) Keep Traveling"]
-
-            Options(self.surface).draw(options, yOffset=213)
-        elif eventID == 2:
-            self.text.draw(self.surface, "Small Event 2 Occured!", y_offset=self.yOffset)
-
-            options = ["(1) Keep Traveling"]
-
-            Options(self.surface).draw(options, yOffset=213)
-        elif eventID == 3:
-            self.text.draw(self.surface, "Small Event 3 Occured!", y_offset=self.yOffset)
-
-            options = ["(1) Keep Traveling"]
-
-            Options(self.surface).draw(options, yOffset=213)
-        elif eventID == 4:
-            self.text.draw(self.surface, "Small Event 4 Occured!", y_offset=self.yOffset)
-
-            options = ["(1) Keep Traveling"]
-
-            Options(self.surface).draw(options, yOffset=213)
-        elif eventID == 5:
-            self.text.draw(self.surface, "Small Event 5 Occured!", y_offset=self.yOffset)
-
-            options = ["(1) Keep Traveling"]
-
-            Options(self.surface).draw(options, yOffset=213)
+    def smallEvent(self, eventID: int):
+        self._draw_event("Small", eventID)
         
-    def mediumEvent(self, eventID):
-        if eventID == 1:
-            self.text.draw(self.surface, "Medium Event 1 Occured!", y_offset=self.yOffset)
+    def mediumEvent(self, eventID: int):
+        self._draw_event("Medium", eventID)
 
-            options = ["(1) Keep Traveling"]
-
-            Options(self.surface).draw(options, yOffset=213)
-        elif eventID == 2:
-            self.text.draw(self.surface, "Medium Event 2 Occured!", y_offset=self.yOffset)
-
-            options = ["(1) Keep Traveling"]
-
-            Options(self.surface).draw(options, yOffset=213)
-        elif eventID == 3:
-            self.text.draw(self.surface, "Medium Event 3 Occured!", y_offset=self.yOffset)
-
-            options = ["(1) Keep Traveling"]
-
-            Options(self.surface).draw(options, yOffset=213)
-        elif eventID == 4:
-            self.text.draw(self.surface, "Medium Event 4 Occured!", y_offset=self.yOffset)
-
-            options = ["(1) Keep Traveling"]
-
-            Options(self.surface).draw(options, yOffset=213)
-        elif eventID == 5:
-            self.text.draw(self.surface, "Medium Event 5 Occured!", y_offset=self.yOffset)
-
-            options = ["(1) Keep Traveling"]
-
-            Options(self.surface).draw(options, yOffset=213)
-
-    def bigEvent(self, eventID):
-        if eventID == 1:
-            self.text.draw(self.surface, "Big Event 1 Occured!", y_offset=self.yOffset)
-
-            options = ["(1) Keep Traveling"]
-
-            Options(self.surface).draw(options, yOffset=213)
-        elif eventID == 2:
-            self.text.draw(self.surface, "Big Event 2 Occured!", y_offset=self.yOffset)
-
-            options = ["(1) Keep Traveling"]
-
-            Options(self.surface).draw(options, yOffset=213)
-        elif eventID == 3:
-            self.text.draw(self.surface, "Big Event 3 Occured!", y_offset=self.yOffset)
-
-            options = ["(1) Keep Traveling"]
-
-            Options(self.surface).draw(options, yOffset=213)
-        elif eventID == 4:
-            self.text.draw(self.surface, "Big Event 4 Occured!", y_offset=self.yOffset)
-
-            options = ["(1) Keep Traveling"]
-
-            Options(self.surface).draw(options, yOffset=213)
-        elif eventID == 5:
-            self.text.draw(self.surface, "Big Event 5 Occured!", y_offset=self.yOffset)
-
-            options = ["(1) Keep Traveling"]
-
-            Options(self.surface).draw(options, yOffset=213)
+    def bigEvent(self, eventID: int):
+        self._draw_event("Big", eventID)
 
     def caravan(self):
         self.text.draw(self.surface, "You have reached a friendly caravan", y_offset=self.yOffset)

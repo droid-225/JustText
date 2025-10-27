@@ -12,7 +12,6 @@ class Inventory(Screen):
         self.on_select = on_select
         self.text = TextRenderer(self.font)
         self.state = get_state()
-        self.slot = self.state.current_slot
         self.state.currentScreen = "inventory"
         self.prevScreen = self.state.prevScreen
 
