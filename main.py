@@ -1,8 +1,6 @@
 import pygame
 from justtext.constants import WIDTH, HEIGHT, BLACK, WIN_CAPTION
 from justtext.screen_manager import ScreenManager
-from justtext.screens.main_menu import Main_Menu
-from justtext.screens.windhelm import Windhelm
 from justtext.screens.load_game import Load_Game
 from justtext.routes import create_routes
 from justtext.state import get_state

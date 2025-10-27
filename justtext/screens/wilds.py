@@ -8,6 +8,7 @@ from ..state import get_state
 from ..components.footer import Footer
 from ..components.options import Options
 from ..components.wilds_random_events import WildsRandomEvents
+from ..components.event_system import EventSystem, EventType
 import random
 
 class Wilds(Screen): # main menu inherits from Screen
@@ -16,67 +17,48 @@ class Wilds(Screen): # main menu inherits from Screen
         self.on_select = on_select
         self.text = TextRenderer(self.font)
         self.state = get_state()
-        self.slot = self.state.current_slot
         self.state.currentScreen = "wilds"
-        self.state.save()
         self.distTraveled = 0
-        self.smallEvent = False
-        self.mediumEvent = False
-        self.bigEvent = False
-        self.caravan = False
-        self.eventID = 0
-        self.inputFlags = {
-            'windhelmable': False,
-            'collectable': False,
-            'attackable': False
-        }
+        self.current_event = None
+        self.event_system = EventSystem()
+        
+    def _handle_travel(self):
+        """Handle player movement and determine next event"""
+        self.distTraveled += 1
+        self.state.stamina -= 1
+
+        if self.distTraveled % 50 == 0:
+            self.current_event = ("big", random.randint(1, 5))
+        elif self.distTraveled % 20 == 0:
+            self.current_event = ("caravan", 0)
+        elif self.distTraveled % 10 == 0:
+            self.current_event = ("medium", random.randint(1, 5))
+        else:
+            self.current_event = ("small", random.randint(1, 3))  # Only 3 small events implemented
         
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_1:
-                self.distTraveled += 1
-                self.state.stamina -= 1
-
-                if self.distTraveled % 50 == 0:
-                    self.caravan = False
-                    self.smallEvent = False
-                    self.mediumEvent = False
-                    self.bigEvent = True
-                    self.eventID = random.randint(1, 5)
-
-                elif self.distTraveled % 20 == 0:
-                    self.caravan = True
-                    self.smallEvent = False
-                    self.mediumEvent = False
-                    self.bigEvent = False
-                    self.inputFlags['windhelmable'] = True
-
-                elif self.distTraveled % 10 == 0:
-                    self.caravan = False
-                    self.smallEvent = False
-                    self.mediumEvent = True
-                    self.bigEvent = False
-                    self.eventID = random.randint(1, 5)
-
-                else:
-                    self.caravan = False
-                    self.smallEvent = True
-                    self.mediumEvent = False
-                    self.bigEvent = False
-                    self.eventID = random.randint(1, 5)
+                self._handle_travel()
             
-            elif event.key == pygame.K_2 and self.inputFlags['attackable']:
-                pass # implement
-            elif event.key == pygame.K_2 and self.inputFlags['collectable']:
-                pass # implement
-            elif event.key == pygame.K_ESCAPE and self.inputFlags['windhelmable']:
+            # Handle combat/collection events
+            elif event.key == pygame.K_2:
+                if self.current_event and self.current_event[0] == "small":
+                    event_id = self.current_event[1]
+                    if event_id == 2:  # Slime combat
+                        pass # TODO: Implement combat
+                    elif event_id == 3:  # Stone collection
+                        pass # TODO: Implement collection
+            
+            # Handle navigation events
+            elif event.key == pygame.K_ESCAPE and self.current_event and self.current_event[0] == "caravan":
                 self.state.save() 
                 self.on_select("windhelm")
-            elif event.key == pygame.K_i or event.key == pygame.key.key_code("I"):
+            elif event.key == pygame.K_i:
                 self.state.prevScreen = self.state.currentScreen
                 self.state.save()
                 self.on_select("inventory")
-            elif event.key == pygame.K_u or event.key == pygame.key.key_code("U"):
+            elif event.key == pygame.K_u:
                 self.state.prevScreen = self.state.currentScreen
                 self.state.save()
                 self.on_select("stats")
@@ -91,14 +73,16 @@ class Wilds(Screen): # main menu inherits from Screen
 
         randomEvents = WildsRandomEvents(surface, yOffset=40)
 
-        if self.smallEvent:
-            randomEvents.smallEvent(self.eventID)
-        elif self.mediumEvent:
-            randomEvents.mediumEvent(self.eventID)
-        elif self.bigEvent:
-            randomEvents.bigEvent(self.eventID)
-        elif self.caravan:
-            randomEvents.caravan()
+        if self.current_event:
+            event_type, event_id = self.current_event
+            if event_type == "small":
+                randomEvents.smallEvent(event_id)
+            elif event_type == "medium":
+                randomEvents.mediumEvent(event_id)
+            elif event_type == "big":
+                randomEvents.bigEvent(event_id)
+            elif event_type == "caravan":
+                randomEvents.caravan()
 
         if self.distTraveled == 0:
             self.text.draw(surface, "(1) Keep Traveling", y_offset=165)
