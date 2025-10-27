@@ -1,5 +1,5 @@
-from ast import Lambda
-import json, pathlib
+import json
+import pathlib
 from dataclasses import dataclass, field
 
 SAVE_PATH = pathlib.Path(__file__).resolve().parent.parent / "saves"

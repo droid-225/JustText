@@ -1,9 +1,9 @@
 from typing import Callable, Dict, Any
 
-from justtext.screens.inn import Inn
-from justtext.screens.mine import Mine
-from justtext.screens.shop import Shop
-from justtext.screens.windhelm import Windhelm
+from .screens.inn import Inn
+from .screens.mine import Mine
+from .screens.shop import Shop
+from .screens.windhelm import Windhelm
 from .screens.main_menu import Main_Menu
 from .screens.new_game import New_Game
 from .screens.load_game import Load_Game
