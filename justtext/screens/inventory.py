@@ -45,6 +45,8 @@ class Inventory(Screen):
         
         if self.state.inventory[item_id] > 0:
             consumable = Consumable(item.consumable_effect)
+            # Call the use method to apply the effects
+            consumable.use(self.state)
             self.state.inventory[item_id] -= 1
 
             # Remove item if count reaches 0
