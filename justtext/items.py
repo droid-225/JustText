@@ -1,5 +1,6 @@
 from dataclasses import dataclass
-from typing import Literal, Optional
+from typing import Literal, Optional, Callable
+from state import GameState
 
 @dataclass(frozen=True)
 class ItemDef:
@@ -16,3 +17,17 @@ ITEMS: dict[str, ItemDef] = {
     "bread": ItemDef(id="bread", name="Bread", stackable=True, value=1, type="consumable", rarity="common"),
     "pickaxe": ItemDef(id="pickaxe", name="Pickaxe", stackable=False, value=0, type="tool", rarity="common")
 }
+
+@dataclass
+class ConsumableEffect:
+    # Defines what happens when an itemm is used
+    stamina: int = 0
+    
+class Consumable:
+    def __init__(self, effect: ConsumableEffect):
+        self.effect = effect
+
+    def use(self, state: GameState) -> str:
+        # Apply consumable effects and return result message
+        if self.effect.stamina:
+            state.stamina = min(100, state.stamina + self.effect.stamina)
