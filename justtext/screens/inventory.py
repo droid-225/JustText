@@ -21,10 +21,18 @@ class Inventory(Screen):
     def get_filtered_items(self):
         # Returns items filtered by current category
         items = []
+        category_type_map = {
+            InventoryCategory.MATERIALS: "material",
+            InventoryCategory.CONSUMABLES: "consumable",
+            InventoryCategory.TOOLS: "tool",
+            InventoryCategory.ARMOR: "armor"
+        }
+        
         for item_id, count in self.state.inventory.items():
             if count > 0 and ITEMS[item_id]:
                 item = ITEMS[item_id]
-                if (self.current_cat == InventoryCategory.ALL or item.type == self.current_cat.name.lower()):
+                if (self.current_cat == InventoryCategory.ALL or 
+                    item.type == category_type_map.get(self.current_cat, "")):
                     items.append((item_id, item, count))
         return items
 
