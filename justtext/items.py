@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from typing import Literal, Optional, Callable
-from state import GameState
+from .state import GameState
 
 @dataclass
 class ConsumableEffect:

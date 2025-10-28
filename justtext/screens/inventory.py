@@ -63,25 +63,77 @@ class Inventory(Screen):
     def draw(self, surface):
         gold = self.state.gold
         prevScreen = self.prevScreen
-        state = self.state
-        inventory = state.inventory
-        equipment = state.equipment
     
         self.text.reset_layout()
-        self.text.draw(surface, "<~~~~~~~~~~ Inventory ~~~~~~~~~~>", GREEN, new_line=False, alignment="middle")
+        
+        # Draw header based on category
+        header_text = {
+            InventoryCategory.ALL: "<~~~~~~~~~~ Inventory ~~~~~~~~~~>",
+            InventoryCategory.MATERIALS: "<~~~~~~~~~~ Materials ~~~~~~~~~~>",
+            InventoryCategory.CONSUMABLES: "<~~~~~~~~~~ Consumables ~~~~~~~~~~>",
+            InventoryCategory.TOOLS: "<~~~~~~~~~~ Tools ~~~~~~~~~~>",
+            InventoryCategory.ARMOR: "<~~~~~~~~~~ Armor ~~~~~~~~~~>"
+        }.get(self.current_cat, "<~~~~~~~~~~ Inventory ~~~~~~~~~~>")
+        
+        self.text.draw(surface, header_text, GREEN, new_line=False, alignment="middle")
         self.text.addOffset("y", 6)
 
+        # Draw gold info
         self.text.draw(surface, f"Your Gold: {gold}", WHITE)
         self.text.addOffset("y", 6)
 
-        self.text.draw(surface, f"Items:", GREEN)
-        for key in inventory:
-            self.text.draw(surface, f"{get_name(key)}: {inv_count(key)} [{get_type(key).capitalize()}]", WHITE, l_offset=15)
-        self.text.addOffset("y", 6)
+        # Get filtered items for current category
+        items = self.get_filtered_items()
+        
+        if self.current_cat == InventoryCategory.ALL:
+            # Show equipment section
+            self.text.draw(surface, f"Equipment:", GREEN)
+            for key in self.state.equipment:
+                self.text.draw(surface, 
+                    f"({equip_current_durability(key)}/{equip_max_durability(key)}) "
+                    f"{get_name(key)} Lv. {equip_get_level(key)} [{get_rarity(key).capitalize()}]", 
+                    WHITE, l_offset=15)
+            self.text.addOffset("y", 6)
+            
+            # Show all items section
+            self.text.draw(surface, f"Items:", GREEN)
+            for key in self.state.inventory:
+                self.text.draw(surface, 
+                    f"{get_name(key)}: {inv_count(key)} [{get_type(key).capitalize()}]", 
+                    WHITE, l_offset=15)
+        
+        elif self.current_cat == InventoryCategory.CONSUMABLES:
+            # Show consumables with usage instructions
+            self.text.draw(surface, "Available Consumables:", GREEN)
+            for idx, (item_id, item, count) in enumerate(items):
+                self.text.draw(surface, 
+                    f"({idx + 1}) {get_name(item_id)}: {count} "
+                    f"[Restores: {item.consumable_effect.stamina if item.consumable_effect else 0} Stamina]", 
+                    WHITE, l_offset=15)
+        
+        elif self.current_cat == InventoryCategory.TOOLS:
+            # Show tools with durability
+            self.text.draw(surface, "Tools & Equipment:", GREEN)
+            for key in self.state.equipment:
+                if get_type(key) == "tool":
+                    self.text.draw(surface, 
+                        f"{get_name(key)} Lv. {equip_get_level(key)} "
+                        f"(Durability: {equip_current_durability(key)}/{equip_max_durability(key)})", 
+                        WHITE, l_offset=15)
+        
+        else:
+            # Show items of current category
+            category_name = self.current_cat.name.capitalize()
+            self.text.draw(surface, f"{category_name}:", GREEN)
+            for item_id, item, count in items:
+                self.text.draw(surface, 
+                    f"{get_name(item_id)}: {count}", 
+                    WHITE, l_offset=15)
 
-        self.text.draw(surface, f"Equipment:", GREEN)
-        for key in equipment:
-            self.text.draw(surface, f"({equip_current_durability(key)}/{equip_max_durability(key)}) {get_name(key)} Lv. {equip_get_level(key)} [{get_rarity(key).capitalize()}]", WHITE, l_offset=15)
         self.text.addOffset("y", 10)
-
+        
+        # Draw controls
+        self.text.draw(surface, "(TAB) Change Category", WHITE, alignment="middle")
+        if self.current_cat == InventoryCategory.CONSUMABLES:
+            self.text.draw(surface, "(1-5) Use Item", WHITE, alignment="middle")
         self.text.draw(surface, f"(ESC) Return to {prevScreen.capitalize()}", WHITE, alignment="bottom")
