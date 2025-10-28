@@ -118,7 +118,7 @@ class Inventory(Screen):
             self.text.draw(surface, "Available Consumables:", GREEN)
             for idx, (item_id, item, count) in enumerate(items):
                 self.text.draw(surface, 
-                    f"({idx + 1}) {get_name(item_id)}: {count} "
+                    f"[{idx + 1}] {get_name(item_id)}: {count} "
                     f"[Restores: {item.consumable_effect.stamina if item.consumable_effect else 0} Stamina]", 
                     WHITE, l_offset=15)
         
@@ -143,7 +143,4 @@ class Inventory(Screen):
 
         self.text.addOffset("y", 10)
         
-        # Draw controls
-        if self.current_cat == InventoryCategory.CONSUMABLES:
-            self.text.draw(surface, "(1-5) Use Item", WHITE, alignment="middle")
         InvFooter(surface).draw()
