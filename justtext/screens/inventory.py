@@ -6,6 +6,7 @@ from ..assets import load_font
 from ..util.text import TextRenderer
 from ..state import get_state
 from ..util.itemUtil import *
+from ..components.inv_footer import InvFooter
 
 class Inventory(Screen):
     def __init__(self, on_select):
@@ -143,7 +144,6 @@ class Inventory(Screen):
         self.text.addOffset("y", 10)
         
         # Draw controls
-        self.text.draw(surface, "(TAB) Change Category", WHITE, alignment="middle")
         if self.current_cat == InventoryCategory.CONSUMABLES:
             self.text.draw(surface, "(1-5) Use Item", WHITE, alignment="middle")
-        self.text.draw(surface, f"(ESC) Return to {prevScreen.capitalize()}", WHITE, alignment="bottom")
+        InvFooter(surface).draw()
