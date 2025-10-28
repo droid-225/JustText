@@ -1,1 +1,19 @@
-{"newGame": 0, "name": "RISHIR", "gold": 0, "stamina": 99, "mining_xp": 0, "total_xp": 0, "prevScreen": "windhelm", "currentScreen": "windhelm", "inventory": {"stone": 0}, "equipment": {"pickaxe": {"id": "pickaxe", "level": 1, "max_durability": 200, "curr_durability": 200}}}
+{
+  "newGame": 0,
+  "name": "RISHIR",
+  "gold": 0,
+  "stamina": 99,
+  "mining_xp": 0,
+  "total_xp": 0,
+  "prevScreen": "windhelm",
+  "currentScreen": "windhelm",
+  "inventory": { "stone": 0 },
+  "equipment": {
+    "pickaxe": {
+      "id": "pickaxe",
+      "level": 1,
+      "max_durability": 200,
+      "curr_durability": 200
+    }
+  }
+}

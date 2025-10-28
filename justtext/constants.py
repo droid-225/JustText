@@ -1,3 +1,12 @@
+from enum import Enum, auto
+
+class InventoryCategory(Enum):
+    ALL = auto()
+    MATERIALS = auto()
+    CONSUMABLES = auto()
+    TOOLS = auto()
+    ARMOR = auto()
+
 # Window Constants
 WIDTH, HEIGHT = 700, 500
 WIN_CAPTION = "Just Text" # window caption
