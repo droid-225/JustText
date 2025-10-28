@@ -1,7 +1,7 @@
 import pygame
 from .base import Screen
 from ..constants import WHITE, GREEN, InventoryCategory
-from ..items import ITEMS
+from ..items import ITEMS, Consumable
 from ..assets import load_font
 from ..util.text import TextRenderer
 from ..state import get_state
@@ -27,6 +27,21 @@ class Inventory(Screen):
                 if (self.current_cat == InventoryCategory.ALL or item.type == self.current_cat.name.lower()):
                     items.append((item_id, item, count))
         return items
+
+    def use_item(self, item_id: str) -> None:
+        # Handle item usage
+        item = ITEMS[item_id]
+        
+        if item.type != "consumable" or not item.consumable_effect:
+            return
+        
+        if self.state.inventory[item_id] > 0:
+            consumable = Consumable(item.consumable_effect)
+            self.state.inventory[item_id] -= 1
+
+            # Remove item if count reaches 0
+            if self.state.inventory[item_id] <= 0:
+                del self.state.inventory[item_id]
 
     def handle_event(self, event: pygame.event.Event) -> None:
         if event.type == pygame.KEYDOWN:
