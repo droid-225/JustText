@@ -24,13 +24,13 @@ class Inn(Screen): # main menu inherits from Screen
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_1 and self.state.gold >= 10:
                 self.state.gold -= 10
-                self.state.stamina += 20
+                self.state.stamina = min(self.state.max_stamina, (self.state.stamina + 20))
             if event.key == pygame.K_2 and self.state.gold >= 50:
                 self.state.gold -= 50
-                self.state.stamina += 100
+                self.state.stamina = min(self.state.max_stamina, (self.state.stamina + 100))
             if event.key == pygame.K_3 and self.state.gold >= 100:
                 self.state.gold -= 100
-                self.state.stamina += 200
+                self.state.stamina = min(self.state.max_stamina, (self.state.stamina + 200))
             elif event.key == pygame.K_ESCAPE: self.on_select("windhelm")
             elif event.key == pygame.K_i or event.key == pygame.key.key_code("I"):
                 self.state.prevScreen = self.state.currentScreen
