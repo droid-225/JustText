@@ -36,6 +36,8 @@ class Stats(Screen): # Stats screen
         self.text.draw(surface, "<~~~~~~~~~~ Statistics ~~~~~~~~~~>", GREEN, new_line=False, alignment="middle")
         self.text.addOffset("y", 6)
 
+        self.text.draw(surface, f"Health: {self.state.health}/{self.state.max_health}", WHITE)
+
         self.text.draw(surface, f"Level: {level}", WHITE)
         self.text.draw(surface, f"XP Needed to Level Up: {xp_for_next_level}", GREEN, l_offset=30)
         
