@@ -10,6 +10,7 @@ class GameState:
     newGame: int = 1
     name: str = ""
     gold: int = 0
+    health: int = 20
     stamina: int = 101
     mining_xp: int = 0
     total_xp: int = 0
@@ -37,7 +38,8 @@ class GameState:
             return cls(newGame=int(data.get("newGame", 1)),
                        name=data.get("name", ""), 
                        gold=int(data.get("gold", 0)), 
-                       stamina=int(data.get("stamina", 100)),
+                       health=iny(data.get("health", 20)),
+                       stamina=int(data.get("stamina", 101)),
                        mining_xp=int(data.get("mining_xp", 0)),
                        total_xp=int(data.get("total_xp", 0)),
                        prevScreen=data.get("prevScreen", ""),
@@ -65,6 +67,7 @@ class GameState:
         p.write_text(json.dumps({"newGame": self.newGame,
                                  "name": self.name, 
                                  "gold": self.gold,
+                                 "health": self.health,
                                  "stamina": self.stamina,
                                  "mining_xp": self.mining_xp, 
                                  "total_xp": self.total_xp,
