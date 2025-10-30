@@ -61,6 +61,6 @@ class Load_Game(Screen):
             name = entry["name"] or "<Empty>"
             curScreen = entry["currentScreen"]
             play_time = _format_seconds(entry.get("play_time_seconds", 0.0))
-            self.text.draw(surface, f"({idx}) Slot {idx}: {name} | {curScreen.capitalize()} | Play Time: {play_time}", WHITE)
+            self.text.draw(surface, f"({idx}) {name} | {curScreen.capitalize()} | Play Time: {play_time}", WHITE)
 
         self.text.draw(surface, "(ESC) Return to Home Page", WHITE)
