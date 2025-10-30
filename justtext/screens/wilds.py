@@ -34,7 +34,7 @@ class Wilds(Screen): # main menu inherits from Screen
         elif self.distTraveled % 10 == 0:
             self.current_event = (EventType.MEDIUM, random.randint(1, 5))
         else:
-            self.current_event = (EventType.SMALL, random.randint(1, 3))  # Only 3 small events implemented
+            self.current_event = (EventType.SMALL, random.randint(1, 4))
         
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:

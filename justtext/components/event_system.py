@@ -55,6 +55,15 @@ class EventSystem:
                     EventOption("2", "Collect", "collect")
                 ]
             ),
+            (EventType.SMALL, 4): Event(
+                id=4,
+                type=EventType.SMALL,
+                description="You Found 10 Gold!",
+                options=[
+                    EventOption("1", "Keep Traveling", "keep_traveling"),
+                    EventOption("2", "Collect", "collect")
+                ]
+            ),
             # Medium Events (placeholders)
             (EventType.MEDIUM, 1): Event(
                 id=1,
