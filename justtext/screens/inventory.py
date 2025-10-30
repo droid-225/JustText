@@ -97,25 +97,22 @@ class Inventory(Screen):
         items = self.get_filtered_items()
         
         if self.current_cat == InventoryCategory.ALL:
-            # Show equipment section
-            self.text.draw(surface, f"Equipment:", GREEN)
+            # Show equipment
             for key in self.state.equipment:
                 self.text.draw(surface, 
                     f"({equip_current_durability(key)}/{equip_max_durability(key)}) "
-                    f"{get_name(key)} Lv. {equip_get_level(key)} [{get_rarity(key).capitalize()}]", 
+                    f"{get_name(key)} Lv. {equip_get_level(key)}", 
                     WHITE, l_offset=15)
             self.text.addOffset("y", 6)
-            
-            # Show all items section
-            self.text.draw(surface, f"Items:", GREEN)
+
+            # Show all items
             for key in self.state.inventory:
                 self.text.draw(surface, 
                     f"{get_name(key)}: {inv_count(key)} [{get_type(key).capitalize()}]", 
                     WHITE, l_offset=15)
         
         elif self.current_cat == InventoryCategory.CONSUMABLES:
-            # Show consumables with usage instructions
-            self.text.draw(surface, "Available Consumables:", GREEN)
+            # Show consumables with effects
             for idx, (item_id, item, count) in enumerate(items):
                 self.text.draw(surface, 
                     f"[{idx + 1}] {get_name(item_id)}: {count} "
@@ -124,7 +121,6 @@ class Inventory(Screen):
         
         elif self.current_cat == InventoryCategory.TOOLS:
             # Show tools with durability
-            self.text.draw(surface, "Tools & Equipment:", GREEN)
             for key in self.state.equipment:
                 if get_type(key) == "tool":
                     self.text.draw(surface, 
@@ -134,8 +130,6 @@ class Inventory(Screen):
         
         else:
             # Show items of current category
-            category_name = self.current_cat.name.capitalize()
-            self.text.draw(surface, f"{category_name}:", GREEN)
             for item_id, item, count in items:
                 self.text.draw(surface, 
                     f"{get_name(item_id)}: {count}", 
