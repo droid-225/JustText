@@ -5,6 +5,16 @@ from ..assets import load_font
 from ..util.text import TextRenderer
 from ..state import list_slots, load_active_slot, get_state
 
+
+def _format_seconds(s: float) -> str:
+    total = int(s or 0)
+    hrs = total // 3600
+    mins = (total % 3600) // 60
+    secs = total % 60
+    if hrs > 0:
+        return f"{hrs}:{mins:02d}:{secs:02d}"
+    return f"{mins}:{secs:02d}"
+
 class Load_Game(Screen):
     def __init__(self, on_select):
         self.font = load_font()
@@ -50,6 +60,7 @@ class Load_Game(Screen):
         for idx, entry in enumerate(slots, start=1):
             name = entry["name"] or "<Empty>"
             curScreen = entry["currentScreen"]
-            self.text.draw(surface, f"({idx}) Slot {idx}: {name} | {curScreen.capitalize()}", WHITE)
+            play_time = _format_seconds(entry.get("play_time_seconds", 0.0))
+            self.text.draw(surface, f"({idx}) Slot {idx}: {name} | {curScreen.capitalize()} | Play Time: {play_time}", WHITE)
 
         self.text.draw(surface, "(ESC) Return to Home Page", WHITE)

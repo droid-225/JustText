@@ -27,6 +27,8 @@ class Game:
         while self.running:
             # limit rendering/polling to a reasonable rate to avoid CPU burn
             dt = self.clock.tick(30) / 1000.0
+            # Accumulate play time (in seconds)
+            get_state().play_time_seconds += dt
 
             action_occurred = False
 

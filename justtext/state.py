@@ -14,6 +14,7 @@ class GameState:
     health: int = max_health
     max_stamina: int = 101
     stamina: int = max_stamina
+    play_time_seconds: float = 0.0
     mining_xp: int = 0
     total_xp: int = 0
     prevScreen: str = ""
@@ -44,6 +45,7 @@ class GameState:
                        health=int(data.get("health", 20)),
                        max_stamina=int(data.get("max_stamina", 101)),
                        stamina=int(data.get("stamina", 101)),
+                       play_time_seconds=float(data.get("play_time_seconds", 0.0)),
                        mining_xp=int(data.get("mining_xp", 0)),
                        total_xp=int(data.get("total_xp", 0)),
                        prevScreen=data.get("prevScreen", ""),
@@ -75,12 +77,23 @@ class GameState:
                                  "health": self.health,
                                  "max_stamina": self.max_stamina,
                                  "stamina": self.stamina,
+                                 "play_time_seconds": self.play_time_seconds,
                                  "mining_xp": self.mining_xp, 
                                  "total_xp": self.total_xp,
                                  "prevScreen": self.prevScreen,
                                  "currentScreen": self.currentScreen,
                                  "inventory": self.inventory,
                                  "equipment": self.equipment}))
+
+    def formatted_play_time(self) -> str:
+        """Return play time as H:MM:SS formatted string."""
+        total_seconds = int(self.play_time_seconds)
+        hrs = total_seconds // 3600
+        mins = (total_seconds % 3600) // 60
+        secs = total_seconds % 60
+        if hrs > 0:
+            return f"{hrs}:{mins:02d}:{secs:02d}"
+        return f"{mins}:{secs:02d}"
 
 # Active, in-memory game state used across screens
 ACTIVE_STATE = GameState()
@@ -99,11 +112,13 @@ def list_slots():
         p = GameState._slot_filename(slot)
         if p.exists():
             data = json.loads(p.read_text())
-            entries.append({"slot": slot, 
-                            "name": data.get("name", ""), 
-                            "currentScreen": data.get("currentScreen", "")})
+            entries.append({"slot": slot,
+                            "name": data.get("name", ""),
+                            "currentScreen": data.get("currentScreen", ""),
+                            "play_time_seconds": data.get("play_time_seconds", 0.0)})
         else:
-            entries.append({"slot": slot, 
-                            "name": "", 
-                            "currentScreen": ""})
+            entries.append({"slot": slot,
+                            "name": "",
+                            "currentScreen": "",
+                            "play_time_seconds": 0.0})
     return entries
