@@ -42,7 +42,7 @@ class GameState:
                        gold=int(data.get("gold", 0)), 
                        max_health=int(data.get("max_health", 20)),
                        health=int(data.get("health", 20)),
-                       max_stamina=int(data.get("max_health", 101)),
+                       max_stamina=int(data.get("max_stamina", 101)),
                        stamina=int(data.get("stamina", 101)),
                        mining_xp=int(data.get("mining_xp", 0)),
                        total_xp=int(data.get("total_xp", 0)),

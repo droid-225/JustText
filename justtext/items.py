@@ -14,7 +14,7 @@ class Consumable:
     def use(self, state: GameState) -> str:
         # Apply consumable effects and return result message
         if self.effect.stamina:
-            state.stamina = min(self.state.max_stamina, (state.stamina + self.effect.stamina))
+            state.stamina = min(state.max_stamina, (state.stamina + self.effect.stamina))
 
 @dataclass(frozen=True)
 class ItemDef:
