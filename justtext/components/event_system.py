@@ -34,7 +34,7 @@ class EventSystem:
                 type=EventType.SMALL,
                 description="Nothing Happened...",
                 options=[
-                    EventOption("1", "Keep Traveling", "keep_traveling")
+                    EventOption("1", "Keep traveling", "keep_traveling")
                 ]
             ),
             (EventType.SMALL, 2): Event(
@@ -52,7 +52,7 @@ class EventSystem:
                 type=EventType.SMALL,
                 description="You Found Some Stones!",
                 options=[
-                    EventOption("1", "Keep Traveling", "keep_traveling"),
+                    EventOption("1", "Keep traveling", "keep_traveling"),
                     EventOption("2", "Collect", "collect")
                 ]
             ),
@@ -61,7 +61,7 @@ class EventSystem:
                 type=EventType.SMALL,
                 description="You Found Some Gold!",
                 options=[
-                    EventOption("1", "Keep Traveling", "keep_traveling"),
+                    EventOption("1", "Keep traveling", "keep_traveling"),
                     EventOption("2", "Collect", "collect")
                 ]
             ),
@@ -70,62 +70,62 @@ class EventSystem:
                 id=1,
                 type=EventType.MEDIUM,
                 description="Medium Event 1 Occurred!",
-                options=[EventOption("1", "Keep Traveling", "keep_traveling")]
+                options=[EventOption("1", "Keep traveling", "keep_traveling")]
             ),
             (EventType.MEDIUM, 2): Event(
                 id=2,
                 type=EventType.MEDIUM,
                 description="Medium Event 2 Occurred!",
-                options=[EventOption("1", "Keep Traveling", "keep_traveling")]
+                options=[EventOption("1", "Keep traveling", "keep_traveling")]
             ),
             (EventType.MEDIUM, 3): Event(
                 id=3,
                 type=EventType.MEDIUM,
                 description="Medium Event 3 Occurred!",
-                options=[EventOption("1", "Keep Traveling", "keep_traveling")]
+                options=[EventOption("1", "Keep traveling", "keep_traveling")]
             ),
             (EventType.MEDIUM, 4): Event(
                 id=4,
                 type=EventType.MEDIUM,
                 description="Medium Event 4 Occurred!",
-                options=[EventOption("1", "Keep Traveling", "keep_traveling")]
+                options=[EventOption("1", "Keep traveling", "keep_traveling")]
             ),
             (EventType.MEDIUM, 5): Event(
                 id=5,
                 type=EventType.MEDIUM,
                 description="Medium Event 5 Occurred!",
-                options=[EventOption("1", "Keep Traveling", "keep_traveling")]
+                options=[EventOption("1", "Keep traveling", "keep_traveling")]
             ),
             # Big Events (placeholders)
             (EventType.BIG, 1): Event(
                 id=1,
                 type=EventType.BIG,
                 description="Big Event 1 Occurred!",
-                options=[EventOption("1", "Keep Traveling", "keep_traveling")]
+                options=[EventOption("1", "Keep traveling", "keep_traveling")]
             ),
             (EventType.BIG, 2): Event(
                 id=2,
                 type=EventType.BIG,
                 description="Big Event 2 Occurred!",
-                options=[EventOption("1", "Keep Traveling", "keep_traveling")]
+                options=[EventOption("1", "Keep traveling", "keep_traveling")]
             ),
             (EventType.BIG, 3): Event(
                 id=3,
                 type=EventType.BIG,
                 description="Big Event 3 Occurred!",
-                options=[EventOption("1", "Keep Traveling", "keep_traveling")]
+                options=[EventOption("1", "Keep traveling", "keep_traveling")]
             ),
             (EventType.BIG, 4): Event(
                 id=4,
                 type=EventType.BIG,
                 description="Big Event 4 Occurred!",
-                options=[EventOption("1", "Keep Traveling", "keep_traveling")]
+                options=[EventOption("1", "Keep traveling", "keep_traveling")]
             ),
             (EventType.BIG, 5): Event(
                 id=5,
                 type=EventType.BIG,
                 description="Big Event 5 Occurred!",
-                options=[EventOption("1", "Keep Traveling", "keep_traveling")]
+                options=[EventOption("1", "Keep traveling", "keep_traveling")]
             ),
         }
         
@@ -135,7 +135,7 @@ class EventSystem:
             type=EventType.CARAVAN,
             description="You have reached a friendly caravan",
             options=[
-                EventOption("1", "Keep Traveling", "keep_traveling"),
+                EventOption("1", "Keep traveling", "keep_traveling"),
                 EventOption("ESC", "Go to Windhelm", "goto_windhelm")
             ]
         )

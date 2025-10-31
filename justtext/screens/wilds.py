@@ -98,6 +98,6 @@ class Wilds(Screen): # main menu inherits from Screen
                 randomEvents.caravan()
 
         if self.distTraveled == 0:
-            self.text.draw(surface, "(1) Keep Traveling", y_offset=165)
+            self.text.draw(surface, "(1) Start traveling", y_offset=165)
 
         Footer(surface).draw()
