@@ -48,7 +48,7 @@ class Wilds(Screen): # main menu inherits from Screen
             elif event.key == pygame.K_2:
                 if self.current_event and self.current_event[0] == EventType.SMALL:
                     event_id = self.current_event[1]
-                    if event_id == 2:  # Slime combat
+                    if event_id == 2:  # Start Slime combat
                         pass # TODO: Implement combat
                     elif event_id == 3:  # Stone collection
                         inv_add("stone", random.randint(1, 10))
@@ -57,6 +57,12 @@ class Wilds(Screen): # main menu inherits from Screen
                         self.state.gold += random.randint(1, 10)
                         self.collected = True
             
+            elif event.key == pygame.K_3:
+                if self.current_event and self.current_event[0] == EventType.SMALL:
+                    event_id = self.current_event[1]
+                    if event_id == 2:  # Slime interaction
+                        pass # TODO: Implement interaction
+
             # Handle navigation events
             elif event.key == pygame.K_ESCAPE and self.current_event and self.current_event[0] == EventType.CARAVAN:
                 self.state.save() 
