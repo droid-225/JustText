@@ -12,7 +12,7 @@ class EventType(Enum):
 class EventOption:
     key: str  # e.g. "1", "2", "ESC"
     text: str
-    action: str  # action identifier e.g. "keep_traveling", "collect", "attack"
+    action: str  # action identifier e.g. "keep_traveling", "collect", "fight"
     enabled: bool = True
 
 @dataclass
@@ -42,8 +42,9 @@ class EventSystem:
                 type=EventType.SMALL,
                 description="A Wild Slime Appeared!",
                 options=[
-                    EventOption("1", "Keep Traveling", "keep_traveling"),
-                    EventOption("2", "Attack the Slime", "attack")
+                    EventOption("1", "Keep traveling", "keep_traveling"),
+                    EventOption("2", "Start a fight", "fight"),
+                    EventOption("3", "Interact with it", "interact")
                 ]
             ),
             (EventType.SMALL, 3): Event(
