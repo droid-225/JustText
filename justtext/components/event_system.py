@@ -49,7 +49,7 @@ class EventSystem:
             (EventType.SMALL, 3): Event(
                 id=3,
                 type=EventType.SMALL,
-                description="You Found a Stone!",
+                description="You Found Some Stones!",
                 options=[
                     EventOption("1", "Keep Traveling", "keep_traveling"),
                     EventOption("2", "Collect", "collect")
@@ -58,7 +58,7 @@ class EventSystem:
             (EventType.SMALL, 4): Event(
                 id=4,
                 type=EventType.SMALL,
-                description="You Found 10 Gold!",
+                description="You Found Some Gold!",
                 options=[
                     EventOption("1", "Keep Traveling", "keep_traveling"),
                     EventOption("2", "Collect", "collect")
