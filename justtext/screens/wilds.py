@@ -9,6 +9,7 @@ from ..components.footer import Footer
 from ..components.options import Options
 from ..components.wilds_random_events import WildsRandomEvents
 from ..components.event_system import EventSystem, EventType
+from ..util.itemUtil import inv_add
 import random
 
 class Wilds(Screen): # main menu inherits from Screen
@@ -21,6 +22,7 @@ class Wilds(Screen): # main menu inherits from Screen
         self.distTraveled = 0
         self.current_event = None
         self.event_system = EventSystem()
+        self.collected = False
         
     def _handle_travel(self):
         """Handle player movement and determine next event"""
@@ -40,6 +42,7 @@ class Wilds(Screen): # main menu inherits from Screen
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_1:
                 self._handle_travel()
+                self.collected = False
             
             # Handle combat/collection events
             elif event.key == pygame.K_2:
@@ -48,7 +51,11 @@ class Wilds(Screen): # main menu inherits from Screen
                     if event_id == 2:  # Slime combat
                         pass # TODO: Implement combat
                     elif event_id == 3:  # Stone collection
-                        pass # TODO: Implement collection
+                        inv_add("stone", random.randint(1, 10))
+                        self.collected = True
+                    elif event_id == 4: # Gold collection
+                        self.state.gold += random.randint(1, 10)
+                        self.collected = True
             
             # Handle navigation events
             elif event.key == pygame.K_ESCAPE and self.current_event and self.current_event[0] == EventType.CARAVAN:
