@@ -3,6 +3,7 @@ from typing import List, Callable, Optional
 from enum import Enum, auto
 
 class EventType(Enum):
+    NONE = auto()
     SMALL = auto()
     MEDIUM = auto()
     BIG = auto()

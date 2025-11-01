@@ -18,6 +18,7 @@ class GameState:
     mining_xp: int = 0
     total_xp: int = 0
     wilds_dist: int = 0
+    wilds_event: 
     prevScreen: str = ""
     currentScreen: str = ""
     current_slot: int | None = None
