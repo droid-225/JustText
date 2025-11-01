@@ -19,12 +19,12 @@ class Wilds(Screen): # main menu inherits from Screen
         self.text = TextRenderer(self.font)
         self.state = get_state()
         self.state.currentScreen = "wilds"
-        self.distTraveled = 0
+        self.distTraveled = self.state.wilds_dist
         self.current_event = None
         self.event_system = EventSystem()
         self.collected = False
         
-    def _handle_travel(self):
+    def handle_travel(self):
         """Handle player movement and determine next event"""
         self.distTraveled += 1
         self.state.stamina -= 1
@@ -41,7 +41,7 @@ class Wilds(Screen): # main menu inherits from Screen
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_1:
-                self._handle_travel()
+                self.handle_travel()
                 self.collected = False
             
             if self.current_event and self.current_event[0] == EventType.SMALL:
@@ -58,16 +58,20 @@ class Wilds(Screen): # main menu inherits from Screen
                     self.state.gold += random.randint(1, 10)
                     self.collected = True
 
-            # Handle navigation events
-            elif event.key == pygame.K_ESCAPE and self.current_event and self.current_event[0] == EventType.CARAVAN:
-                self.state.save() 
+            if event.key == pygame.K_ESCAPE and self.current_event and self.current_event[0] == EventType.CARAVAN:
+                self.state.wilds_dist = 0
+                self.state.save()
                 self.on_select("windhelm")
-            elif event.key == pygame.K_i:
+
+            if event.key == pygame.K_i: # Goto Inventory Screen
                 self.state.prevScreen = self.state.currentScreen
+                self.state.wilds_dist = self.distTraveled
                 self.state.save()
                 self.on_select("inventory")
-            elif event.key == pygame.K_u:
+
+            if event.key == pygame.K_u: # Goto Stats Screen
                 self.state.prevScreen = self.state.currentScreen
+                self.state.wilds_dist = self.distTraveled
                 self.state.save()
                 self.on_select("stats")
 
