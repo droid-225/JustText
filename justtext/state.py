@@ -1,6 +1,8 @@
 import json
 import pathlib
 from dataclasses import dataclass, field
+from typing import Tuple
+from .components.event_system import EventType
 
 SAVE_PATH = pathlib.Path(__file__).resolve().parent.parent / "saves"
 SAVE_PATH.mkdir(exist_ok=True) # makes a saves folder if it does not already exist
@@ -18,7 +20,7 @@ class GameState:
     mining_xp: int = 0
     total_xp: int = 0
     wilds_dist: int = 0
-    wilds_event: 
+    wilds_event: Tuple[str, int] = ("NONE", 0)
     prevScreen: str = ""
     currentScreen: str = ""
     current_slot: int | None = None
@@ -51,6 +53,7 @@ class GameState:
                        mining_xp=int(data.get("mining_xp", 0)),
                        total_xp=int(data.get("total_xp", 0)),
                        wilds_dist=int(data.get("wilds_dist", 0)),
+                       wilds_event=tuple(data.get("wilds_event", ("NONE", 0))),
                        prevScreen=data.get("prevScreen", ""),
                        currentScreen=data.get("currentScreen", ""),
                        current_slot=slot,
@@ -84,10 +87,24 @@ class GameState:
                                  "mining_xp": self.mining_xp, 
                                  "total_xp": self.total_xp,
                                  "wilds_dist": self.wilds_dist,
+                                 "wilds_event": self.wilds_event,
                                  "prevScreen": self.prevScreen,
                                  "currentScreen": self.currentScreen,
                                  "inventory": self.inventory,
                                  "equipment": self.equipment}))
+
+    # Convenience helpers for working with wilds events in a JSON-friendly way
+    def set_wilds_event(self, event_type: EventType, event_id: int) -> None:
+        """Store the event as (EventType.name, id) for persistence."""
+        self.wilds_event = (event_type.name, int(event_id))
+
+    def get_wilds_event(self) -> tuple[EventType, int]:
+        """Return (EventType, id). Falls back to (EventType.NONE, 0) on unknown data."""
+        name, eid = self.wilds_event
+        try:
+            return (EventType[name], int(eid))
+        except Exception:
+            return (EventType.NONE, 0)
 
     def formatted_play_time(self) -> str:
         """Return play time as H:MM:SS formatted string."""

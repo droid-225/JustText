@@ -20,9 +20,11 @@ class Wilds(Screen): # main menu inherits from Screen
         self.state = get_state()
         self.state.currentScreen = "wilds"
         self.distTraveled = self.state.wilds_dist
-        self.current_event = None
+        # restore current event from persistent state (if any)
+        etype, eid = self.state.get_wilds_event()
+        self.current_event = (etype, eid) if etype != EventType.NONE else None
         self.event_system = EventSystem()
-        self.collected = False
+        self.collected = True
         
     def handle_travel(self):
         """Handle player movement and determine next event"""
@@ -51,25 +53,38 @@ class Wilds(Screen): # main menu inherits from Screen
                         pass # TODO: Implement fight
                     elif event.key == pygame.K_3: # Slime interact
                         pass # TODO: Implement interaction
-                elif event_id == 3:  # Stone collection
-                    inv_add("stone", random.randint(1, 10))
-                    self.collected = True
-                elif event_id == 4: # Gold collection
-                    self.state.gold += random.randint(1, 10)
-                    self.collected = True
+                elif event_id == 3 and not self.collected:  # Stone collection
+                    if event.key == pygame.K_2:
+                        inv_add("stone", random.randint(1, 10))
+                        self.collected = True
+                elif event_id == 4 and not self.collected: # Gold collection
+                    if event.key == pygame.K_2:
+                        self.state.gold += random.randint(1, 10)
+                        self.collected = True
 
             if event.key == pygame.K_ESCAPE and self.current_event and self.current_event[0] == EventType.CARAVAN:
                 self.state.wilds_dist = 0
+                self.state.set_wilds_event(EventType.NONE, 0)
                 self.state.save()
                 self.on_select("windhelm")
 
             if event.key == pygame.K_i: # Goto Inventory Screen
+                if self.current_event:
+                    self.state.set_wilds_event(self.current_event[0], self.current_event[1])
+                else:
+                    self.state.set_wilds_event(EventType.NONE, 0)
+
                 self.state.prevScreen = self.state.currentScreen
                 self.state.wilds_dist = self.distTraveled
                 self.state.save()
                 self.on_select("inventory")
 
             if event.key == pygame.K_u: # Goto Stats Screen
+                if self.current_event:
+                    self.state.set_wilds_event(self.current_event[0], self.current_event[1])
+                else:
+                    self.state.set_wilds_event(EventType.NONE, 0)
+
                 self.state.prevScreen = self.state.currentScreen
                 self.state.wilds_dist = self.distTraveled
                 self.state.save()
