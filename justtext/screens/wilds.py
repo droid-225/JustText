@@ -44,24 +44,19 @@ class Wilds(Screen): # main menu inherits from Screen
                 self._handle_travel()
                 self.collected = False
             
-            # Handle combat/collection events
-            elif event.key == pygame.K_2:
-                if self.current_event and self.current_event[0] == EventType.SMALL:
-                    event_id = self.current_event[1]
-                    if event_id == 2:  # Start Slime combat
-                        pass # TODO: Implement combat
-                    elif event_id == 3:  # Stone collection
-                        inv_add("stone", random.randint(1, 10))
-                        self.collected = True
-                    elif event_id == 4: # Gold collection
-                        self.state.gold += random.randint(1, 10)
-                        self.collected = True
-            
-            elif event.key == pygame.K_3:
-                if self.current_event and self.current_event[0] == EventType.SMALL:
-                    event_id = self.current_event[1]
-                    if event_id == 2:  # Slime interaction
+            if self.current_event and self.current_event[0] == EventType.SMALL:
+                event_id = self.current_event[1]
+                if event_id == 2:
+                    if event.key == pygame.K_2: # Slime fight start
+                        pass # TODO: Implement fight
+                    elif event.key == pygame.K_3: # Slime interact
                         pass # TODO: Implement interaction
+                elif event_id == 3:  # Stone collection
+                    inv_add("stone", random.randint(1, 10))
+                    self.collected = True
+                elif event_id == 4: # Gold collection
+                    self.state.gold += random.randint(1, 10)
+                    self.collected = True
 
             # Handle navigation events
             elif event.key == pygame.K_ESCAPE and self.current_event and self.current_event[0] == EventType.CARAVAN:
