@@ -17,6 +17,7 @@ class GameState:
     play_time_seconds: float = 0.0
     mining_xp: int = 0
     total_xp: int = 0
+    wilds_dist: int = 0
     prevScreen: str = ""
     currentScreen: str = ""
     current_slot: int | None = None
@@ -48,6 +49,7 @@ class GameState:
                        play_time_seconds=float(data.get("play_time_seconds", 0.0)),
                        mining_xp=int(data.get("mining_xp", 0)),
                        total_xp=int(data.get("total_xp", 0)),
+                       wilds_dist=int(data.get("wilds_dist", 0)),
                        prevScreen=data.get("prevScreen", ""),
                        currentScreen=data.get("currentScreen", ""),
                        current_slot=slot,
@@ -80,6 +82,7 @@ class GameState:
                                  "play_time_seconds": self.play_time_seconds,
                                  "mining_xp": self.mining_xp, 
                                  "total_xp": self.total_xp,
+                                 "wilds_dist": self.wilds_dist,
                                  "prevScreen": self.prevScreen,
                                  "currentScreen": self.currentScreen,
                                  "inventory": self.inventory,
