@@ -8,6 +8,7 @@ class EventType(Enum):
     MEDIUM = auto()
     BIG = auto()
     CARAVAN = auto()
+    COLLECTION = auto()  # Special event type for showing collection results
 
 @dataclass
 class EventOption:
@@ -146,3 +147,14 @@ class EventSystem:
     
     def get_caravan_event(self) -> Event:
         return self.caravan_event
+        
+    def create_collection_event(self, amount: int, item_name: str) -> Event:
+        """Create a dynamic collection result event."""
+        return Event(
+            id=0,  # Collection events don't need specific IDs
+            type=EventType.COLLECTION,
+            description=f"{amount} {item_name}{'s' if amount > 1 else ''} collected!",
+            options=[
+                EventOption("1", "Keep traveling", "keep_traveling")
+            ]
+        )
