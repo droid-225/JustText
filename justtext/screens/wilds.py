@@ -57,6 +57,10 @@ class Wilds(Screen): # main menu inherits from Screen
             self.current_event = (EventType.SMALL, random.randint(1, 4))
         
     def handle_event(self, event):
+        if self.state.stamina <= 0:
+            self.state.gold = (int)(self.state.gold / 2)
+            self.on_select("windhelm")
+
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_1:
                 self.handle_travel()
