@@ -51,7 +51,7 @@ class EntitySystem:
     
     def __init__(self):
         self.entities: Dict[str, Entity] = {
-            # Basic slime - first enemy type
+            # Basic slime
             "slime_basic": Entity(
                 id="slime_basic",
                 name="Slime",
@@ -87,7 +87,7 @@ class EntitySystem:
                 }
             ),
             
-            # Friendly merchant - example of non-hostile NPC
+            # Friendly merchant
             "merchant_wandering": Entity(
                 id="merchant_wandering",
                 name="Wandering Merchant",
