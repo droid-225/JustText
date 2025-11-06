@@ -77,8 +77,15 @@ class Wilds(Screen): # main menu inherits from Screen
                         self.collected_amount = random.randint(1, 10)
                         inv_add("stone", self.collected_amount)
                         self.collected_item = "stone"
-                        # Switch to a collection result event
-                        self.current_event = (EventType.COLLECTION, 0)
+                        # Switch to the stored collection event for stone (id=1)
+                        target = (EventType.COLLECTION, 1)
+                        ev = self.event_system.get_event(target[0], target[1])
+                        # Save original description (so handle_travel can restore it)
+                        if ev:
+                            if target not in self.original_events:
+                                self.original_events[target] = ev.description
+                            ev.description = f"{self.collected_amount} stone{'s' if self.collected_amount > 1 else ''} collected!"
+                        self.current_event = target
                         self.collected = True
                         # Force a redraw to show collection
                         if hasattr(self, 'surface'):
@@ -88,8 +95,14 @@ class Wilds(Screen): # main menu inherits from Screen
                         self.collected_amount = random.randint(1, 10)
                         self.state.gold += self.collected_amount
                         self.collected_item = "gold"
-                        # Switch to a collection result event
-                        self.current_event = (EventType.COLLECTION, 0)
+                        # Switch to the stored collection event for gold (id=2)
+                        target = (EventType.COLLECTION, 2)
+                        ev = self.event_system.get_event(target[0], target[1])
+                        if ev:
+                            if target not in self.original_events:
+                                self.original_events[target] = ev.description
+                            ev.description = f"{self.collected_amount} gold collected!"
+                        self.current_event = target
                         self.collected = True
                         # Force a redraw to show collection
                         if hasattr(self, 'surface'):
@@ -138,11 +151,13 @@ class Wilds(Screen): # main menu inherits from Screen
 
         if self.current_event:
             event_type, event_id = self.current_event
-            if event_type == EventType.COLLECTION and self.collected_item:
-                event = self.event_system.create_collection_event(self.collected_amount, self.collected_item)
-                self.text.draw(surface, event.description, y_offset=40)
-                # Add more space between description and options
-                self.text.draw(surface, "(1) Keep traveling", y_offset=80)
+            if event_type == EventType.COLLECTION:
+                # Use the stored collection event rather than creating a new one
+                event = self.event_system.get_event(event_type, event_id)
+                if event:
+                    self.text.draw(surface, event.description, y_offset=-10)
+                    # Add more space between description and options
+                    self.text.draw(surface, "(1) Keep traveling", y_offset=129)
             elif event_type == EventType.SMALL:
                 randomEvents.smallEvent(event_id)
             elif event_type == EventType.MEDIUM:

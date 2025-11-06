@@ -67,6 +67,18 @@ class EventSystem:
                     EventOption("2", "Collect", "collect")
                 ]
             ),
+            (EventType.COLLECTION, 1): Event(
+                id=1,
+                type=EventType.COLLECTION,
+                description="Stones were collected.",
+                options=[EventOption("1", "Keep traveling", "keep_traveling")]
+            ),
+            (EventType.COLLECTION, 2): Event(
+                id=2,
+                type=EventType.COLLECTION,
+                description="Gold was collected.",
+                options=[EventOption("1", "Keep traveling", "keep_traveling")]
+            ),
             # Medium Events (placeholders)
             (EventType.MEDIUM, 1): Event(
                 id=1,
