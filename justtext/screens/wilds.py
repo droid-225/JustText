@@ -29,7 +29,7 @@ class Wilds(Screen): # main menu inherits from Screen
         self.collected = False  # Initialize as False so first collection is possible
         self.collected_item = None
         self.collected_amount = 0
-        
+
     def handle_travel(self):
         """Handle player movement and determine next event"""
         self.distTraveled += 1
@@ -87,9 +87,8 @@ class Wilds(Screen): # main menu inherits from Screen
                             ev.description = f"{self.collected_amount} stone{'s' if self.collected_amount > 1 else ''} collected!"
                         self.current_event = target
                         self.collected = True
-                        # Force a redraw to show collection
-                        if hasattr(self, 'surface'):
-                            self.draw(self.surface)
+                        # Immediately trigger update() to redraw via the centralized method
+                        self.update(0)
                 elif event_id == 4 and not self.collected: # Gold collection
                     if event.key == pygame.K_2:
                         self.collected_amount = random.randint(1, 10)
@@ -104,9 +103,8 @@ class Wilds(Screen): # main menu inherits from Screen
                             ev.description = f"{self.collected_amount} gold collected!"
                         self.current_event = target
                         self.collected = True
-                        # Force a redraw to show collection
-                        if hasattr(self, 'surface'):
-                            self.draw(self.surface)
+                        # Immediately trigger update() to redraw via the centralized method
+                        self.update(0)
 
             if event.key == pygame.K_ESCAPE and self.current_event and self.current_event[0] == EventType.CARAVAN:
                 self.state.wilds_dist = 0
@@ -135,6 +133,10 @@ class Wilds(Screen): # main menu inherits from Screen
                 self.state.wilds_dist = self.distTraveled
                 self.state.save()
                 self.on_select("stats")
+
+    def update(self, dt: float = 0):
+        if hasattr(self, 'surface'):
+            self.draw(self.surface)
 
     def draw(self, surface):
         # Store surface for redrawing after collection
