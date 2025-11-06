@@ -72,8 +72,9 @@ class Wilds(Screen): # main menu inherits from Screen
                         # Save current wilds state before combat
                         self.state.set_wilds_event(self.current_event[0], self.current_event[1])
                         self.state.wilds_dist = self.distTraveled
+                        self.state.current_enemy = "slime_basic"
                         self.state.save()
-                        self.on_select("combat", enemy_id="slime_basic")
+                        self.on_select("combat")
                     elif event.key == pygame.K_3: # Slime interact
                         pass # TODO: Implement interaction
                 elif event_id == 3 and not self.collected:  # Stone collection

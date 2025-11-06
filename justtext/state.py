@@ -18,6 +18,7 @@ class GameState:
     stamina: int = max_stamina
     attack: int = 5  # Base attack power
     defense: int = 3  # Base defense power
+    current_enemy: str = ""  # ID of the enemy being fought
     play_time_seconds: float = 0.0
     mining_xp: int = 0
     total_xp: int = 0
@@ -53,6 +54,7 @@ class GameState:
                        stamina=int(data.get("stamina", 101)),
                        attack=int(data.get("attack", 5)),
                        defense=int(data.get("defense", 3)),
+                       current_enemy=data.get("current_enemy", ""),
                        play_time_seconds=float(data.get("play_time_seconds", 0.0)),
                        mining_xp=int(data.get("mining_xp", 0)),
                        total_xp=int(data.get("total_xp", 0)),
@@ -90,6 +92,7 @@ class GameState:
                                  "play_time_seconds": self.play_time_seconds,
                                  "attack": self.attack,
                                  "defense": self.defense,
+                                 "current_enemy": self.current_enemy,
                                  "mining_xp": self.mining_xp, 
                                  "total_xp": self.total_xp,
                                  "wilds_dist": self.wilds_dist,

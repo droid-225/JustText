@@ -11,7 +11,7 @@ from ..util.itemUtil import inv_add
 import random
 
 class Combat(Screen):
-    def __init__(self, on_select, enemy_id: str):
+    def __init__(self, on_select):
         self.font = load_font()
         self.on_select = on_select
         self.text = TextRenderer(self.font)
@@ -20,7 +20,7 @@ class Combat(Screen):
         
         # Initialize entity system and get enemy data
         self.entity_system = EntitySystem()
-        self.enemy = self.entity_system.get_entity(enemy_id)
+        self.enemy = self.entity_system.get_entity(self.state.current_enemy)
         self.enemy_current_health = self.enemy.stats.health
         
         # Combat state
