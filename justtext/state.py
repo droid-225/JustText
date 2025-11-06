@@ -16,6 +16,8 @@ class GameState:
     health: int = max_health
     max_stamina: int = 101
     stamina: int = max_stamina
+    attack: int = 5  # Base attack power
+    defense: int = 3  # Base defense power
     play_time_seconds: float = 0.0
     mining_xp: int = 0
     total_xp: int = 0
@@ -49,6 +51,8 @@ class GameState:
                        health=int(data.get("health", 20)),
                        max_stamina=int(data.get("max_stamina", 101)),
                        stamina=int(data.get("stamina", 101)),
+                       attack=int(data.get("attack", 5)),
+                       defense=int(data.get("defense", 3)),
                        play_time_seconds=float(data.get("play_time_seconds", 0.0)),
                        mining_xp=int(data.get("mining_xp", 0)),
                        total_xp=int(data.get("total_xp", 0)),
@@ -84,6 +88,8 @@ class GameState:
                                  "max_stamina": self.max_stamina,
                                  "stamina": self.stamina,
                                  "play_time_seconds": self.play_time_seconds,
+                                 "attack": self.attack,
+                                 "defense": self.defense,
                                  "mining_xp": self.mining_xp, 
                                  "total_xp": self.total_xp,
                                  "wilds_dist": self.wilds_dist,
