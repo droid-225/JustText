@@ -18,12 +18,24 @@ class Shop(Screen): # main menu inherits from Screen
         self.slot = self.state.current_slot
         self.state.currentScreen = "shop"
         self.state.save()
+        self.surface = None
         self.pickPrice = 50 + int((equip_get_level("pickaxe") - 1) * 10)
         self.stoneValue = get_base_value("stone")
-        self.options = [f"(1) ({self.pickPrice}g) Upgrade Pickaxe [Requires Mining Level {equip_get_level("pickaxe") + 1}]",
-                        f"(2) ({get_base_value("stone")}g) Sell Stone [{inv_count("stone")}]",
-                        "(3) (10g) Buy Bread",
-                        "(ESC) Go Back to Windhelm"]
+        self.options = []
+        self.refresh_options()
+
+    def refresh_options(self):
+        # recompute dynamic values
+        self.pickPrice = 50 + int((equip_get_level("pickaxe") - 1) * 10)
+        self.stoneValue = get_base_value("stone")
+        
+        # build the options list
+        self.options = [
+            f"(1) ({self.pickPrice}g) Upgrade Pickaxe [Requires Mining Level {equip_get_level('pickaxe') + 1}]",
+            f"(2) ({self.stoneValue}g) Sell Stone [{inv_count('stone')}]",
+            "(3) (10g) Buy Bread",
+            "(ESC) Go Back to Windhelm",
+        ]
 
     def handle_event(self, event):
         miningLevelCalc = LevelCalculator(base_xp=10)
@@ -35,21 +47,15 @@ class Shop(Screen): # main menu inherits from Screen
             
                 equip_levelup("pickaxe")
                 equip_full_repair("pickaxe")
-                self.pickPrice = 50 + int((equip_get_level("pickaxe") - 1) * 10)
-                self.options = [f"(1) ({self.pickPrice}g) Upgrade Pickaxe [Requires Mining Level {equip_get_level("pickaxe") + 1}]",
-                                f"(2) ({self.stoneValue}g) Sell Stone [{inv_count("stone")}]",
-                                "(3) (10g) Buy Bread",
-                                "(ESC) Go Back to Windhelm"]
+                self.update(0)
             elif event.key == pygame.K_2 and inv_count("stone") > 0:
                 inv_remove("stone", 1)
                 self.state.gold += self.stoneValue
-                self.options = [f"(1) ({self.pickPrice}g) Upgrade Pickaxe [Requires Mining Level {equip_get_level("pickaxe") + 1}]",
-                                f"(2) ({self.stoneValue}g) Sell Stone [{inv_count("stone")}]",
-                                "(3) (10g) Buy Bread",
-                                "(ESC) Go Back to Windhelm"]
+                self.update(0)
             elif event.key == pygame.K_3 and self.state.gold >= 10:
                 self.state.gold -= 10
                 inv_add("bread", 1)
+                self.update(0)
             elif event.key == pygame.K_ESCAPE: self.on_select("windhelm")
             elif event.key == pygame.K_i or event.key == pygame.key.key_code("I"):
                 self.state.prevScreen = self.state.currentScreen
@@ -61,6 +67,9 @@ class Shop(Screen): # main menu inherits from Screen
                 self.on_select("stats")
 
     def draw(self, surface):
+        self.surface = surface
+        # Refresh options to ensure they show current state
+        self.refresh_options()
         gold = self.state.gold
 
         self.text.reset_layout()
@@ -72,3 +81,8 @@ class Shop(Screen): # main menu inherits from Screen
         Options(surface).draw(self.options, yOffset=50)
         
         Footer(surface).draw()
+
+    def update(self, dt: float = 0):
+        """Redraw the screen if we have a surface available."""
+        if hasattr(self, 'surface') and self.surface is not None:
+            self.draw(self.surface)
