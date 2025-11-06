@@ -21,6 +21,7 @@ class GameState:
     current_enemy: str = ""  # ID of the enemy being fought
     play_time_seconds: float = 0.0
     mining_xp: int = 0
+    combat_xp: int = 0
     total_xp: int = 0
     wilds_dist: int = 0
     wilds_event: Tuple[str, int] = ("NONE", 0)
@@ -57,6 +58,7 @@ class GameState:
                        current_enemy=data.get("current_enemy", ""),
                        play_time_seconds=float(data.get("play_time_seconds", 0.0)),
                        mining_xp=int(data.get("mining_xp", 0)),
+                       combat_xp=int(data.get("combat_xp", 0)),
                        total_xp=int(data.get("total_xp", 0)),
                        wilds_dist=int(data.get("wilds_dist", 0)),
                        wilds_event=tuple(data.get("wilds_event", ("NONE", 0))),
@@ -93,7 +95,8 @@ class GameState:
                                  "attack": self.attack,
                                  "defense": self.defense,
                                  "current_enemy": self.current_enemy,
-                                 "mining_xp": self.mining_xp, 
+                                 "mining_xp": self.mining_xp,
+                                 "combat_xp": self.combat_xp,
                                  "total_xp": self.total_xp,
                                  "wilds_dist": self.wilds_dist,
                                  "wilds_event": self.wilds_event,

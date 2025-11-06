@@ -69,7 +69,7 @@ class Combat(Screen):
     def handle_victory(self):
         """Handle enemy defeat"""
         # Award XP and gold
-        self.state.xp += self.enemy.stats.xp_value
+        self.state.combat_xp += self.enemy.stats.xp_value
         self.state.gold += self.enemy.stats.gold_value
         
         # Handle drops
