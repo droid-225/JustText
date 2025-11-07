@@ -101,11 +101,3 @@ Saves are stored as `saves/slot1.json`, `saves/slot2.json`, `saves/slot3.json`. 
 This project is a personal project. If you plan to contribute, please open issues / PRs in the repository. Include a short description of the change and tests where appropriate.
 
 ---
-
-If you want, I can also:
-
-- Add a `requirements.txt` and a small `run.bat` / `run.ps1` launcher.
-- Convert the scaling to a setting (nearest vs smooth) and add a settings toggle.
-- Implement responsive font regeneration on resize for sharper text.
-
-Tell me which next step you'd like.
