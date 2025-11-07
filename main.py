@@ -8,6 +8,8 @@ from justtext.state import get_state
 class Game:
     def __init__(self):
         pygame.init()
+        icon_surface = pygame.image.load("assets/icon/icon.png")
+        pygame.display.set_icon(icon_surface)
         self.win = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption(WIN_CAPTION)
         self.clock = pygame.time.Clock()
