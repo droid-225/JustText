@@ -15,6 +15,9 @@ class Combat(Screen):
         self.font = load_font()
         self.on_select = on_select
         self.text = TextRenderer(self.font)
+        self.playerText = TextRenderer(self.font)
+        self.enemyText = TextRenderer(self.font)
+        self.turnText = TextRenderer(self.font)
         self.state = get_state()
         self.state.currentScreen = "combat"
         
@@ -24,7 +27,10 @@ class Combat(Screen):
         self.enemy_current_health = self.enemy.stats.health
         
         # Combat state
-        self.turn_message = ""
+        self.turn_messages = {
+            "player_move":"",
+            "enemy_move":""
+        }
         self.can_act = True  # Controls if player can take action
     
     def handle_combat_turn(self, action: str):
@@ -38,11 +44,11 @@ class Combat(Screen):
         damage_dealt = max(0, self.state.attack - self.enemy.stats.defense)
         if action == "attack":
             self.enemy_current_health -= damage_dealt
-            self.turn_message = f"You deal {damage_dealt} damage to the {self.enemy.name}!"
+            self.turn_messages["player_move"] = f"You deal {damage_dealt} damage to the {self.enemy.name}!"
         elif action == "defend":
             # Increase defense temporarily for enemy's turn
             self.state.defense += 2
-            self.turn_message = "You take a defensive stance!"
+            self.turn_messages["player_move"] = "You take a defensive stance!"
             
         # Check if enemy is defeated
         if self.enemy_current_health <= 0:
@@ -52,7 +58,7 @@ class Combat(Screen):
         # Enemy's turn
         enemy_damage = max(0, self.enemy.stats.attack - self.state.defense)
         self.state.health -= enemy_damage
-        self.turn_message += f"\nThe {self.enemy.name} deals {enemy_damage} damage to you!"
+        self.turn_messages["enemy_move"] = f"The {self.enemy.name} deals {enemy_damage} damage to you!"
         
         # Reset temporary defense bonus if defending
         if action == "defend":
@@ -104,7 +110,7 @@ class Combat(Screen):
                     self.state.save()
                     self.on_select("wilds")
                 else:
-                    self.turn_message = "Couldn't escape!"
+                    self.turn_messages["player_move"] = "Couldn't escape!"
                     self.handle_combat_turn("none")  # Enemy still gets their turn
 
     def update(self, dt: float = 0):
@@ -114,27 +120,27 @@ class Combat(Screen):
     def draw(self, surface):
         self.surface = surface
         self.text.reset_layout()
-        
-        # Draw combat header
+        self.playerText.reset_layout()
+        self.enemyText.reset_layout()
+        self.turnText.reset_layout()
+
         self.text.draw(surface, "==== COMBAT ====", color=RED, bg=BLACK, new_line=False, alignment="middle")
-        self.text.addOffset("y", 6)
-        
-        # Draw enemy info
-        self.text.draw(surface, f"{self.enemy.name}", l_offset=10)
-        self.text.draw(surface, f"HP: {self.enemy_current_health}/{self.enemy.stats.health}", l_offset=10)
-        self.text.draw(surface, f"ATK: {self.enemy.stats.attack} DEF: {self.enemy.stats.defense}", l_offset=10)
-        self.text.addOffset("y", 6)
         
         # Draw player info
-        self.text.draw(surface, "Your Stats:", l_offset=10)
-        self.text.draw(surface, f"HP: {self.state.health}/{self.state.max_health}", l_offset=10)
-        self.text.draw(surface, f"ATK: {self.state.attack} DEF: {self.state.defense}", l_offset=10)
-        self.text.addOffset("y", 6)
+        self.playerText.draw(surface, "Your Stats:", l_offset=10)
+        self.playerText.draw(surface, f"HP: {self.state.health}/{self.state.max_health}", l_offset=10)
+        self.playerText.draw(surface, f"ATK: {self.state.attack} DEF: {self.state.defense}", l_offset=10)
+
+        # Draw enemy info
+        self.enemyText.draw(surface, f"{self.enemy.name}", l_offset=450)
+        self.enemyText.draw(surface, f"HP: {self.enemy_current_health}/{self.enemy.stats.health}", l_offset=450)
+        self.enemyText.draw(surface, f"ATK: {self.enemy.stats.attack} DEF: {self.enemy.stats.defense}", l_offset=450)
         
         # Draw turn message if any
-        if self.turn_message:
-            self.text.draw(surface, self.turn_message, l_offset=10)
-            self.text.addOffset("y", 6)
+        if self.turn_messages["player_move"]:
+            self.turnText.addOffset("y", 150)
+            self.turnText.draw(surface, self.turn_messages["player_move"], l_offset=30)
+            self.turnText.draw(surface, self.turn_messages["enemy_move"], l_offset=30)
         
         # Draw combat options
         options = [
