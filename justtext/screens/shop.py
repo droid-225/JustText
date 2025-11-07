@@ -35,8 +35,8 @@ class Shop(Screen): # main menu inherits from Screen
         # build the options list
         self.options = [
             f"(1) ({self.pickPrice}g) Upgrade Pickaxe [Requires Mining Level {equip_get_level('pickaxe') + 1}]",
-            f"(2) ({self.stoneValue}g) Sell Stone [{inv_count('stone')}]",
-            "(3) (10g) Buy Bread",
+            "(2) (10g) Buy Bread",
+            "(TAB) Switch to Selling",
             "(ESC) Go Back to Windhelm",
         ]
 
@@ -89,16 +89,10 @@ class Shop(Screen): # main menu inherits from Screen
 
             if event.key == pygame.K_1 and self.state.gold >= self.pickPrice and miningLevel >= (equip_get_level("pickaxe") + 1):
                 self.state.gold -= self.pickPrice
-            
                 equip_levelup("pickaxe")
                 equip_full_repair("pickaxe")
                 self.update(0)
-            elif event.key == pygame.K_2 and self.current_tab == "buy" and inv_count("stone") > 0:
-                # legacy quick-sell in buy tab (keeps previous behaviour)
-                inv_remove("stone", 1)
-                self.state.gold += self.stoneValue
-                self.update(0)
-            elif event.key == pygame.K_3 and self.current_tab == "buy" and self.state.gold >= 10:
+            elif event.key == pygame.K_2 and self.current_tab == "buy" and self.state.gold >= 10:
                 self.state.gold -= 10
                 inv_add("bread", 1)
                 self.update(0)
@@ -114,15 +108,17 @@ class Shop(Screen): # main menu inherits from Screen
 
     def draw(self, surface):
         self.surface = surface
+        
         # Refresh options to ensure they show current state
         self.refresh_options()
+        
         # rebuild sell list when drawing the sell tab so values are fresh
         if self.current_tab == "sell":
             self.build_sell_list()
         gold = self.state.gold
 
         self.text.reset_layout()
-        # Header shows current tab
+        
         header = "Welcome to the Shop! - Buy" if self.current_tab == "buy" else "Welcome to the Shop! - Sell"
         self.text.draw(surface, header, GREEN, new_line=False)
         self.text.addOffset("y", 6)
@@ -143,7 +139,7 @@ class Shop(Screen): # main menu inherits from Screen
                     sell_display.append(f"({idx+1}) {name} x{qty} - {val}g each")
 
             # Always show instruction to switch back
-            sell_display.append("(TAB) Switch to Buy")
+            sell_display.append("(TAB) Switch to Buying")
             sell_display.append("(ESC) Go Back to Windhelm")
 
             Options(surface).draw(sell_display, yOffset=50)
