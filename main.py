@@ -10,8 +10,13 @@ class Game:
         pygame.init()
         icon_surface = pygame.image.load("assets/icon/icon.png")
         pygame.display.set_icon(icon_surface)
-        self.win = pygame.display.set_mode((WIDTH, HEIGHT))
+        # Create a resizable window and base surface (logical resolution)
+        self.window_width, self.window_height = WIDTH, HEIGHT
+        self.win = pygame.display.set_mode((self.window_width, self.window_height), pygame.RESIZABLE)
         pygame.display.set_caption(WIN_CAPTION)
+
+        # Base surface: keep existing screens drawing to this logical size
+        self.base_surface = pygame.Surface((WIDTH, HEIGHT))
         self.clock = pygame.time.Clock()
         self.running = True
         self.manager = ScreenManager(None)
@@ -40,6 +45,10 @@ class Game:
                     if (get_state().currentScreen != "inventory" and get_state().currentScreen != "stats"):
                         get_state().save()
                     self.running = False
+                elif event.type == pygame.VIDEORESIZE:
+                    # update window size and recreate display surface
+                    self.window_width, self.window_height = event.w, event.h
+                    self.win = pygame.display.set_mode((self.window_width, self.window_height), pygame.RESIZABLE)
                 else:
                     # forward the event to the active screen
                     self.manager.handle_event(event)
@@ -56,8 +65,24 @@ class Game:
                 self.manager.update(0.0)
 
             # render every frame so the UI responds instantly to input
+            # Draw to the fixed logical/base surface first
+            self.base_surface.fill(BLACK)
+            self.manager.draw(self.base_surface)
+
+            # Scale the base surface to the current window size while preserving aspect ratio
+            base_w, base_h = WIDTH, HEIGHT
+            win_w, win_h = self.window_width, self.window_height
+            scale = min(win_w / base_w, win_h / base_h)
+            target_w = max(1, int(base_w * scale))
+            target_h = max(1, int(base_h * scale))
+
+            scaled = pygame.transform.smoothscale(self.base_surface, (target_w, target_h))
+
+            # center scaled surface and letterbox the rest with background
+            x = (win_w - target_w) // 2
+            y = (win_h - target_h) // 2
             self.win.fill(BLACK)
-            self.manager.draw(self.win)
+            self.win.blit(scaled, (x, y))
 
             pygame.display.flip()
         
