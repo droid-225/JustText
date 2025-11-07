@@ -22,6 +22,9 @@ class Shop(Screen): # main menu inherits from Screen
         self.pickPrice = 50 + int((equip_get_level("pickaxe") - 1) * 10)
         self.stoneValue = get_base_value("stone")
         self.options = []
+        # tabs: "buy" or "sell"
+        self.current_tab = "buy"
+        self.sell_items = []  # cached list of sellable (id, name, qty, value)
         self.refresh_options()
 
     def refresh_options(self):
@@ -37,22 +40,65 @@ class Shop(Screen): # main menu inherits from Screen
             "(ESC) Go Back to Windhelm",
         ]
 
+    def build_sell_list(self):
+        """Build a list of sellable items from player's inventory.
+        Each entry is a tuple (item_id, display_name, qty, unit_value).
+        """
+        self.sell_items = []
+        for item_id, qty in list(self.state.inventory.items()):
+            if qty <= 0:
+                continue
+            # Only list items that have a base value > 0
+            try:
+                val = get_base_value(item_id)
+            except Exception:
+                # If an item has no defined value, skip it
+                continue
+
+            if val > 0:
+                name = get_name(item_id)
+                self.sell_items.append((item_id, name, qty, val))
+
     def handle_event(self, event):
         miningLevelCalc = LevelCalculator(base_xp=10)
         miningLevel = miningLevelCalc.calculate_level(self.state.mining_xp)
 
         if event.type == pygame.KEYDOWN:
+            # TAB toggles Buy/Sell
+            if event.key == pygame.K_TAB:
+                self.current_tab = "sell" if self.current_tab == "buy" else "buy"
+                # rebuild sell list when switching to it
+                if self.current_tab == "sell":
+                    self.build_sell_list()
+                self.update(0)
+                return
+
+            # If in sell tab, numeric keys map to inventory items
+            if self.current_tab == "sell" and event.key in (pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_4, pygame.K_5):
+                idx = event.key - pygame.K_1
+                if idx < len(self.sell_items):
+                    item_id, name, qty, val = self.sell_items[idx]
+                    # sell one unit
+                    if qty > 0:
+                        inv_remove(item_id, 1)
+                        self.state.gold += val
+                    # rebuild list and refresh
+                    self.build_sell_list()
+                    self.update(0)
+                return
+
             if event.key == pygame.K_1 and self.state.gold >= self.pickPrice and miningLevel >= (equip_get_level("pickaxe") + 1):
                 self.state.gold -= self.pickPrice
             
                 equip_levelup("pickaxe")
                 equip_full_repair("pickaxe")
                 self.update(0)
-            elif event.key == pygame.K_2 and inv_count("stone") > 0:
+            elif event.key == pygame.K_2 and self.current_tab == "buy" and inv_count("stone") > 0:
+                # legacy quick-sell in buy tab (keeps previous behaviour)
                 inv_remove("stone", 1)
                 self.state.gold += self.stoneValue
                 self.update(0)
-            elif event.key == pygame.K_3 and self.state.gold >= 10:
+            elif event.key == pygame.K_3 and self.current_tab == "buy" and self.state.gold >= 10:
                 self.state.gold -= 10
                 inv_add("bread", 1)
                 self.update(0)
@@ -70,15 +116,37 @@ class Shop(Screen): # main menu inherits from Screen
         self.surface = surface
         # Refresh options to ensure they show current state
         self.refresh_options()
+        # rebuild sell list when drawing the sell tab so values are fresh
+        if self.current_tab == "sell":
+            self.build_sell_list()
         gold = self.state.gold
 
         self.text.reset_layout()
-        self.text.draw(surface, "Welcome to the Shop!", GREEN, new_line=False)
+        # Header shows current tab
+        header = "Welcome to the Shop! - Buy" if self.current_tab == "buy" else "Welcome to the Shop! - Sell"
+        self.text.draw(surface, header, GREEN, new_line=False)
         self.text.addOffset("y", 6)
         self.text.draw(surface, f"Your Gold: {gold}", l_offset=10)
         self.text.addOffset("y", 6)
+        if self.current_tab == "buy":
+            Options(surface).draw(self.options, yOffset=50)
+        else:
+            # Build display lines for sellable items
+            sell_display = []
+            if len(self.sell_items) == 0:
+                sell_display.append("(TAB) Switch to Buy - No sellable items")
+            else:
+                for idx, (item_id, name, qty, val) in enumerate(self.sell_items):
+                    # Limit to 5 visible options for simplicity (like inventory slots)
+                    if idx >= 5:
+                        break
+                    sell_display.append(f"({idx+1}) {name} x{qty} - {val}g each")
 
-        Options(surface).draw(self.options, yOffset=50)
+            # Always show instruction to switch back
+            sell_display.append("(TAB) Switch to Buy")
+            sell_display.append("(ESC) Go Back to Windhelm")
+
+            Options(surface).draw(sell_display, yOffset=50)
         
         Footer(surface).draw()
 
