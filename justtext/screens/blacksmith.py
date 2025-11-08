@@ -7,6 +7,7 @@ from ..state import get_state
 from ..components.footer import Footer
 from ..util.itemUtil import *
 from ..components.options import Options
+from ..util.leveling import LevelCalculator
 
 class Blacksmith(Screen): # main menu inherits from Screen
     def __init__(self, on_select):
@@ -20,18 +21,35 @@ class Blacksmith(Screen): # main menu inherits from Screen
         self.curr_pick_dura = equip_current_durability("pickaxe")
         self.max_pick_dura = equip_max_durability("pickaxe")
         self.repairPrice = self.max_pick_dura - self.curr_pick_dura 
-        self.options = [f"(1) ({self.repairPrice}g) Repair Pickaxe",
-                        "(ESC) Go Back to Windhelm"]
+        self.options = []
+
+    def refresh_options(self):
+        # recompute dynamic values
+        self.pickPrice = 50 + int((equip_get_level("pickaxe") - 1) * 10)
+        
+        # build the options list
+        self.options = [
+            f"(1) ({self.repairPrice}g) Repair Pickaxe",
+            f"(2) ({self.pickPrice}g) Upgrade Pickaxe [Requires Mining Level {equip_get_level('pickaxe') + 1}]",
+            "(ESC) Go Back to Windhelm"                
+        ]
 
     def handle_event(self, event):
+        miningLevelCalc = LevelCalculator(base_xp=10)
+        miningLevel = miningLevelCalc.calculate_level(self.state.mining_xp)
+
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_1 and self.state.gold >= self.repairPrice:
                 self.state.gold -= self.repairPrice
                 equip_full_repair("pickaxe")
                 self.curr_pick_dura = equip_current_durability("pickaxe")
                 self.repairPrice = self.max_pick_dura - self.curr_pick_dura 
-                self.options = [f"(1) ({self.repairPrice}g) Repair Pickaxe",
-                                "(ESC) Go Back to Windhelm"]
+                self.update(0)
+            elif event.key == pygame.K_2 and self.state.gold >= self.pickPrice and miningLevel >= (equip_get_level("pickaxe") + 1):
+                self.state.gold -= self.pickPrice
+                equip_levelup("pickaxe")
+                equip_full_repair("pickaxe")
+                self.update(0)
             elif event.key == pygame.K_ESCAPE: self.on_select("windhelm")
             elif event.key == pygame.K_i or event.key == pygame.key.key_code("I"):
                 self.state.prevScreen = self.state.currentScreen
@@ -43,6 +61,8 @@ class Blacksmith(Screen): # main menu inherits from Screen
                 self.on_select("stats")
 
     def draw(self, surface):
+        self.refresh_options()
+
         gold = self.state.gold
 
         self.text.reset_layout()
@@ -54,3 +74,8 @@ class Blacksmith(Screen): # main menu inherits from Screen
         Options(surface).draw(self.options, yOffset=50)
 
         Footer(surface).draw()
+
+    def update(self, dt: float = 0):
+        """Redraw the screen if we have a surface available."""
+        if hasattr(self, 'surface') and self.surface is not None:
+            self.draw(self.surface)

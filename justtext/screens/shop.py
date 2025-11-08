@@ -34,8 +34,7 @@ class Shop(Screen): # main menu inherits from Screen
         
         # build the options list
         self.options = [
-            f"(1) ({self.pickPrice}g) Upgrade Pickaxe [Requires Mining Level {equip_get_level('pickaxe') + 1}]",
-            "(2) (10g) Buy Bread",
+            "(1) (10g) Buy Bread",
             "(TAB) Switch to Selling",
             "(ESC) Go Back to Windhelm",
         ]
@@ -60,9 +59,6 @@ class Shop(Screen): # main menu inherits from Screen
                 self.sell_items.append((item_id, name, qty, val))
 
     def handle_event(self, event):
-        miningLevelCalc = LevelCalculator(base_xp=10)
-        miningLevel = miningLevelCalc.calculate_level(self.state.mining_xp)
-
         if event.type == pygame.KEYDOWN:
             # TAB toggles Buy/Sell
             if event.key == pygame.K_TAB:
@@ -87,12 +83,7 @@ class Shop(Screen): # main menu inherits from Screen
                     self.update(0)
                 return
 
-            if event.key == pygame.K_1 and self.state.gold >= self.pickPrice and miningLevel >= (equip_get_level("pickaxe") + 1):
-                self.state.gold -= self.pickPrice
-                equip_levelup("pickaxe")
-                equip_full_repair("pickaxe")
-                self.update(0)
-            elif event.key == pygame.K_2 and self.current_tab == "buy" and self.state.gold >= 10:
+            if event.key == pygame.K_1 and self.current_tab == "buy" and self.state.gold >= 10:
                 self.state.gold -= 10
                 inv_add("bread", 1)
                 self.update(0)
