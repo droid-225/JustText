@@ -41,16 +41,30 @@ class Combat(Screen):
         self.can_act = False  # Prevent multiple actions until turn is complete
         
         # Player's turn
-        damage_dealt = max(0, self.state.attack - self.enemy.stats.defense)
+        # Calculate damage using strength and attack
+        base_damage = self.state.attack + (self.state.strength * 2) # change this formula
+        # Critical hit chance based on dexterity (5% per point)
+        crit_chance = self.state.dexterity * 0.05
+        is_critical = random.random() < crit_chance
+        
         if action == "attack":
             self.state.stamina -= 1
+            damage_dealt = max(0, base_damage - self.enemy.stats.defense)
+            if is_critical:
+                damage_dealt = int(damage_dealt * 1.5)  # 50% bonus on crit
+                
             self.enemy_current_health -= damage_dealt
-            self.turn_messages["player_move"] = f"You deal {damage_dealt} damage to the {self.enemy.name}!"
+            if is_critical:
+                self.turn_messages["player_move"] = f"Critical hit! You deal {damage_dealt} damage to the {self.enemy.name}!"
+            else:
+                self.turn_messages["player_move"] = f"You deal {damage_dealt} damage to the {self.enemy.name}!"
+                
         elif action == "defend":
             self.state.stamina -= 1
-            # Increase defense temporarily for enemy's turn
-            self.state.defense += 2
-            self.turn_messages["player_move"] = "You take a defensive stance!"
+            # Defense bonus based on willpower
+            defense_bonus = 2 + self.state.willpower
+            self.state.defense += defense_bonus
+            self.turn_messages["player_move"] = f"You take a defensive stance! (+{defense_bonus} defense)"
             
         # Check if enemy is defeated
         if self.enemy_current_health <= 0:
@@ -58,13 +72,22 @@ class Combat(Screen):
             return
             
         # Enemy's turn
-        enemy_damage = max(0, self.enemy.stats.attack - self.state.defense)
-        self.state.health -= enemy_damage
-        self.turn_messages["enemy_move"] = f"The {self.enemy.name} deals {enemy_damage} damage to you!"
+        # Dodge chance based on dexterity (3% per point)
+        dodge_chance = self.state.dexterity * 0.03
+        if random.random() < dodge_chance:
+            self.turn_messages["enemy_move"] = f"You dodge the {self.enemy.name}'s attack!"
+        else:
+            # Damage reduction from intelligence (magic resistance)
+            magic_resist = self.state.intelligence * 0.05  # 5% per point
+            enemy_damage = max(0, self.enemy.stats.attack - self.state.defense)
+            enemy_damage = int(enemy_damage * (1 - magic_resist))  # Reduce by magic resist
+            
+            self.state.health -= enemy_damage
+            self.turn_messages["enemy_move"] = f"The {self.enemy.name} deals {enemy_damage} damage to you!"
         
         # Reset temporary defense bonus if defending
         if action == "defend":
-            self.state.defense -= 2
+            self.state.defense -= (2 + self.state.willpower)
             
         # Check if player is defeated
         if self.state.health <= 0:
@@ -104,7 +127,7 @@ class Combat(Screen):
     def handle_event(self, event):
         if not self.can_act:  # Ignore inputs if still processing last action
             return
-            
+        
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_1:  # Attack
                 self.handle_combat_turn("attack")

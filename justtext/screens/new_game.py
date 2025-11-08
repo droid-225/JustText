@@ -50,9 +50,12 @@ class New_Game(Screen):
                     state = get_state()
                     state.name = "".join(self.name)
                     state.current_slot = slot
-                    state.gold = 0
-                    state.save()
-                    self.on_select("welcome_screen")
+                    state.gold=0
+                    state.stamina = state.max_stamina
+                    state.health = state.max_health
+                    # Give initial stat points
+                    state.stat_points = 5
+                    self.on_select("stat_allocation")
 
     def draw(self, surface):
         self.text.reset_layout()

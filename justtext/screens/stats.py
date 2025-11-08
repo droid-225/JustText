@@ -19,6 +19,9 @@ class Stats(Screen): # Stats screen
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 self.on_select(self.prevScreen)
+            elif event.key == pygame.K_SPACE and self.state.stat_points > 0:
+                # Go to stat allocation if we have points to spend
+                self.on_select("stat_allocation")
 
     def draw(self, surface):
         self.state.total_xp = self.state.mining_xp + self.state.combat_xp
@@ -52,4 +55,17 @@ class Stats(Screen): # Stats screen
         self.text.draw(surface, f"XP Needed to Level Up: {combat_xp_for_next_level}", GREEN, l_offset=30)
         self.text.addOffset("y", 10)
 
+        # Display character stats
+        self.text.draw(surface, "Character Stats:", WHITE)
+        self.text.draw(surface, f"Strength: {self.state.strength}", WHITE, l_offset=20)
+        self.text.draw(surface, f"Dexterity: {self.state.dexterity}", WHITE, l_offset=20)
+        self.text.draw(surface, f"Willpower: {self.state.willpower}", WHITE, l_offset=20)
+        self.text.draw(surface, f"Intelligence: {self.state.intelligence}", WHITE, l_offset=20)
+        
+        # Show stat points if available
+        if self.state.stat_points > 0:
+            self.text.draw(surface, f"Stat Points Available: {self.state.stat_points}", GREEN)
+            self.text.draw(surface, "(SPACE) Allocate Stat Points", GREEN)
+        
+        self.text.addOffset("y", 10)
         self.text.draw(surface, f"(ESC) Return to {prevScreen.capitalize()}", WHITE, alignment="bottom")

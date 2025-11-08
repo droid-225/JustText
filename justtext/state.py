@@ -19,6 +19,11 @@ class GameState:
     attack: int = 5  # Base attack power
     defense: int = 3  # Base defense power
     current_enemy: str = ""  # ID of the enemy being fought
+    strength: int = 1      # Increases physical damage and carrying capacity
+    dexterity: int = 1     # Improves dodge chance and critical hits
+    willpower: int = 1     # Enhances stamina recovery and magic resistance
+    intelligence: int = 1   # Increases magic damage and skill effectiveness
+    stat_points: int = 0    # Unspent stat points to allocate
     play_time_seconds: float = 0.0
     mining_xp: int = 0
     combat_xp: int = 0
@@ -56,6 +61,11 @@ class GameState:
                        attack=int(data.get("attack", 5)),
                        defense=int(data.get("defense", 3)),
                        current_enemy=data.get("current_enemy", ""),
+                       strength=int(data.get("strength", 1)),
+                       dexterity=int(data.get("dexterity", 1)),
+                       willpower=int(data.get("willpower", 1)),
+                       intelligence=int(data.get("intelligence", 1)),
+                       stat_points=int(data.get("stat_points", 0)),
                        play_time_seconds=float(data.get("play_time_seconds", 0.0)),
                        mining_xp=int(data.get("mining_xp", 0)),
                        combat_xp=int(data.get("combat_xp", 0)),
@@ -95,6 +105,11 @@ class GameState:
                                  "attack": self.attack,
                                  "defense": self.defense,
                                  "current_enemy": self.current_enemy,
+                                 "strength": self.strength,
+                                 "dexterity": self.dexterity,
+                                 "willpower": self.willpower,
+                                 "intelligence": self.intelligence,
+                                 "stat_points": self.stat_points,
                                  "mining_xp": self.mining_xp,
                                  "combat_xp": self.combat_xp,
                                  "total_xp": self.total_xp,
