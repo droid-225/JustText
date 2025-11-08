@@ -43,9 +43,11 @@ class Combat(Screen):
         # Player's turn
         damage_dealt = max(0, self.state.attack - self.enemy.stats.defense)
         if action == "attack":
+            self.state.stamina -= 1
             self.enemy_current_health -= damage_dealt
             self.turn_messages["player_move"] = f"You deal {damage_dealt} damage to the {self.enemy.name}!"
         elif action == "defend":
+            self.state.stamina -= 1
             # Increase defense temporarily for enemy's turn
             self.state.defense += 2
             self.turn_messages["player_move"] = "You take a defensive stance!"
@@ -94,7 +96,7 @@ class Combat(Screen):
         # Lose half gold and return to town
         self.state.gold = self.state.gold // 2
         self.state.health = self.state.max_health // 2  # Restore some health
-        
+
         self.state.current_enemy = ""
         self.state.save()
         self.on_select("windhelm")
@@ -110,6 +112,7 @@ class Combat(Screen):
                 self.handle_combat_turn("defend")
             elif event.key == pygame.K_3:  # Run (with chance of failure)
                 if random.random() < 0.7:  # 70% chance to escape
+                    self.state.stamina -= 1
                     self.state.save()
                     self.on_select("wilds")
                 else:
