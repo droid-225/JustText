@@ -5,7 +5,7 @@ class LevelCalculator:
         self.base_xp = base_xp
         self.exponent = exponent
         self.state = get_state()
-        self.state.total_xp = self.state.mining_xp
+        self.state.total_xp = self.state.mining_xp + self.state.combat_xp
 
     def calculate_level(self, xp):
         level = 1
