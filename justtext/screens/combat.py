@@ -85,6 +85,7 @@ class Combat(Screen):
                     inv_add(item_id, 1)
         
         # Save state and return to wilds
+        self.state.current_enemy = ""
         self.state.save()
         self.on_select("wilds")
         
@@ -93,6 +94,8 @@ class Combat(Screen):
         # Lose half gold and return to town
         self.state.gold = self.state.gold // 2
         self.state.health = self.state.max_health // 2  # Restore some health
+        
+        self.state.current_enemy = ""
         self.state.save()
         self.on_select("windhelm")
 
