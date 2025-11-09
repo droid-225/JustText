@@ -5,7 +5,7 @@ from ..assets import load_font
 from ..util.text import TextRenderer
 from ..state import get_state
 
-class StatAllocation(Screen):
+class Attribute(Screen):
     def __init__(self, on_select, on_complete=None):
         self.font = load_font()
         self.on_select = on_select
@@ -13,7 +13,7 @@ class StatAllocation(Screen):
         self.text = TextRenderer(self.font)
         self.selected_stat = 0  # 0=str, 1=dex, 2=wil, 3=int
         self.state = get_state()
-        self.state.currentScreen = "stat_allocation"
+        self.state.currentScreen = "attribute"
         self.stat_names = ["Strength", "Dexterity", "Willpower", "Intelligence"]
         self.stat_descriptions = [
             "Increases physical damage and carrying capacity",

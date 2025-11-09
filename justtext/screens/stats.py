@@ -21,7 +21,7 @@ class Stats(Screen): # Stats screen
                 self.on_select(self.prevScreen)
             elif event.key == pygame.K_SPACE and self.state.stat_points > 0:
                 # Go to stat allocation if we have points to spend
-                self.on_select("stat_allocation")
+                self.on_select("attribute")
 
     def draw(self, surface):
         self.state.total_xp = self.state.mining_xp + self.state.combat_xp

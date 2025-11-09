@@ -55,7 +55,7 @@ class New_Game(Screen):
                     state.health = state.max_health
                     # Give initial stat points
                     state.stat_points = 5
-                    self.on_select("stat_allocation")
+                    self.on_select("attribute")
 
     def draw(self, surface):
         self.text.reset_layout()

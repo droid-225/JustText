@@ -15,7 +15,7 @@ from .screens.blacksmith import Blacksmith
 from .screens.wilds import Wilds
 from .screens.wilds_warning import WildsWarning
 from .screens.combat import Combat
-from .screens.stat_allocation import StatAllocation
+from .screens.attribute import Attribute
 from .state import get_state
 
 RouteAction = Callable[[], None]
@@ -29,7 +29,8 @@ def create_routes(set_screen: Callable[[Any], None], stop: Callable[[], None]) -
 
         if (get_state().currentScreen != "inventory" 
             and get_state().currentScreen != "stats" 
-            and get_state().currentScreen != "wilds_warning"):
+            and get_state().currentScreen != "wilds_warning"
+            and get_state().currentScreen != "attribute"):
             get_state().stamina -= 1
 
         action = routes.get(choice)
@@ -49,7 +50,7 @@ def create_routes(set_screen: Callable[[Any], None], stop: Callable[[], None]) -
         "inventory": go(Inventory),
         "stats": go(Stats),
         "blacksmith": go(Blacksmith),
-        "stat_allocation": go(StatAllocation),
+        "attribute": go(Attribute),
         "inn": go(Inn),
         "wilds": go(Wilds),
         "wilds_warning": go(WildsWarning),
