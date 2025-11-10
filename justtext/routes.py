@@ -25,12 +25,23 @@ def create_routes(set_screen: Callable[[Any], None], stop: Callable[[], None]) -
         return lambda: set_screen(screen_cls(on_select))
     
     def on_select(choice: str):
-        get_state().prevScreen = get_state().currentScreen if get_state().currentScreen else "" 
+        get_state().prevScreen = get_state().currentScreen if get_state().currentScreen else ""
 
-        if (get_state().currentScreen != "inventory" 
-            and get_state().currentScreen != "stats" 
-            and get_state().currentScreen != "wilds_warning"
-            and get_state().currentScreen != "attribute"):
+        # Deduct stamina only for gameplay actions. Don't drain stamina when
+        # opening UI/non-action screens (inventory, stats, attribute, load/menu, etc.).
+        exempt_destinations = {
+            "inventory",
+            "stats",
+            "attribute",
+            "load_game",
+            "main_menu",
+            "main_settings",
+            "welcome_screen",
+            "wilds_warning"
+        }
+
+        if choice not in exempt_destinations:
+            # Only deduct stamina for actions that represent gameplay steps
             get_state().stamina -= 1
 
         action = routes.get(choice)

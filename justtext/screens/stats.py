@@ -18,9 +18,10 @@ class Stats(Screen): # Stats screen
     def handle_event(self, event: pygame.event.Event) -> None:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
+                self.state.stamina += 1
                 self.on_select(self.prevScreen)
-            elif event.key == pygame.K_SPACE and self.state.stat_points > 0:
-                # Go to stat allocation if we have points to spend
+            elif event.key == pygame.K_SPACE:
+                # Always allow opening the attribute/stat allocation screen
                 self.on_select("attribute")
 
     def draw(self, surface):

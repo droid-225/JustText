@@ -65,6 +65,7 @@ class Attribute(Screen):
             else:
                 self.on_select("windhelm")  # Default to starting town
         elif event.key == pygame.K_SPACE:
+            self.state.stamina += 1
             self.on_select("stats")
 
     def draw(self, surface):

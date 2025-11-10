@@ -18,7 +18,7 @@ class InvFooter:
         surface.blit(inv, (10, surface.get_height() - inv.get_height() - 6))
 
         # Stamina Counter
-        stamina = self.font.render(str(self.state.stamina + 1), True, WHITE, BLACK)
+        stamina = self.font.render(str(self.state.stamina), True, WHITE, BLACK)
         surface.blit(stamina, ((surface.get_width() / 2) - stamina.get_width() + 20, surface.get_height() - inv.get_height() - 6))
 
         # Stats Screen
