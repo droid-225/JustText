@@ -13,7 +13,7 @@ class Attribute(Screen):
         self.text = TextRenderer(self.font)
         self.selected_stat = 0  # 0=str, 1=dex, 2=wil, 3=int
         self.state = get_state()
-        self.state.currentScreen = "attribute"
+        #self.state.currentScreen = "attribute"
         self.stat_names = ["Strength", "Dexterity", "Willpower", "Intelligence"]
         self.stat_descriptions = [
             "Increases physical damage and carrying capacity",
@@ -63,9 +63,9 @@ class Attribute(Screen):
             if self.on_complete:
                 self.on_complete()
             else:
+                self.state.stamina += 1
                 self.on_select("windhelm")  # Default to starting town
         elif event.key == pygame.K_SPACE:
-            self.state.stamina += 1
             self.on_select("stats")
 
     def draw(self, surface):

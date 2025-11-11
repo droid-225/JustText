@@ -12,7 +12,7 @@ class Stats(Screen): # Stats screen
         self.on_select = on_select
         self.text = TextRenderer(self.font)
         self.state = get_state()
-        self.state.currentScreen = "stats"
+        #self.state.currentScreen = "stats"
         self.prevScreen = self.state.prevScreen
 
     def handle_event(self, event: pygame.event.Event) -> None:
@@ -56,13 +56,6 @@ class Stats(Screen): # Stats screen
         self.text.draw(surface, f"XP Needed to Level Up: {combat_xp_for_next_level}", GREEN, l_offset=30)
         self.text.addOffset("y", 10)
 
-        # Display character stats
-        self.text.draw(surface, "Character Stats:", WHITE)
-        self.text.draw(surface, f"Strength: {self.state.strength}", WHITE, l_offset=20)
-        self.text.draw(surface, f"Dexterity: {self.state.dexterity}", WHITE, l_offset=20)
-        self.text.draw(surface, f"Willpower: {self.state.willpower}", WHITE, l_offset=20)
-        self.text.draw(surface, f"Intelligence: {self.state.intelligence}", WHITE, l_offset=20)
-        
         # Show stat points if available
         if self.state.stat_points > 0:
             self.text.draw(surface, f"Stat Points Available: {self.state.stat_points}", GREEN)

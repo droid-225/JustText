@@ -25,6 +25,7 @@ def create_routes(set_screen: Callable[[Any], None], stop: Callable[[], None]) -
         return lambda: set_screen(screen_cls(on_select))
     
     def on_select(choice: str):
+        print(f"stamina: {get_state().stamina}")
         get_state().prevScreen = get_state().currentScreen if get_state().currentScreen else ""
 
         # Deduct stamina only for gameplay actions. Don't drain stamina when
